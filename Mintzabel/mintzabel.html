@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" /> 
+	<title>Babelium Project</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" media="screen" href="resources.php?css" />
+	
+	<!-- JQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	
+	<!-- JQuery Utils: data tables | paginator | rating -->
+	<script type="text/javascript" src="themes/babelium/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="themes/babelium/js/jquery.jplist.3.3.min.js"></script>
+	<script type="text/javascript" src="themes/babelium/js/jquery.raty.min.js"></script>
+	
+	<!-- Babelium -->
+	<script type="text/javascript" src="themes/babelium/js/base.js"></script>
+	<script type="text/javascript" src="themes/babelium/js/cairngorm.js"></script>
+	<script type="text/javascript" src="resources.php?babeliumjs"></script>
+</head>
+<body class="VBox hcenter"><!-- HEADER -->
+	<header id="tophead">
+
+		<!-- top naviation -->
+		<nav id="topnav" class="HBox">
+			<!-- left aligned box -->
+			<!-- ul id="localenav" class="HBox vcenter">
+				<li>Hizkuntza bat aukeratu
+:</li>
+				<li>
+					<select id="localebox" name="localebox" onChange="new LocaleEvent(LocaleEvent.CHANGE, this.value).dispatch();">
+						<option value="eu_ES" data-icon="themes/babelium/images/flags/flag_basque_country.png" selected>
+							Euskara
+
+						</option>
+						<option value="en_US" data-icon="themes/babelium/images/flags/flag_united_states.png" >
+							Ingelesa (Estatu Batuak)
+
+						</option>
+						<option value="es_ES" data-icon="themes/babelium/images/flags/flag_spain.png" >
+							Gaztelania (Espainia)
+
+						</option>
+					</select>
+				</li>
+			</ul-->
+			<!-- spacer just to fill space between boxes -->
+			<div class="spacer"></div>
+			<!-- right aligned box -->
+			<ul id="usernav" class="HBox vcenter">
+					<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17" /></a></li>
+				<li><a href="#" class="blue">Laguntza
+</a></li>
+				<li><a href="#" class="blue">Bloga
+</a></li>
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_LOGIN_POPUP).dispatch();" class="yellow">Sartu
+</a></li>
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_REGISTER_MODULE).dispatch();" class="yellow">Erregistratu
+</a></li>
+			</ul>
+		</nav>
+		
+		<aside id="popup">
+			<div class="HBox">
+				<div class="spacer"></div>
+				<form id="loginForm" onsubmit="new LoginEvent(LoginEvent.PROCESS_LOGIN, new LoginVO(this.loginuser.value, Sha1.hash(this.loginpass.value, true), this.loginremember.checked)).dispatch(); return false;">
+					<ul class="HBox vcenter">
+						<li id="loginhelper"></li>
+						<li><input form="loginForm" type="text" name="loginuser" placeholder="Erabiltzaile Izena
+" required autofocus /></li>
+						<li><input form="loginForm" type="password" name="loginpass" placeholder="Pasahitza
+" required /></li>
+						<li><input form="loginForm" type="checkbox" name="loginremember" checked>
+							Saioa Gogoratu!
+
+						</input></li>
+						<li><button form="loginForm">Login!</button>
+					</ul>
+				</form>
+			</div>
+		</aside>
+		
+		<!-- logo -->
+		<div id="logo"><img src="themes/babelium/images/mintzabel_logo.png" alt="Mintzabel" width="174" height="156" /></div>
+		
+		<!-- main navigation -->
+		<nav id="mainnav" class="HBox vcenter">
+			<!-- x2 left space width a min-width to avoid logo -->
+			<div class="spacer" style="min-width: 174px;"></div>
+			<!-- nav links -->
+			<ul class="HBox">
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_HOME_MODULE).dispatch();" class="home">
+					Hasiera
+
+				</a></li>
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_EXERCISE_MODULE).dispatch();" class="pract">
+					Praktikatu
+
+				</a></li>
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_EVALUATION_MODULE).dispatch();" class="eval">
+					Ebaluatu
+
+				</a></li>
+				<!-- li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_SUBTITLE_MODULE).dispatch();" class="subt">
+					Azpititulatu
+
+				</a></li -->
+				<li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_CONFIG_MODULE).dispatch();" class="config">
+					Konfiguratu
+
+				</a></li>
+				<!-- li><a href="javascript:new ViewChangeEvent(ViewChangeEvent.VIEW_ABOUT_MODULE).dispatch();" class="about">
+					Babelium-i buruz
+
+				</a></li -->
+			</ul>
+			<!-- right space -->
+			<div class="spacer"></div>
+		</nav>		
+		
+		<!-- search bar -->
+		<div id="searchnav" class="HBox vcenter">
+				<button id="btnUpload" class="upload">
+					Bidali
+
+				</button>
+				<!--input id="txtSearch" type="text" placeholder="Enter your search terms..." class="search boxFlex" />
+				<button id="btnSearch">
+					Bilatu
+
+				</button-->
+		</div>
+	</header>
+<!--  END OF HEADER -->
+<!-- MAIN CONTENT -->
+	<section id="maincontent">
+		<header style="display: none;">
+			<h1>Home</h1>
+			<div class="hhelper"></div>
+		</header>
+		
+		<aside id="loader">
+			<div class="VBox vcenter loadcontext">
+				<p></p>
+			</div>
+		</aside>
+<!-- MOTD MESSAGES -->
+		<aside id="motd">
+			<ul id="motdmessageshelper" class="HBox hcenter vcenter">
+				<li class="HBox vcenter hcenter">1</li>
+				<li class="HBox vcenter hcenter">2</li>
+				<li class="HBox vcenter hcenter">3</li>
+				<li class="HBox vcenter hcenter">4</li>
+			</ul>
+		
+			<ul id="motdmessages" class="HBox vcenter hcenter">
+				<li class="motdMessage">
+					<div class="HBox">
+						<div class="HBox vstart hcenter motdImage">
+							<img src="http://babeliumproject.com//img/motd1.png" alt="/img/motd1.png" />
+						</div>
+						<div class="VBox motdContent" style="margin-right: 15px;">
+							<span class="title">Grabatu nahi beste bideo-ariketa</span>
+							<p class="motdText">Ariketa bat grabatu ostean, nahi beste aldiz errepasatu edo bergrabatu dezakezu. Emaitza zure gustokoa denean
+zerbitzarian argitaratu dezakezu beste erabiltzaile batzuek ebaluatu dezaten</p>
+						</div>
+					</div>
+				</li>
+				<li class="motdMessage">
+					<div class="HBox">
+						<div class="HBox vstart hcenter motdImage">
+							<img src="http://babeliumproject.com//img/motd2.png" alt="/img/motd2.png" />
+						</div>
+						<div class="VBox motdContent" style="margin-right: 15px;">
+							<span class="title">Ba al zenekien zure aktore gustokoenea...</span>
+							<p class="motdText">bikoiztu dezakezula? Do you feel lucky, punk?</p>
+						</div>
+					</div>
+				</li>
+				<li class="motdMessage">
+					<div class="HBox">
+						<div class="HBox vstart hcenter motdImage">
+							<img src="http://babeliumproject.com//img/motd6.png" alt="/img/motd6.png" />
+						</div>
+						<div class="VBox motdContent" style="margin-right: 15px;">
+							<span class="title">Ba al zenekien Twitter-en jarrai gaitzakezula?</span>
+							<p class="motdText">@babelium erabiltzailea jarraitu baino ez duzu egin behar</p>
+						</div>
+					</div>
+				</li>
+				<li class="motdMessage">
+					<div class="HBox">
+						<div class="HBox vstart hcenter motdImage">
+							<img src="http://babeliumproject.com//img/motd3.png" alt="/img/motd3.png" />
+						</div>
+						<div class="VBox motdContent" style="margin-right: 15px;">
+							<span class="title">Ba al zenekien bideo desegokiak salatu ditzakezula?</span>
+							<p class="motdText">Erabiltzaileek bideo desegokiak salatu ditzakete, salaketaren arrazoia zerrenda batean aukeratuta.</p>
+						</div>
+					</div>
+				</li>
+			</ul>
+			
+			<div class="hhelper"></div>
+		</aside>
+<!-- END OF MOTD MESSAGES -->
+		<section>
+		</section>	</section>
+<!-- END OF MAIN CONTENT -->
+<!-- FOOTER -->
+<div class="boxFlex"></div>
+<footer class="HBox vend">
+	<div class="spacer">
+		<div class="hhelper"></div>
+	</div>
+	<ul class="HBox hcenter vcenter">
+<li><div class="ejimage"><p class="texto"><img src="/themes/babelium/images/bfa.gif" align="middle">Bizkaiako Foru Aldundiaren laguntzaz</p></div></li>	</ul>
+	<div class="spacer">
+		<div class="hhelper"></div>
+		&nbsp;Bisitak: <script lang="Javascript" src="/counter.php?page=home"></script>
+	</div>
+</footer>
+<!-- END OF FOOTER -->
+</body>
+</html>
