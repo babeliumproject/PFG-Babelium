@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" /> 
+	<title>Babelium Project</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script src="js/codigo.js"></script>
+
+	<!--Contiene los divs de registro y login para ajustarlos a la hora de intercambiarlos-->
+	<div id="contenedor">
+		<!--Se muestra al no haber ningun usuario logueado-->
+		<div id="useroff">
+			<ul style="list-style-type:none">
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#" class="img"><img src="img/help_icon.png" alt="Help" width="17" height="17" style="color:blue" />Ayuda</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="http://blog.babeliumproject.com/" style="color:blue">Blog</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#modalLogin" style="color:yellow">Acceder</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#modalRegister" style="color:yellow">Registrarse</a>
+				</li>
+			</ul>
+		</div>
+
+		<!--Se muestra al estar un usuario logueado-->
+		<div id="useron">
+			<ul style="list-style-type:none">
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#" class="img"><img src="img/help_icon.png" alt="Help" width="17" height="17" style="color:blue" />Ayuda</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="http://blog.babeliumproject.com/" style="color:blue">Blog</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#" style="color:yellow">Crédito: 0</a>
+				</li>
+				
+				<li style="font-size: 80%; display:inline-block;">
+					<a href="#" id="username" style="color:orange"></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</head>
+<body>
+
+	<!--Pantalla principal-->
+	<div id="principal">
+	<p>Esta es la pantalla principal</p>
+	</div>
+
+	<!--Pantalla de datos de usuario-->
+	<div id="userdata" class="secundario">
+	<p>Esta es la pantalla de usuario</p>
+	</div>
+
+	<!-- Dialogo de login -->
+	<div id="modalLogin" class="modalDialog">
+		<div>
+			<a href="#close" title="Close" class="close">X</a>
+			<h2>Introduce tus datos</h2>
+			<form name="login" action="index_submit" method="get" accept-charset="utf-8">  
+			    <ul style="list-style-type:none">  
+			        <li>
+			        	<label for="user">Nombre de usuario</label><br>
+			        	<input type="text" id="user" placeholder="Usuario" required>
+			       	</li>  
+			        
+			        <li>
+				        <label for="password">Contraseña</label><br>
+				        <input type="password" id="password" placeholder="Contraseña" required>
+				    </li>  
+			        
+			        <li>
+			        	<br>
+			        	<input type="checkbox" id="remember">
+			        	<label for="remember">Recordarme</label>
+			        </li>
+
+			        <li>  
+			        	<br>
+			        	<div style="text-align:center">
+			        		<!--Cuando conecta con el servidor sería <input type="submit" value="Aceptar" pero para probarlo ahora...-->
+			        		<input type="button" id="botonaceptar" value="Aceptar">
+			        		<input type="button" value="Cancelar">
+			        	</div>
+			        	<br>
+			        	<div style="text-align:right">
+			        		<a href="#">He olvidado mi contraseña</a>
+			        	</div>
+			        </li>  
+			    </ul>  
+			</form>  
+		</div>
+	</div>
+
+	<!-- Dialogo de registro-->
+	<div id="modalRegister" class="modalDialog">
+		<div>
+			<a href="#close" title="Close" class="close">X</a>
+			<h2>Introduce tus datos</h2>
+			<form name="register" action="index_submit" method="get" accept-charset="utf-8">  
+			    <ul style="list-style-type:none">  
+			        <li>
+			        	<label for="user2">* Nombre de usuario</label><br>
+			        	<input type="text" id="user2" placeholder="Usuario" required>
+			       	</li>  
+			        			        
+			        <li>
+			        	<label for="email">* Correo electrónico</label><br>
+			        	<input type="email" id="email" placeholder="Correo" required>
+			       	</li>  
+
+			        <li>
+				        <label for="password2">* Contraseña</label><br>
+				        <input type="password" id="password2" placeholder="Contraseña" required>
+				    </li>
+
+			        <li>
+			        	<label for="password3">* Repite la contraseña</label><br>
+			        	<input type="password" id="password3" placeholder="Contraseña" required>
+			       	</li>
+
+			        <li>
+			        	<label for="nreal">Nombre real</label><br>
+			        	<input type="text" id="nreal" placeholder="Nombre">
+			       	</li>  
+
+			    	<li>
+			        	<label for="areal">Apellido real</label><br>
+			        	<input type="text" id="areal" placeholder="Apellido">
+			       	</li> 
+
+			       	<li>
+			        	<label>* Lengua madre</label>
+			        	<select id="lmadre" required>
+			        	   <option value="" selected>Elige idioma</option>
+						   <option value="1">Español</option>
+						   <option value="2">Inglés</option>
+						   <option value="3">Alemán</option>
+						   <option value="4">Fracés</option>
+						   <option value="5">Italiano</option>
+						   <option value="6">Euskera</option>
+						</select>
+			       	</li>
+			       	<br>
+			       	<li>
+			        	<label>Otros idiomas</label>
+			        	<select id="lotros">
+			        	   <option value="" selected>Elige idioma</option>
+						   <option value="1">Español</option>
+						   <option value="2">Inglés</option>
+						   <option value="3">Alemán</option>
+						   <option value="4">Fracés</option>
+						   <option value="5">Italiano</option>
+						   <option value="6">Euskera</option>
+						</select><br>
+						<label>Conocimiento</label>
+						<select id="lotros_con">
+							<option value="1">A1 Principiante</option>
+							<option value="2">A2 Elemental</option>
+							<option value="3">B1 Pre-intermedio</option>
+							<option value="4">B2 Intermedio</option>
+							<option value="5">C1 Intermedio superior</option>
+						</select>
+			       	</li>
+			       	<br>
+			       	<li>
+			        	<label>Interesado en</label>
+			        	<select id="linter">
+			        	   <option value="" selected>Elige idioma</option>
+						   <option value="1">Español</option>
+						   <option value="2">Inglés</option>
+						   <option value="3">Alemán</option>
+						   <option value="4">Fracés</option>
+						   <option value="5">Italiano</option>
+						   <option value="6">Euskera</option>
+						</select><br>
+						<label>Conocimiento</label>
+						<select id="linter_con">
+							<option value="1">A1 Principiante</option>
+							<option value="2">A2 Elemental</option>
+							<option value="3">B1 Pre-intermedio</option>
+							<option value="4">B2 Intermedio</option>
+							<option value="5">C1 Intermedio superior</option>
+						</select>
+			       	</li>
+			       	<li>  
+			        	<br>
+			        	<div style="text-align:center">
+			        		<input type="submit" value="Aceptar">
+			        		<input type="button" value="Cancelar">
+			        	</div>
+			        </li>  
+			    </ul>  
+			</form>  
+		</div>
+	</div>
+
+	<script src="librerias/jquery-1.11.2.min.js"></script>
+	<script src="librerias/underscore-min.js"></script>
+	<script src="librerias/backbone-min.js"></script>
+</body>
+</html>
