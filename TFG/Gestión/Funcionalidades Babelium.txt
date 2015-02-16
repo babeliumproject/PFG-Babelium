@@ -1,0 +1,51 @@
+﻿Funcionalidades Babelium:
+
+ARRIBA A LA DERECHA
+-Registro (Pag registro)
+-Login (popup)
+-Blog Babelium (Pag externa)
+-Ayuda (Pag videotutoriales)
+-Credito (creditos cuenta)
+-Logoff (x)
+-Usuario (Pag datos usuario)
+
+ARRIBA A LA IZQUIERDA
+-Cambiar idioma (Aleman, Español, Fraces, Ingles, Euskera)
+
+TABS
+-Inicio (Pag principal)
+-Practicar (Pag videos) **
+-Evaluar (Pag videos eval)
+-Subtitular (Pag videos sub) *
+-Configuracion (Pag config video mic y red)
+-Acerca de Babelium (Pag info)
+
+CENTRO
+-Subir (Pag de registro de video nuevo)
+-Buscador (Filtro para videoejercicios)
+-Icono babelium (Pag principal)
+
+SISTEMA DE CREDITOS
+* -> genera creditos
+** -> consume creditos
+
+OPCIONES DE VIDEO
+
+Haciendo el ejercicio
+-Elegir rol
+-Empezar a grabar
+-Elegir mic o cam y mic
+-Votar video
+-Denunciar video
+-Ver mas información
+
+Valorando el ejercicio
+-Votar distintos valores
+-Incluir comentario de texto o video
+-Enviar evaluación
+-Resetear evaluación
+
+Subtitulando el ejercicio
+-Generar, borrar 1 o todos los subtitulos
+-Asignar duracion y rol de cada subtitulo
+-Publicar el video
