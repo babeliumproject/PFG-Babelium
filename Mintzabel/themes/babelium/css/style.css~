@@ -179,6 +179,10 @@ aside#motd
 		color: #972c0a;
 	 }
 
+#useron {
+    visibility: hidden;
+}
+
 .modalDialog {
 	position: fixed;
 	font-family: Arial, Helvetica, sans-serif;

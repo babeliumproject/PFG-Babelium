@@ -1,10 +1,13 @@
 window.onload = function()
 {
-	var divActivo = "principal";
+	var bLogin = document.getElementById("botonaceptar");
+	var bRegis = document.getElementById("botonRegistrar");
 
-	var blogin = document.getElementById("botonaceptar");
+	var prueba = new User();
+	var userNav = new UserNav({model:prueba});
+	$("#useroff").html(userNav.el);
 
-	blogin.onclick = function(){
+	bLogin.onclick = function(){
 		var user = document.getElementById("user").value;
 		var pass = document.getElementById("password").value;
 
@@ -14,22 +17,23 @@ window.onload = function()
 			mostrar("useron");
 			document.getElementById("username").innerHTML=user;
 			ocultar("modalLogin");
+
 			//Falta tema de recordar, habría que usar localstorage. También recuperar pass falta.
 		}
 		else
 		{
-			document.getElementById("user").value = "";
-			document.getElementById("password").value = "";
 			alert("Wrong username or password. Please try again");
 		}
+		
+		document.getElementById("login").reset();
 	};
 
-	var buser = document.getElementById("username");
-
-	buser.onclick = function(){
-		ocultar(divActivo);
-		mostrar("userdata");
-		divActivo = "userdata";
+	bRegis.onclick = function(){
+		var member = new User();
+		member.set({userName: document.getElementById("userReg").value, email: document.getElementById("emailReg").value, password: document.getElementById("passwordReg").value,	realName: document.getElementById("nReal").value, realLastname: document.getElementById("aReal").value, motherLang: document.getElementById("mLang").value, otherLang: document.getElementById("oLang").value, oLLevel: document.getElementById("oLangLvl").value, interestIn: document.getElementById("iLang").value, iILevel: document.getElementById("iLangLvl").value});
+		document.getElementById("register").reset();
+		var userView = new UserView({model:member});
+		$("#userinfo").html(userView.el);
 	}
 
 	function mostrar(id)
@@ -42,4 +46,5 @@ window.onload = function()
 		var el = document.getElementById(id);
 		el.style.visibility = "hidden";
 	}
+
 }

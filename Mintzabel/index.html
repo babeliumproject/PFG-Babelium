@@ -6,23 +6,21 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" media="screen" href="themes/babelium/main.css" />
-	<link rel="stylesheet" type="text/css" media="screen" href="themes/babelium/css/style.css" />
 	
-	<!-- JQuery -->
+	<!-- JQuery -->	
 	<script type="text/javascript" src="js/jquery1.5.1.js"></script>
 	<script type="text/javascript" src="js/jquery-hashchange.js"></script>
 
-	<!-- Localebox -->
+	<!-- Localebox ¿?-->
 	<script type="text/javascript" src="js/localebox.js"></script>
-	<!-- Navigation Links -->
+
+	<!-- Navigation Links ¿?-->
 	<script type="text/javascript" src="js/navigationlinks.js"></script>
 
-	<!--Backbone-->
+	<!-- My code -->
 	<script type="text/javascript" src="js/codigo.js"></script>
-	<script type="text/javascript" src="librerias/underscore-min.js"></script>
-	<script type="text/javascript" src="librerias/backbone-min.js"></script>
 
-	<!-- Init -->
+	<!-- Init ¿?-->
 	<script type="text/javascript" src="js/init.js"></script>
 </head>
 <body class="VBox">
@@ -46,19 +44,19 @@
 			<div class="spacer"></div>
 			<!-- right aligned box -->
 			<ul id="useroff" class="HBox vcenter">
-				<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17"/></a></li>
+				<!--<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17"/></a></li>
 				<li><a href="#" class="blue">Help</a></li>
 				<li><a href="http://blog.babeliumproject.com/" class="blue">Blog</a></li>
 				<li><a href="#modalLogin" class="yellow">Login</a></li>
-				<li><a href="#modalRegister" class="yellow">Register</a></li>
-			</ul>
+				<li><a href="#modalRegister" class="yellow">Register</a></li>-->
+			</ul><!--
 			<ul id="useron" class="HBox vcenter">
 				<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17"/></a></li>
 				<li><a href="#" class="blue">Help</a></li>
 				<li><a href="http://blog.babeliumproject.com/" style="color:blue">Blog</a></li>
 				<li><a href="#" class="yellow">Credit: 0</a></li>
-				<li><a href="#" id="username" style="color:orange"></a></li>
-			</ul>
+				<li><a href="#/Userinfo/" id="username" style="color:orange"></a></li>
+			</ul>-->
 		</nav>
 		
 		<!-- Login dialog -->
@@ -67,7 +65,7 @@
 			<a href="#close" title="Close" class="close">X</a>
 			<h2>Introduce tus datos</h2>
 			<br>
-			<form name="login" action="index_submit" method="get" accept-charset="utf-8">  
+			<form id="login" action="index_submit" method="get" accept-charset="utf-8">  
 			    <ul style="list-style-type:none">  
 			        <li>
 			        	<label for="user">Nombre de usuario</label>
@@ -108,41 +106,41 @@
 		<div>
 			<a href="#close" title="Close" class="close">X</a>
 			<h2>Introduce tus datos</h2>
-			<form name="register" action="index_submit" method="get" accept-charset="utf-8">  
+			<form id="register" action="index_submit" method="get" accept-charset="utf-8">  
 			    <ul style="list-style-type:none">  
 			        <li>
-			        	<label for="user2">* Nombre de usuario</label><br>
-			        	<input type="text" id="user2" placeholder="Usuario" required>
+			        	<label for="userReg">* Nombre de usuario</label><br>
+			        	<input type="text" id="userReg" placeholder="Usuario" required>
 			       	</li>  
 			        			        
 			        <li>
-			        	<label for="email">* Correo electrónico</label><br>
-			        	<input type="email" id="email" placeholder="Correo" required>
+			        	<label for="emailReg">* Correo electrónico</label><br>
+			        	<input type="email" id="emailReg" placeholder="Correo" required>
 			       	</li>  
 
 			        <li>
-				        <label for="password2">* Contraseña</label><br>
-				        <input type="password" id="password2" placeholder="Contraseña" required>
+				        <label for="passwordReg">* Contraseña</label><br>
+				        <input type="password" id="passwordReg" placeholder="Contraseña" required>
 				    </li>
 
 			        <li>
-			        	<label for="password3">* Repite la contraseña</label><br>
-			        	<input type="password" id="password3" placeholder="Contraseña" required>
+			        	<label for="passwordReg2">* Repite la contraseña</label><br>
+			        	<input type="password" id="passwordReg2" placeholder="Contraseña" required>
 			       	</li>
 
 			        <li>
-			        	<label for="nreal">Nombre real</label><br>
-			        	<input type="text" id="nreal" placeholder="Nombre">
+			        	<label for="nReal">Nombre real</label><br>
+			        	<input type="text" id="nReal" placeholder="Nombre">
 			       	</li>  
 
 			    	<li>
-			        	<label for="areal">Apellido real</label><br>
-			        	<input type="text" id="areal" placeholder="Apellido">
+			        	<label for="aReal">Apellido real</label><br>
+			        	<input type="text" id="aReal" placeholder="Apellido">
 			       	</li> 
 
 			       	<li>
 			        	<label>* Lengua madre</label>
-			        	<select id="lmadre" required>
+			        	<select id="mLang" required>
 			        	   <option value="" selected>Elige idioma</option>
 						   <option value="1">Español</option>
 						   <option value="2">Inglés</option>
@@ -155,7 +153,7 @@
 			       	<br>
 			       	<li>
 			        	<label>Otros idiomas</label>
-			        	<select id="lotros">
+			        	<select id="oLang">
 			        	   <option value="" selected>Elige idioma</option>
 						   <option value="1">Español</option>
 						   <option value="2">Inglés</option>
@@ -165,7 +163,7 @@
 						   <option value="6">Euskera</option>
 						</select><br>
 						<label>Conocimiento</label>
-						<select id="lotros_con">
+						<select id="oLangLvl">
 							<option value="1">A1 Principiante</option>
 							<option value="2">A2 Elemental</option>
 							<option value="3">B1 Pre-intermedio</option>
@@ -176,7 +174,7 @@
 			       	<br>
 			       	<li>
 			        	<label>Interesado en</label>
-			        	<select id="linter">
+			        	<select id="iLang">
 			        	   <option value="" selected>Elige idioma</option>
 						   <option value="1">Español</option>
 						   <option value="2">Inglés</option>
@@ -186,7 +184,7 @@
 						   <option value="6">Euskera</option>
 						</select><br>
 						<label>Conocimiento</label>
-						<select id="linter_con">
+						<select id="iLangLvl">
 							<option value="1">A1 Principiante</option>
 							<option value="2">A2 Elemental</option>
 							<option value="3">B1 Pre-intermedio</option>
@@ -197,8 +195,7 @@
 			       	<li>  
 			        	<br>
 			        	<div style="text-align:center">
-			        		<input type="submit" value="Aceptar">
-			        		<input type="button" value="Cancelar">
+			        		<input type="button" id="botonRegistrar" value="Aceptar">
 			        	</div>
 			        </li>  
 			    </ul>  
@@ -212,15 +209,17 @@
 		<!-- main navigation -->
 		<nav id="mainnav" class="HBox vcenter">
 			<!-- x2 left space width a min-width to avoid logo -->
+
 			<div class="spacer" style="min-width: 174px;"></div>
 			<!-- nav links -->
+
 			<ul class="HBox">
-				<li><a href="#/home/" class="home">Home</a></li>
-				<li><a href="#/practice/" class="pract">Practice</a></li>
-				<li><a href="#/evaluate/" class="eval">Evaluate</a></li>
-				<li><a href="#/subtitle/" class="subt">Subtitle</a></li>
-				<li><a href="#/config/" class="config">Configure</a></li>
-				<li><a href="#/about/" class="about">About Babelium</a></li>
+				<li><a href="#/Home/" class="home">Home</a></li>
+				<li><a href="#/Practice/" class="pract">Practice</a></li>
+				<li><a href="#/Evaluate/" class="eval">Evaluate</a></li>
+				<li><a href="#/Subtitle/" class="subt">Subtitle</a></li>
+				<li><a href="#/Config/" class="config">Configure</a></li>
+				<li><a href="#/About/" class="about">About Babelium</a></li>
 			</ul>
 			<!-- right space -->
 			<div class="spacer"></div>
@@ -257,5 +256,12 @@
 <footer>
 </footer>
 <!-- END OF FOOTER -->
+
+	<!--Backbone.js and dependencies-->
+	<script type="text/javascript" src="librerias/underscore-min.js"></script>
+	<script type="text/javascript" src="librerias/backbone-min.js"></script>
+	<script type="text/javascript" src="backbone/modelos/user.js"></script>
+	<script type="text/javascript" src="backbone/vistas/userinfo.js"></script>
+	<script type="text/javascript" src="backbone/vistas/usernav.js"></script>
 </body>
 </html>
