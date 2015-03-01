@@ -51,6 +51,11 @@ a.orange, a.orange:active, a.orange:visited
 	color: #df5c02;
 }
 
+#useron
+{
+	display: none;
+}
+
 /*
  * MAIN NAVIGATION
  */
@@ -178,10 +183,6 @@ aside#motd
 		font-size: 24px;
 		color: #972c0a;
 	 }
-
-#useron {
-    visibility: hidden;
-}
 
 .modalDialog {
 	position: fixed;

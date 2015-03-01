@@ -17,16 +17,16 @@
 	<!-- Navigation Links ¿?-->
 	<script type="text/javascript" src="js/navigationlinks.js"></script>
 
-	<!-- My code -->
-	<script type="text/javascript" src="js/codigo.js"></script>
-
 	<!-- Init ¿?-->
 	<script type="text/javascript" src="js/init.js"></script>
+
+	<!-- My code -->
+	<script type="text/javascript" src="js/codigo.js"></script>
+	
 </head>
 <body class="VBox">
 <!-- HEADER -->
 	<header id="tophead" class="VBox">
-
 		<!-- top naviation -->
 		<nav id="topnav" class="HBox">
 			<!-- left aligned box -->
@@ -43,46 +43,34 @@
 			<!-- spacer just to fill space between boxes -->
 			<div class="spacer"></div>
 			<!-- right aligned box -->
-			<ul id="useroff" class="HBox vcenter">
-				<!--<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17"/></a></li>
-				<li><a href="#" class="blue">Help</a></li>
-				<li><a href="http://blog.babeliumproject.com/" class="blue">Blog</a></li>
-				<li><a href="#modalLogin" class="yellow">Login</a></li>
-				<li><a href="#modalRegister" class="yellow">Register</a></li>-->
-			</ul><!--
-			<ul id="useron" class="HBox vcenter">
-				<li><a href="#" class="img"><img src="themes/babelium/images/help_icon.png" alt="Help" width="17" height="17"/></a></li>
-				<li><a href="#" class="blue">Help</a></li>
-				<li><a href="http://blog.babeliumproject.com/" style="color:blue">Blog</a></li>
-				<li><a href="#" class="yellow">Credit: 0</a></li>
-				<li><a href="#/Userinfo/" id="username" style="color:orange"></a></li>
-			</ul>-->
+			<ul id='userNav' class='HBox vcenter'>
+			</ul>
 		</nav>
 		
 		<!-- Login dialog -->
 	<div id="modalLogin" class="modalDialog">
 		<div>
 			<a href="#close" title="Close" class="close">X</a>
-			<h2>Introduce tus datos</h2>
+			<h2>Login</h2>
 			<br>
 			<form id="login" action="index_submit" method="get" accept-charset="utf-8">  
 			    <ul style="list-style-type:none">  
 			        <li>
-			        	<label for="user">Nombre de usuario</label>
+			        	<label for="user">User name</label>
 			        	<br>
-			        	<input type="text" id="user" placeholder="Usuario" required>
+			        	<input type="text" id="user" placeholder="User name" required>
 			       	</li>  
 			        <br>
 			        <li>
-				        <label for="password">Contraseña</label>
+				        <label for="password">Password</label>
 				        <br>
-				        <input type="password" id="password" placeholder="Contraseña" required>
+				        <input type="password" id="password" placeholder="Password" required>
 				    </li>  
 			        
 			        <li>
 			        	<br>
 			        	<input type="checkbox" id="remember">
-			        	<label for="remember">Recordarme</label>
+			        	<label for="remember">Remember me</label>
 			        </li>
 
 			        <li>  
@@ -93,7 +81,7 @@
 			        	</div>
 			        	<br>
 			        	<div style="text-align:right">
-			        		<a href="#">He olvidado mi contraseña</a>
+			        		<a href="#">I forgot my password</a>
 			        	</div>
 			        </li>  
 			    </ul>  
@@ -109,87 +97,87 @@
 			<form id="register" action="index_submit" method="get" accept-charset="utf-8">  
 			    <ul style="list-style-type:none">  
 			        <li>
-			        	<label for="userReg">* Nombre de usuario</label><br>
-			        	<input type="text" id="userReg" placeholder="Usuario" required>
+			        	<label for="userReg">* User name</label><br>
+			        	<input type="text" id="userReg" placeholder="User name" required>
 			       	</li>  
 			        			        
 			        <li>
-			        	<label for="emailReg">* Correo electrónico</label><br>
-			        	<input type="email" id="emailReg" placeholder="Correo" required>
+			        	<label for="emailReg">* Email</label><br>
+			        	<input type="email" id="emailReg" placeholder="example@gmail.com" required>
 			       	</li>  
 
 			        <li>
-				        <label for="passwordReg">* Contraseña</label><br>
-				        <input type="password" id="passwordReg" placeholder="Contraseña" required>
+				        <label for="passwordReg">* Password</label><br>
+				        <input type="password" id="passwordReg" placeholder="Password" required>
 				    </li>
 
 			        <li>
-			        	<label for="passwordReg2">* Repite la contraseña</label><br>
-			        	<input type="password" id="passwordReg2" placeholder="Contraseña" required>
+			        	<label for="passwordReg2">* Repeat your password</label><br>
+			        	<input type="password" id="passwordReg2" placeholder="Password" required>
 			       	</li>
 
 			        <li>
-			        	<label for="nReal">Nombre real</label><br>
-			        	<input type="text" id="nReal" placeholder="Nombre">
+			        	<label for="nReal">Real name</label><br>
+			        	<input type="text" id="nReal" placeholder="Name">
 			       	</li>  
 
 			    	<li>
-			        	<label for="aReal">Apellido real</label><br>
-			        	<input type="text" id="aReal" placeholder="Apellido">
+			        	<label for="aReal">Real last name</label><br>
+			        	<input type="text" id="aReal" placeholder="Last name">
 			       	</li> 
 
 			       	<li>
-			        	<label>* Lengua madre</label>
+			        	<label>* Mother tongue</label>
 			        	<select id="mLang" required>
-			        	   <option value="" selected>Elige idioma</option>
-						   <option value="1">Español</option>
-						   <option value="2">Inglés</option>
-						   <option value="3">Alemán</option>
-						   <option value="4">Fracés</option>
-						   <option value="5">Italiano</option>
-						   <option value="6">Euskera</option>
+			        	   <option value="" selected>Choose a language</option>
+						   <option value="Spanish">Spanish</option>
+						   <option value="English">English</option>
+						   <option value="German">German</option>
+						   <option value="French">French</option>
+						   <option value="Italian">Italian</option>
+						   <option value="Basque">Basque</option>
 						</select>
 			       	</li>
 			       	<br>
 			       	<li>
-			        	<label>Otros idiomas</label>
+			        	<label>Other language</label>
 			        	<select id="oLang">
-			        	   <option value="" selected>Elige idioma</option>
-						   <option value="1">Español</option>
-						   <option value="2">Inglés</option>
-						   <option value="3">Alemán</option>
-						   <option value="4">Fracés</option>
-						   <option value="5">Italiano</option>
-						   <option value="6">Euskera</option>
+			        	   <option value="" selected>Choose a language</option>
+						   <option value="Spanish">Spanish</option>
+						   <option value="English">English</option>
+						   <option value="German">German</option>
+						   <option value="French">French</option>
+						   <option value="Italian">Italian</option>
+						   <option value="Basque">Basque</option>
 						</select><br>
-						<label>Conocimiento</label>
+						<label>Level</label>
 						<select id="oLangLvl">
-							<option value="1">A1 Principiante</option>
-							<option value="2">A2 Elemental</option>
-							<option value="3">B1 Pre-intermedio</option>
-							<option value="4">B2 Intermedio</option>
-							<option value="5">C1 Intermedio superior</option>
+							<option value="A1 Beginner">A1 Beginner</option>
+							<option value="A2 Elemental">A2 Elemental</option>
+							<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+							<option value="B2 Intermediate">B2 Intermediate</option>
+							<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
 						</select>
 			       	</li>
 			       	<br>
 			       	<li>
-			        	<label>Interesado en</label>
+			        	<label>Interested in</label>
 			        	<select id="iLang">
-			        	   <option value="" selected>Elige idioma</option>
-						   <option value="1">Español</option>
-						   <option value="2">Inglés</option>
-						   <option value="3">Alemán</option>
-						   <option value="4">Fracés</option>
-						   <option value="5">Italiano</option>
-						   <option value="6">Euskera</option>
+			        	   <option value="" selected>Choose a language</option>
+						   <option value="Spanish">Spanish</option>
+						   <option value="English">English</option>
+						   <option value="German">German</option>
+						   <option value="French">French</option>
+						   <option value="Italian">Italian</option>
+						   <option value="Basque">Basque</option>
 						</select><br>
-						<label>Conocimiento</label>
+						<label>Level</label>
 						<select id="iLangLvl">
-							<option value="1">A1 Principiante</option>
-							<option value="2">A2 Elemental</option>
-							<option value="3">B1 Pre-intermedio</option>
-							<option value="4">B2 Intermedio</option>
-							<option value="5">C1 Intermedio superior</option>
+							<option value="A1 Beginner">A1 Beginner</option>
+							<option value="A2 Elemental">A2 Elemental</option>
+							<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+							<option value="B2 Intermediate">B2 Intermediate</option>
+							<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
 						</select>
 			       	</li>
 			       	<li>  
@@ -232,6 +220,7 @@
 				<button id="btnSearch">Search</button>
 		</div>
 	</header>
+
 <!--  END OF HEADER -->
 <!-- MOTD -->
 	<aside id="motd" class="unsignedMotdBox">
@@ -247,11 +236,17 @@
 <!-- MAIN CONTENT -->
 	<section id="maincontent" class="VBox">
 		<header>
-			<h1>Sección Principal</h1>
+			<h1>Main section</h1>
 			<div id="hhelper"></div>
 		</header>
 	</section>
 <!-- END OF MAIN CONTENT -->
+
+<!--USER INFO TEMPLATE-->
+<div id="mainBody">
+
+</div>
+
 <!-- FOOTER -->
 <footer>
 </footer>
@@ -261,7 +256,8 @@
 	<script type="text/javascript" src="librerias/underscore-min.js"></script>
 	<script type="text/javascript" src="librerias/backbone-min.js"></script>
 	<script type="text/javascript" src="backbone/modelos/user.js"></script>
-	<script type="text/javascript" src="backbone/vistas/userinfo.js"></script>
-	<script type="text/javascript" src="backbone/vistas/usernav.js"></script>
+	<script type="text/javascript" src="backbone/vistas/UserInfo.js"></script>
+	<script type="text/javascript" src="backbone/vistas/UserNavOn.js"></script>
+	<script type="text/javascript" src="backbone/vistas/UserNavOff.js"></script>
 </body>
 </html>
