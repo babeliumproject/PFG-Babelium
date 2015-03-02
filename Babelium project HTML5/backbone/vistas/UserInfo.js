@@ -1,5 +1,5 @@
 var UserView = Backbone.View.extend({
-	tagname:'li',
+	el: $("#mainBody"),
 	my_template: _.template("<br>"
     +"<p>User name: <%= userName %></p><br>"
     +"<p>Email: <%= email %></p><br>"

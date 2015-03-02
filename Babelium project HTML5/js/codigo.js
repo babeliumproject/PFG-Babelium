@@ -7,10 +7,9 @@ window.onload = function()
 
 //CONSIDERAR CREAR UNA FUNCION INITIALIZE PARA ESTE TIPO DE COSAS
 	var currentUserNav = new UserNavOff();
-	$("#userNav").html(currentUserNav.el);
 
 
-
+	//BOTON DE ACEPTAR LOGIN
 	bLogin.onclick = function(){
 		var user = document.getElementById("user").value;
 		var pass = document.getElementById("password").value;
@@ -20,9 +19,6 @@ window.onload = function()
 			currentUser = new User();
 			currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
 			userNavSwitch();
-			//ocultar("useroff");
-			//mostrar("useron");
-			//document.getElementById("username").innerHTML=user;
 			ocultar("modalLogin");
 
 			//Falta tema de recordar, habría que usar localstorage. También recuperar pass falta.
@@ -35,24 +31,24 @@ window.onload = function()
 		document.getElementById("login").reset();
 	};
 
+	//BOTON DE ACEPTAR REGISTRO
 	bRegis.onclick = function(){
 		var member = new User();
 		member.set({userName: document.getElementById("userReg").value, email: document.getElementById("emailReg").value, password: document.getElementById("passwordReg").value,	realName: document.getElementById("nReal").value, realLastname: document.getElementById("aReal").value, motherLang: document.getElementById("mLang").value, otherLang: document.getElementById("oLang").value, oLLevel: document.getElementById("oLangLvl").value, interestIn: document.getElementById("iLang").value, iILevel: document.getElementById("iLangLvl").value});
 		document.getElementById("register").reset();
 	}
 
+
+	//CAMBIO DE NAVEGADOR DE USUARIO EN FUNCION DE SI ESTAS LOGUEADO O NO
 	function userNavSwitch()
 	{
-		currentUserNav.unbind();
 		if(currentUserNav instanceof UserNavOff)
 		{
-			currentUserNav = new UserNavOn(currentUser);
-			$("#userNav").html(currentUserNav.el);
+			currentUserNav = new UserNavOn({model:currentUser});
 		}
 		else
 		{
 			currentUserNav = new UserNavOff();
-			$("#userNav").html(currentUserNav.el);
 		}
 	}
 
@@ -70,6 +66,5 @@ window.onload = function()
 	function showUserInfo()
 	{
 		var userView = new UserView({model:currentUser});
-		$("#mainBody").html(userView.el);
 	}
 }
