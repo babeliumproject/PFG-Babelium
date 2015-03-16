@@ -1,5 +1,16 @@
 window.onload = function()
 {
+	//PRUEBAS CON VIDEOS
+	var videos = new VideoList();
+	videos.fetch();
+
+
+
+
+
+
+
+
 	var currentUser; //Para almacenar un User de backbone con toda la información del JSON obtenido de SQL
 	var bLogin = document.getElementById("botonaceptar");
 	var bRegis = document.getElementById("botonRegistrar");
@@ -67,4 +78,6 @@ window.onload = function()
 	{
 		var userView = new UserView({model:currentUser});
 	}
+
+
 }
