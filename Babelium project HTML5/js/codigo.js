@@ -3,9 +3,7 @@ window.onload = function()
 	//PRUEBAS CON VIDEOS
 	var videos = new VideoList();
 	videos.fetch();
-
-
-
+	
 
 
 
@@ -22,11 +20,13 @@ window.onload = function()
 
 	//BOTON DE ACEPTAR LOGIN
 	bLogin.onclick = function(){
+		var videosView = new VideoListView({collection:videos});
+		$(document.body).append(videosView.render().el);
 		var user = document.getElementById("user").value;
 		var pass = document.getElementById("password").value;
 
 		if(user == "jon" && pass == "lachen")
-		{
+		{var videoview = new VideoListView({collection:videos});
 			currentUser = new User();
 			currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
 			userNavSwitch();
