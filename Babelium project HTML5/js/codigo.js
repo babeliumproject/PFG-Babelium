@@ -12,6 +12,7 @@ window.onload = function()
 	var currentUser; //Para almacenar un User de backbone con toda la información del JSON obtenido de SQL
 	var bLogin = document.getElementById("botonaceptar");
 	var bRegis = document.getElementById("botonRegistrar");
+	var bpract = document.getElementById("practice");
 
 
 //CONSIDERAR CREAR UNA FUNCION INITIALIZE PARA ESTE TIPO DE COSAS
@@ -20,8 +21,6 @@ window.onload = function()
 
 	//BOTON DE ACEPTAR LOGIN
 	bLogin.onclick = function(){
-		var videosView = new VideoListView({collection:videos});
-		$(document.body).append(videosView.render().el);
 		var user = document.getElementById("user").value;
 		var pass = document.getElementById("password").value;
 
@@ -41,6 +40,15 @@ window.onload = function()
 		
 		document.getElementById("login").reset();
 	};
+
+	/*bpract.onclick = function() {
+		var videosView = new VideoListView({collection:videos});
+		$(document.body).append(videosView.render().el);
+	}*/
+	function practiceShow() {
+		var videosView = new VideoListView({collection:videos});
+		$(document.body).append(videosView.render().el);
+	}
 
 	//BOTON DE ACEPTAR REGISTRO
 	bRegis.onclick = function(){
