@@ -9,19 +9,6 @@
 	
 	<!-- JQuery -->	
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<!--<script type="text/javascript" src="js/jquery-hashchange.js"></script>-->
-
-	<!-- Localebox ¿?-->
-	<script type="text/javascript" src="js/localebox.js"></script>
-
-	<!-- Navigation Links ¿?-->
-	<script type="text/javascript" src="js/navigationlinks.js"></script>
-
-	<!-- Init ¿?-->
-	<script type="text/javascript" src="js/init.js"></script>
-
-	<!-- My code -->
-	<script type="text/javascript" src="js/codigo.js"></script>
 	
 </head>
 <body class="VBox">
@@ -64,7 +51,7 @@
 			        <li>
 				        <label for="password">Password</label>
 				        <br>
-				        <input type="password" id="password" placeholder="Password" required>
+				        <input type="text" id="password" placeholder="Password" required>
 				    </li>  
 			        
 			        <li>
@@ -77,7 +64,7 @@
 			        	<br>
 			        	<div style="text-align:center">
 			        		<!--Cuando conecta con el servidor sería <input type="submit" value="Aceptar" pero para probarlo ahora...-->
-			        		<input type="button" id="botonaceptar" value="Aceptar">
+			        		<input type="button" id="loginButton" value="Aceptar">
 			        	</div>
 			        	<br>
 			        	<div style="text-align:right">
@@ -108,12 +95,12 @@
 
 			        <li>
 				        <label for="passwordReg">* Password</label><br>
-				        <input type="password" id="passwordReg" placeholder="Password" required>
+				        <input type="text" id="passwordReg" placeholder="Password" required>
 				    </li>
 
 			        <li>
 			        	<label for="passwordReg2">* Repeat your password</label><br>
-			        	<input type="password" id="passwordReg2" placeholder="Password" required>
+			        	<input type="text" id="passwordReg2" placeholder="Password" required>
 			       	</li>
 
 			        <li>
@@ -183,7 +170,7 @@
 			       	<li>  
 			        	<br>
 			        	<div style="text-align:center">
-			        		<input type="button" id="botonRegistrar" value="Aceptar">
+			        		<input type="button" id="registerButton" value="Aceptar">
 			        	</div>
 			        </li>  
 			    </ul>  
@@ -192,7 +179,11 @@
 	</div>
 
 		<!-- logo -->
-		<div id="logo"><img src="themes/babelium/images/flan_dullv2.png" alt="Bablium Project" width="174" height="156" /></div>
+		<div id="logo">
+			<a href="/">
+				<img src="themes/babelium/images/flan_dullv2.png" alt="Bablium Project" width="174" height="156" />
+			</a>
+		</div>
 		
 		<!-- main navigation -->
 		<nav id="mainnav" class="HBox vcenter">
@@ -203,7 +194,7 @@
 
 			<ul class="HBox">
 				<li><a href="#Home" class="home">Home</a></li>
-				<li><a href="#Practice" id="practice" class="pract">Practice</a></li>
+				<li><a href="#Practice/page_1" id="practice" class="pract">Practice</a></li>
 				<li><a href="#Evaluate" class="eval">Evaluate</a></li>
 				<li><a href="#Subtitle" class="subt">Subtitle</a></li>
 				<li><a href="#Config" class="config">Configure</a></li>
@@ -255,7 +246,6 @@
 	<!--Backbone.js and dependencies-->
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-	<script type="text/javascript" src="backbone/routers/router.js"></script>
 	<script type="text/javascript" src="backbone/modelos/user.js"></script>
 	<script type="text/javascript" src="backbone/modelos/video.js"></script>
 	<script type="text/javascript" src="backbone/colecciones/videoList.js"></script>
@@ -264,5 +254,7 @@
 	<script type="text/javascript" src="backbone/vistas/UserNavOff.js"></script>
 	<script type="text/javascript" src="backbone/vistas/VideoView.js"></script>
 	<script type="text/javascript" src="backbone/vistas/VideoListView.js"></script>
+	<script type="text/javascript" src="backbone/routers/router.js"></script>
+	<script type="text/javascript" src="js/codigo.js"></script>
 </body>
 </html>
