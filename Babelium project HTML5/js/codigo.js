@@ -16,7 +16,7 @@ window.onload = function()
 			currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
 			userNavSwitch();
 			ocultar("modalLogin");
-
+			sessionStorage.setItem('current_user', JSON.stringify(currentUser));
 			//Falta tema de recordar, habría que usar localstorage. También recuperar pass falta.
 		}
 		else
@@ -27,18 +27,13 @@ window.onload = function()
 		document.getElementById("login").reset();
 	});
 
-	/*bpract.onclick = function() {
-		var videosView = new VideoListView({collection:videos});
-		$(document.body).append(videosView.render().el);
-	}*/
-
 	//BOTON DE ACEPTAR REGISTRO
 	$("#registerButton").click(function(){
 		var member = new User();
 		member.set({userName: document.getElementById("userReg").value, email: document.getElementById("emailReg").value, password: document.getElementById("passwordReg").value,	realName: document.getElementById("nReal").value, realLastname: document.getElementById("aReal").value, motherLang: document.getElementById("mLang").value, otherLang: document.getElementById("oLang").value, oLLevel: document.getElementById("oLangLvl").value, interestIn: document.getElementById("iLang").value, iILevel: document.getElementById("iLangLvl").value});
+		// TODO GUARDAR EN EL SERVIDOR CON AJAX
 		document.getElementById("register").reset();
 	});
-
 
 	//CAMBIO DE NAVEGADOR DE USUARIO EN FUNCION DE SI ESTAS LOGUEADO O NO
 	function userNavSwitch()

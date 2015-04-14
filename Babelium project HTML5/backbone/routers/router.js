@@ -7,14 +7,18 @@ var TodoRouter = Backbone.Router.extend({
         "Evaluate" : "goEvaluate",
         "Subtitle" : "goSubtitle",
         "Config" : "goConfig",
-        "About": "goAbout"
+        "About": "goAbout",
+        "User_info": "goUserInfo",
+        "Help/page_:p" : "goHelp"
     },
 
     goHome: function(){
-        console.log("Home entered");
+        $('#bodyTitle').html("Home");
+        $('#mainBody').html("Home entered");
     },
 
     goPractice: function(p){
+        $('#bodyTitle').html("Practice");
         // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos
         var videos = new VideoList();
         videos.fetch().done(function()
@@ -36,20 +40,38 @@ var TodoRouter = Backbone.Router.extend({
     },
 
     goEvaluate: function(){
-        console.log("Evaluate entered");
+        $('#bodyTitle').html("Evaluate");
+        $('#mainBody').html("Evaluate entered");
     },
 
     goSubtitle: function(){
-        console.log("Subtitle entered");
+        $('#bodyTitle').html("Subtitle");
+        $('#mainBody').html("Subtitle entered");
     },
 
     goConfig: function(){
-        console.log("Config entered");
+        $('#bodyTitle').html("Configuration");
+        $('#mainBody').html("Config entered");
     },
 
     goAbout: function(){
-        console.log("About entered");
-    }
+        $('#bodyTitle').html("About");
+        $('#mainBody').html("About entered");
+    },
+
+    goUserInfo: function(){
+        $('#bodyTitle').html("User Information");
+        var user = JSON.parse(sessionStorage.getItem('current_user'));
+        var currentUser = new User(user);
+        console.log(currentUser);
+        var userView = new UserView({model:currentUser});
+    },
+
+    goHelp: function(p){
+        $('#bodyTitle').html("Help");
+        var helpView = new HelpView({page:p});
+    },
+
 });
 
 // Instancio el router que he configurado
