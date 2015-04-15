@@ -6,9 +6,11 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" media="screen" href="themes/babelium/css/main.css" />
-	
-	<!-- JQuery -->	
+	<link rel="stylesheet" type="text/css" href="themes/babelium/css/jquery-ui.min.css">
+
+	<!-- JQuery --> 
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="librerias/jquery-ui.min.js"></script>
 	
 </head>
 <body class="VBox">
@@ -34,149 +36,86 @@
 			</ul>
 		</nav>
 		
-		<!-- Login dialog -->
-	<div id="modalLogin" class="modalDialog">
-		<div>
-			<a href="#close" title="Close" class="close">X</a>
-			<h2>Login</h2>
-			<br>
-			<form id="login" action="index_submit" method="get" accept-charset="utf-8">  
-			    <ul style="list-style-type:none">  
-			        <li>
-			        	<label for="user">User name</label>
-			        	<br>
-			        	<input type="text" id="user" placeholder="User name" required>
-			       	</li>  
-			        <br>
-			        <li>
-				        <label for="password">Password</label>
-				        <br>
-				        <input type="text" id="password" placeholder="Password" required>
-				    </li>  
-			        
-			        <li>
-			        	<br>
-			        	<input type="checkbox" id="remember">
-			        	<label for="remember">Remember me</label>
-			        </li>
+		<!--Login dialog-->
+		<div id="loginDialog" title="Login" style="display:none">
+			<label for="user">User name</label><br>
+			<input type="text" id="user" placeholder="User name" class="text ui-widget-content ui-corner-all"><br><br>
+			<label for="password">Password</label><br>
+			<input type="text" id="password" placeholder="Password" class="text ui-widget-content ui-corner-all"><br><br>
+			<input type="checkbox" id="remember" class="checkbox ui-widget-content ui-corner-all">
+			<label for="remember">Remember me</label>
+			<div style="text-align:right">
+				<a href="#">I forgot my password</a>
+			</div>
 
-			        <li>  
-			        	<br>
-			        	<div style="text-align:center">
-			        		<!--Cuando conecta con el servidor sería <input type="submit" value="Aceptar" pero para probarlo ahora...-->
-			        		<input type="button" id="loginButton" value="Aceptar">
-			        	</div>
-			        	<br>
-			        	<div style="text-align:right">
-			        		<a href="#">I forgot my password</a>
-			        	</div>
-			        </li>  
-			    </ul>  
-			</form>  
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</div>
-	</div>
 
-	<!-- Register dialog -->
-	<div id="modalRegister" class="modalDialog">
-		<div>
-			<a href="#close" title="Close" class="close">X</a>
-			<h2>Introduce tus datos</h2>
-			<form id="register" action="index_submit" method="get" accept-charset="utf-8">  
-			    <ul style="list-style-type:none">  
-			        <li>
-			        	<label for="userReg">* User name</label><br>
-			        	<input type="text" id="userReg" placeholder="User name" required>
-			       	</li>  
-			        			        
-			        <li>
-			        	<label for="emailReg">* Email</label><br>
-			        	<input type="email" id="emailReg" placeholder="example@gmail.com" required>
-			       	</li>  
-
-			        <li>
-				        <label for="passwordReg">* Password</label><br>
-				        <input type="text" id="passwordReg" placeholder="Password" required>
-				    </li>
-
-			        <li>
-			        	<label for="passwordReg2">* Repeat your password</label><br>
-			        	<input type="text" id="passwordReg2" placeholder="Password" required>
-			       	</li>
-
-			        <li>
-			        	<label for="nReal">Real name</label><br>
-			        	<input type="text" id="nReal" placeholder="Name">
-			       	</li>  
-
-			    	<li>
-			        	<label for="aReal">Real last name</label><br>
-			        	<input type="text" id="aReal" placeholder="Last name">
-			       	</li> 
-
-			       	<li>
-			        	<label>* Mother tongue</label>
-			        	<select id="mLang" required>
-			        	   <option value="" selected>Choose a language</option>
-						   <option value="Spanish">Spanish</option>
-						   <option value="English">English</option>
-						   <option value="German">German</option>
-						   <option value="French">French</option>
-						   <option value="Italian">Italian</option>
-						   <option value="Basque">Basque</option>
-						</select>
-			       	</li>
-			       	<br>
-			       	<li>
-			        	<label>Other language</label>
-			        	<select id="oLang">
-			        	   <option value="" selected>Choose a language</option>
-						   <option value="Spanish">Spanish</option>
-						   <option value="English">English</option>
-						   <option value="German">German</option>
-						   <option value="French">French</option>
-						   <option value="Italian">Italian</option>
-						   <option value="Basque">Basque</option>
-						</select><br>
-						<label>Level</label>
-						<select id="oLangLvl">
-							<option value="A1 Beginner">A1 Beginner</option>
-							<option value="A2 Elemental">A2 Elemental</option>
-							<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
-							<option value="B2 Intermediate">B2 Intermediate</option>
-							<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
-						</select>
-			       	</li>
-			       	<br>
-			       	<li>
-			        	<label>Interested in</label>
-			        	<select id="iLang">
-			        	   <option value="" selected>Choose a language</option>
-						   <option value="Spanish">Spanish</option>
-						   <option value="English">English</option>
-						   <option value="German">German</option>
-						   <option value="French">French</option>
-						   <option value="Italian">Italian</option>
-						   <option value="Basque">Basque</option>
-						</select><br>
-						<label>Level</label>
-						<select id="iLangLvl">
-							<option value="A1 Beginner">A1 Beginner</option>
-							<option value="A2 Elemental">A2 Elemental</option>
-							<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
-							<option value="B2 Intermediate">B2 Intermediate</option>
-							<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
-						</select>
-			       	</li>
-			       	<li>  
-			        	<br>
-			        	<div style="text-align:center">
-			        		<input type="button" id="registerButton" value="Aceptar">
-			        	</div>
-			        </li>  
-			    </ul>  
-			</form>  
+		<!-- Register dialog -->
+		<div id="regisDialog" title="Register" style="display:none">
+			<p class="validateTips">All fields with * are required.</p><br>
+			<label for="userReg">* User name</label><br>
+			<input type="text" id="userReg" placeholder="User name"><br><br>
+			<label for="emailReg">* Email</label><br>
+			<input type="email" id="emailReg" placeholder="example@gmail.com"><br><br>
+			<label for="passwordReg">* Password</label><br>
+			<input type="text" id="passwordReg" placeholder="Password"><br><br>
+        	<label for="passwordReg2">* Repeat your password</label><br>
+        	<input type="text" id="passwordReg2" placeholder="Password"><br><br>
+			<label for="nReal">Real name</label><br>
+			<input type="text" id="nReal" placeholder="Name"><br><br>
+			<label for="aReal">Real last name</label><br>
+			<input type="text" id="aReal" placeholder="Last name"><br><br>
+			<label>* Mother tongue</label>
+			<select id="mLang" required>
+        	   <option value="" selected>Choose a language</option>
+			   <option value="Spanish">Spanish</option>
+			   <option value="English">English</option>
+			   <option value="German">German</option>
+			   <option value="French">French</option>
+			   <option value="Italian">Italian</option>
+			   <option value="Basque">Basque</option>
+			</select><br><br>
+			<label>Other language</label>
+        	<select id="oLang">
+        	   <option value="" selected>Choose a language</option>
+			   <option value="Spanish">Spanish</option>
+			   <option value="English">English</option>
+			   <option value="German">German</option>
+			   <option value="French">French</option>
+			   <option value="Italian">Italian</option>
+			   <option value="Basque">Basque</option>
+			</select><br><br>
+			<label>Level</label>
+			<select id="oLangLvl">
+				<option value="A1 Beginner">A1 Beginner</option>
+				<option value="A2 Elemental">A2 Elemental</option>
+				<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+				<option value="B2 Intermediate">B2 Intermediate</option>
+				<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
+			</select><br><br>
+	       	<label>Interested in</label>
+        	<select id="iLang">
+        	   <option value="" selected>Choose a language</option>
+			   <option value="Spanish">Spanish</option>
+			   <option value="English">English</option>
+			   <option value="German">German</option>
+			   <option value="French">French</option>
+			   <option value="Italian">Italian</option>
+			   <option value="Basque">Basque</option>
+			</select><br><br>
+			<label>Level</label>
+			<select id="iLangLvl">
+				<option value="A1 Beginner">A1 Beginner</option>
+				<option value="A2 Elemental">A2 Elemental</option>
+				<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+				<option value="B2 Intermediate">B2 Intermediate</option>
+				<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
+			</select><br>
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		</div>
-	</div>
 
 		<!-- logo -->
 		<div id="logo">
@@ -213,17 +152,6 @@
 	</header>
 
 <!--  END OF HEADER -->
-<!-- MOTD -->
-	<aside id="motd" class="unsignedMotdBox">
-		<ul id="motdmessages" class="HBox hcenter">
-			<li style="background:red"><div>Message of the Day 1</div></li>
-			<li style="background:blue"><div>Message of the Day 2</div></li>
-			<li style="background:green"><div>Message of the Day 3</div></li>
-			<li style="background:yellow"><div>Message of the Day 4</div></li>
-		</ul>
-		<div id="motdhelper"></div>
-	</aside>
-<!-- END OF MOTD -->
 <!-- MAIN CONTENT -->
 	<section id="maincontent" class="VBox">
 		<header>
