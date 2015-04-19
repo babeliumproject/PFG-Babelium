@@ -6,7 +6,7 @@ var TodoRouter = Backbone.Router.extend({
         "Practice/page_:p" : "goPractice",
         "Evaluate" : "goEvaluate",
         "Subtitle" : "goSubtitle",
-        "Config" : "goConfig",
+        "Config/:t" : "goConfig",
         "About": "goAbout",
         "User_info": "goUserInfo",
         "Help/page_:p" : "goHelp"
@@ -49,14 +49,14 @@ var TodoRouter = Backbone.Router.extend({
         $('#mainBody').html("Subtitle entered");
     },
 
-    goConfig: function(){
+    goConfig: function(t){
         $('#bodyTitle').html("Configuration");
-        $('#mainBody').html("Config entered");
+        var configView = new ConfigView({tab:t});
     },
 
     goAbout: function(){
         $('#bodyTitle').html("About");
-        $('#mainBody').html("About entered");
+        var aboutView = new AboutView();
     },
 
     goUserInfo: function(){

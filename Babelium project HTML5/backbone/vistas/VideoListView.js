@@ -25,12 +25,12 @@ var VideoListView = Backbone.View.extend({
 
   render: function() 
   {
-    this.$el.html("");
+    this.$el.html("<div id='videosDiv' class='videosDiv'></div>");
   	//Por cada video genera un view de video individual
   	this.collection.each(function(video){
     	var vidView = new VideoView({model:video});
     	//Une el view a donde se pone la coleccion
-    	this.$el.append(vidView.render().el);
+    	this.$('#videosDiv').append(vidView.render().el);
   	},this);
     //Añado los botones para navegar entre las paginas
     this.$el.append(this.my_template());

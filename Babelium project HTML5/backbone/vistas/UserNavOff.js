@@ -46,7 +46,7 @@ var UserNavOff = Backbone.View.extend({
 		                }
 			            else
 			            {
-			            	alert("User is not correct");
+			            	alert("User or password is not correct");
 			            	$('#user').val("");
 	        				$('#password').val("");
 			        	}
