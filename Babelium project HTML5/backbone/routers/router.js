@@ -9,7 +9,8 @@ var TodoRouter = Backbone.Router.extend({
         "Config/:t" : "goConfig",
         "About": "goAbout",
         "User_info": "goUserInfo",
-        "Help/page_:p" : "goHelp"
+        "Help/page_:p" : "goHelp",
+        "Upload" : "goUpload"
     },
 
     goHome: function(){
@@ -83,6 +84,12 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search:false});
     },
 
+    goUpload: function()
+    {
+        $('#bodyTitle').html("Upload new exercise");
+        var uploadView = new UploadView();
+        var searchNavView = new SearchNavView({search:false});
+    }
 });
 
 // Instancio el router que he configurado

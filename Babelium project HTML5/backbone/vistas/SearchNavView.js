@@ -42,7 +42,7 @@ var SearchNavView = Backbone.View.extend({
         while(found == false && cont < i)
         {
           if($.inArray(search[cont], tags) != -1)
-          {console.log(';D');
+          {
             found = true;
           }
           else
@@ -67,7 +67,6 @@ var SearchNavView = Backbone.View.extend({
           selected.add(videos.models[i]);
           i_aux++;
         }
-        // TODO No estoy yo muy seguro de esto... no tendria que haber otra variable controlando los aceptados ya que no se aceptan todos.
         i++;
       }
       var videosView = new VideoListView({collection:selected,pages:(videos.length%10)+1,page:p});
@@ -77,6 +76,6 @@ var SearchNavView = Backbone.View.extend({
 
   goUpload: function()
   {
-
+  	window.location.href='#Upload';
   }
 });
