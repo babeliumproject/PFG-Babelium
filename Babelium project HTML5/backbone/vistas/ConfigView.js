@@ -1,22 +1,22 @@
 var ConfigView = Backbone.View.extend({
   el : $("#mainBody"),
-  my_template: _.template("<ul class='tabs'>"
-    +"<li id='Microphone'><a href='#Config/Microphone'>Microphone</a></li>"
-    +"<li id='Camera'><a href='#Config/Camera'>Camera</a></li>"
+  my_template: _.template("<div id='tabs'>"
+    +"<ul>"
+    +"<li><a href='#Microphone'>Microphone</a></li>"
+    +"<li><a href='#Camera'>Camera</a></li>"
     +"</ul><br><br>"
-    +"<% if (this.options.tab == 'Microphone') { %>"
+    +"<div id='Microphone'>"
     +"<p>This is the Microphone tab</p>"
-    +"<% } else { %>"
+    +"</div>"
+    +"<div id='Camera'>"
     +"<p>This is the Camera tab</p>"
-    +"<% } %>"
+    +"</div>"    
 ),
 
-  initialize: function(options) 
+  initialize: function() 
   { 
-    this.options = options;
-    _.bindAll(this, 'render');
     this.render();
-    $('#'+this.options.tab).addClass('active');
+    $("#tabs").tabs();
   },
 
   render: function() 

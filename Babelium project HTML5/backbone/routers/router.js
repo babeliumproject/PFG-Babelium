@@ -6,7 +6,7 @@ var TodoRouter = Backbone.Router.extend({
         "Practice/page_:p" : "goPractice",
         "Evaluate" : "goEvaluate",
         "Subtitle" : "goSubtitle",
-        "Config/:t" : "goConfig",
+        "Config" : "goConfig",
         "About": "goAbout",
         "User_info": "goUserInfo",
         "Help/page_:p" : "goHelp",
@@ -57,9 +57,9 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search:true});
     },
 
-    goConfig: function(t){
+    goConfig: function(){
         $('#bodyTitle').html("Configuration");
-        var configView = new ConfigView({tab:t});
+        var configView = new ConfigView();
         var searchNavView = new SearchNavView({search:false});
     },
 
