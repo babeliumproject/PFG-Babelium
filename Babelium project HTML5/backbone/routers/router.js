@@ -10,7 +10,8 @@ var TodoRouter = Backbone.Router.extend({
         "About": "goAbout",
         "User_info": "goUserInfo",
         "Help/page_:p" : "goHelp",
-        "Upload" : "goUpload"
+        "Upload" : "goUpload",
+        "Search/:terms/page_:p" : "goSearch"
     },
 
     goHome: function(){
@@ -38,10 +39,20 @@ var TodoRouter = Backbone.Router.extend({
                 selected.add(videos.models[i]);
                 i++;
             }
-            var videosView = new VideoListView({collection:selected,pages:(videos.length%10)+1,page:p});
+            
+            var pages
+            if(videos.length%10 == 0)
+            {
+                pages = Math.floor(videos.length/10);
+            }
+            else
+            {
+                pages = Math.floor(videos.length/10) + 1;
+            }
+            var videosView = new VideoListView({collection:selected,pages:pages,page:p});
             $('#mainBody').append(videosView.render().el);
 
-            var searchNavView = new SearchNavView({search:true,page:p});
+            var searchNavView = new SearchNavView({search:true});
         });
     },
 
@@ -89,6 +100,73 @@ var TodoRouter = Backbone.Router.extend({
         $('#bodyTitle').html("Upload new exercise");
         var uploadView = new UploadView();
         var searchNavView = new SearchNavView({search:false});
+    },
+
+    goSearch: function(terms,p)
+    {
+        var search = terms.split('&');
+        var tags;
+        var videos = new VideoList();
+        videos.fetch().done(function()
+        {
+
+            function checkTags(search, tags) 
+            {
+                var found = false,
+                i = search.length,
+                cont = 0;
+                while(found == false && cont < i)
+                {
+                    if($.inArray(search[cont], tags) != -1)
+                    {
+                        found = true;
+                    }
+                    else
+                    {
+                        cont++;
+                    }
+                }
+                return found;          
+            };
+            // Genero una coleccion de videos auxiliar en la que guardar los videos que
+            // contengan en los tags las palabras escritas en la barra de busqueda 
+            //y otra para los 10 correspondientes a cada pagina.
+            var videos2 = new VideoList();
+            var selected = new VideoList();
+
+            // Primero cargo la lista de videos con los que cumplen con el tag
+           
+            for(var x = 0 ; x < videos.length ; x++)
+            {
+                tags = videos.models[x].attributes.tags.split(',');
+                if(checkTags(search,tags))
+                {
+                    videos2.add(videos.models[x]);
+                }
+            }
+
+            var i,i_aux,l;
+            i = (p*10) - 10;
+            l = p*10;
+            while (i < l && i < videos2.length)
+            {
+                selected.add(videos2.models[i]);
+                i++;
+            }
+
+            var pages
+            if(videos2.length%10 == 0)
+            {
+                pages = Math.floor(videos2.length/10);
+            }
+            else
+            {
+                pages = Math.floor(videos2.length/10) + 1;
+            }console.log(pages+" "+p+" "+terms);
+            var videosView = new VideoListView({collection:selected,pages:pages,page:p,terms:terms});
+            $('#mainBody').append(videosView.render().el);
+            var searchNavView = new SearchNavView({search:true});
+        });
     }
 });
 

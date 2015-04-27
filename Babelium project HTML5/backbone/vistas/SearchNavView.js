@@ -27,51 +27,8 @@ var SearchNavView = Backbone.View.extend({
 
   goSearch: function()
   {
-    var search = $('#txtSearch').val().split(' ');
-    var tags;
-    var videos = new VideoList();
-    var p = this.options.page;
-    videos.fetch().done(function()
-    {
-
-      function checkTags(search, tags) 
-      {
-        var found = false,
-        i = search.length,
-        cont = 0;
-        while(found == false && cont < i)
-        {
-          if($.inArray(search[cont], tags) != -1)
-          {
-            found = true;
-          }
-          else
-          {
-            cont++;
-          }
-        }
-        return found;          
-      };
-      // Genero una coleccion de videos auxiliar en la que guardar los videos que
-      // contengan en los tags las palabras escritas en la barra de busqueda.
-      var selected = new VideoList();
-      var i,i_aux,l;
-      i = (p*10) - 10;
-      i_aux = (p*10) - 10;
-      l = p*10;
-      while (i_aux < l && i < videos.length)
-      {
-        tags = videos.models[i].attributes.tags.split(',');
-        if(checkTags(search,tags))
-        {
-          selected.add(videos.models[i]);
-          i_aux++;
-        }
-        i++;
-      }
-      var videosView = new VideoListView({collection:selected,pages:(videos.length%10)+1,page:p});
-      $('#mainBody').append(videosView.render().el);
-    });
+    var search = $('#txtSearch').val().replace(' ','&');
+    window.location.href='#Search/'+search+'/page_1';
   },
 
   goUpload: function()

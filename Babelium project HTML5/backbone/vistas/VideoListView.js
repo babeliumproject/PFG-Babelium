@@ -1,14 +1,16 @@
 var VideoListView = Backbone.View.extend({
   el : $("#mainBody"),
-  tagName: 'ul',
-  my_template: _.template("<div>"
-    +" <% if (this.options.page == 1) { %>"
+  
+  my_template: _.template("<div class='vidNavB'>"
+    +"<% if (this.options.pages == 1) { %>"
+    +"<button id='previous' disabled>Previous</button><button id='next' disabled>Next</button>"
+    +"<% } else { if(this.options.page == 1){ %>"
     +"<button id='previous' disabled>Previous</button><button id='next'>Next</button>"
-    +"<% } else { if(this.options.pages == this.options.page){ %>"
+    +"<% } else { if(this.options.page == this.options.pages){ %>"
     +"<button id='previous'>Previous</button><button id='next' disabled>Next</button>"
     +"<% } else { %>"
-    +"<button id='previous'>Previous</button><button id='next>Next</button>"
-    +"<% }} %>"
+    +"<button id='previous'>Previous</button><button id='next'>Next</button>"
+    +"<% }}} %>"
     +"</div>"
 ),
   events:
@@ -21,6 +23,7 @@ var VideoListView = Backbone.View.extend({
   {
     this.options = options;
     _.bindAll(this, 'render');
+    console.log(this.options.pages + " " + this.options.page);
   },
 
   render: function() 
@@ -40,12 +43,28 @@ var VideoListView = Backbone.View.extend({
   goPrevious: function()
   {
     var n = this.options.page--;
-    window.location.href='#Practice/page_'+n;
+    
+    if(this.options.terms)
+    {
+      window.location.href='#Search/'+this.options.terms+'/page_'+n;
+    }
+    else
+    {
+      window.location.href='#Practice/page_'+n;
+    }
   },
 
   goNext: function()
   {
     var n = this.options.page++;
-    window.location.href='#Practice/page_'+n;
+   
+    if(this.options.terms)
+    {
+      window.location.href='#Search/'+this.options.terms+'/page_'+n;
+    }
+    else
+    {
+      window.location.href='#Practice/page_'+n;
+    }
   }
 });

@@ -177,47 +177,23 @@ aside#motd
  {
  	background: url(../images/pattern2.png);
  }
-	 section#maincontent > header > h1 
-	 {
-	 	font-weight: bold;
-		font-size: 24px;
-		color: #972c0a;
-	 }
+
+ section#maincontent > header > h1 
+ {
+ 	font-weight: bold;
+	font-size: 24px;
+	color: #972c0a;
+ }
 
 /*
- * TABS
+ *	ABOUT
  */
-
-ul.tabs {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-ul.tabs li {
-  border: gray solid 1px;
-  border-bottom: none;
-  float: left;
-  margin: 0 .25em 0 0;
-  padding: .25em .5em;
-}
-ul.tabs li a {
-  color: gray;
-  font-weight: bold;
-  text-decoration: none;
-}
-ul.tabs li.active {
-  background: blue;
-}
-ul.tabs li.active a {
-  color: white;
-}
-
 p.abTitle {
 	font-size: 20px;
 	color: orange;
 	font-weight: bold;
 }
-
+/*
 .separator{
 	height:1px;
 	background:#717171;
@@ -239,7 +215,123 @@ p.abTitle {
 }
 
 .videosDiv{
-    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-    -moz-column-count: 2; /* Firefox */
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
     column-count: 2;
+}*/
+
+/*
+ *	PRACTICA
+ */
+figure.thumbnail > figcaption {
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 10px;
+  background-color: black;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: right;
+  padding: 2px;
+}
+
+article > div > h1, article.evaluationItem > header > h1 {
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  border-bottom: 2px solid #cacdcf;
+}
+
+article > div > * {
+  width: 100%;
+  font-size: 13px;
+}
+
+article > div > p {
+  margin-bottom: 3px;
+}
+
+article > div > p.username {
+  text-align: right;
+}
+
+article > *, article.evaluationItem > div > * {
+  display: inline-block;
+}
+
+article > div > div.dtop > * {
+  font-weight: bold;
+  color: #d3aa31;
+}
+
+figure.thumbnail {
+  position: relative;
+  float: left;
+  width: 120px;
+  padding: 10px;
+}
+
+article {
+  width: 49%;
+  min-width: 460px;
+  max-width: 475px;
+  min-height: 150px;
+  display: inline-block;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  margin: 1px;
+}
+
+div.videosDiv {
+  width: 100%;
+  margin: 0px;
+  padding: 0 0 0 10px;
+}
+
+figure.thumbnail > img {
+  width: 120px;
+  height: 90px;
+  border: 1px solid black;
+  background: -webkit-radial-gradient(80% 80%, ellipse farthest-side, rgb(134, 188, 206) 10%, white 100%);
+  background: -moz-radial-gradient(80% 80%, ellipse farthest-side, rgb(134, 188, 206) 10%, white 100%);
+  background: -o-radial-gradient(80% 80%, ellipse farthest-side, rgb(134, 188, 206) 10%, white 100%);
+  background: -ms-radial-gradient(80% 80%, ellipse farthest-side, rgb(134, 188, 206) 10%, white 100%);
+  -moz-box-shadow: 2px 2px 4px #666;
+  -webkit-box-shadow: 2px 2px 4px #666;
+  -o-box-shadow: 2px 2px 4px #666;
+  -ms-box-shadow: 2px 2px 4px #666;
+  box-shadow: 2px 2px 4px #666;
+}
+
+div#mainBody {
+  width: 100%;
+  margin: 0px;
+  padding: 0 0 0 10px;
+}
+
+section#maincontent > section, section.exerciseInfo > header {
+  background-color: #daecf2;
+  -moz-border-radius: 6px;
+  -webkit-borde-radius: 6px;
+  -o-border-radius: 6px;
+  -ms-border-radius: 6px;
+  border-radius: 6px;
+  -moz-box-shadow: -2px 2px 4px #CCC;
+  -webkit-box-shadow: -2px 2px 4px #CCC;
+  -o-box-shadow: -2px 2px 4px #CCC;
+  -ms-box-shadow: -2px 2px 4px #CCC;
+  box-shadow: -2px 2px 4px #CCC;
+  margin-top: 20px;
+}
+
+section#maincontent > * {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+}
+
+.vidNavB {
+	text-align: center;
 }
