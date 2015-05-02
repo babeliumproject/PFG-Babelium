@@ -37,6 +37,11 @@ var VideoListView = Backbone.View.extend({
   	},this);
     //Añado los botones para navegar entre las paginas
     this.$el.append(this.my_template());
+
+    for(var i = 1;i<=this.options.pages;i++)
+    {
+      $('#vidNavB').append("<a href='#Practice/page_"+i+"'>"+i+"</a>    ");
+    }
   	return this;
   },
 
