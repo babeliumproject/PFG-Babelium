@@ -12,9 +12,9 @@
 	<script language="javascript" type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
 </head>
-<body class="VBox">
+<body class="VBox hcenter">
 <!-- HEADER -->
-	<header id="tophead" class="VBox">
+	<header id="tophead">
 		<!-- top naviation -->
 		<nav id="topnav" class="HBox">
 			<!-- left aligned box -->
@@ -25,6 +25,8 @@
 						<option value="EU" data-icon="themes/babelium/images/flags/flag_basque_country.png">Basque</option>
 						<option value="US" data-icon="themes/babelium/images/flags/flag_united_states.png" selected="true">English (United States)</option>
 						<option value="ES" data-icon="themes/babelium/images/flags/flag_spain.png">Spanish (Spain)</option>
+						<option value="DE" data-icon="themes/babelium/images/flags/flag_germany.png">German</option>
+						<option value="FR" data-icon="themes/babelium/images/flags/flag_france.png">French</option>
 					</select>
 				</li>
 			</ul>
@@ -150,10 +152,10 @@
 
 <!--  END OF HEADER -->
 <!-- MAIN CONTENT HEAD -->
-	<section id="maincontent" class="VBox">
+	<section id="maincontent">
 		<header>
-			<h1><p id="bodyTitle">Home<p></h1>
-			<div id="hhelper"></div>
+			<h1><p id="bodyTitle">Home</p></h1>
+			<div id="hhelper" class='hhelper'></div>
 		</header>
 
 		<section class='exerciseList VBox'
@@ -162,10 +164,31 @@
 
 		</div>
 		<!-- END OF MAIN CONTENT -->
+		</section>
 	</section>
 
+
 <!-- FOOTER -->
-<footer>
+<div class="boxFlex"></div>
+<footer class="HBox vend">
+	<div class="spacer">
+		<div class="hhelper">
+		</div>
+	</div>
+	<ul class="HBox hcenter vcenter">
+		<li>
+			<div class="ejimage">
+				<p class="texto">
+					<img src="themes/babelium/images/bfa.gif" align"middle">
+					Bizkaiako Foru Aldundiaren laguntzaz
+				</p>
+			</div>
+		</li>
+	</ul>
+	<div class="spacer">
+		<div class="hhelper">
+		</div>
+	</div>
 </footer>
 <!-- END OF FOOTER -->
 

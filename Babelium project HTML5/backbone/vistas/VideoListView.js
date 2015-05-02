@@ -27,13 +27,12 @@ var VideoListView = Backbone.View.extend({
   },
 
   render: function() 
-  {
-    this.$el.html("<div id='videosDiv' class='videosDiv'></div>");
+  { this.$el.html("");
   	//Por cada video genera un view de video individual
   	this.collection.each(function(video){
     	var vidView = new VideoView({model:video});
     	//Une el view a donde se pone la coleccion
-    	this.$('#videosDiv').append(vidView.render().el);
+    	this.$el.append(vidView.render().el);
   	},this);
     //Añado los botones para navegar entre las paginas
     this.$el.append(this.my_template());
@@ -80,3 +79,63 @@ var VideoListView = Backbone.View.extend({
     }
   }
 });
+
+
+
+/* function paginationLimits(pages,page)
+    {
+      var i = 1,
+      found = false;
+      while(!found && pages+10 > i)
+      {
+        if(page < i+10 && page > i)
+        {
+          found = true;
+        }
+        else
+        {
+          i = i + 10;
+        }
+      }
+      return i;
+    }
+
+    var limits = paginationLimits(this.options.pages,this.options.page);
+
+    if(this.options.page > 10 && this.options.pages > 10)
+    {
+      if(this.options.terms)
+      {
+        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(limits-10)+"'><</a>    ");
+      }
+      else
+      {
+        $('#vidNavB').append("<a href='#Practice/page_"+(limits-10)+"'><</a>    ");
+      }
+    }
+    var i = limits;console.log(i+" "+this.options.pages);
+    while(i < limits + 10 && i <= this.options.pages)
+    {
+      if(this.options.terms)
+      {
+        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+i+"'>"+i+"</a>    ");
+      }
+      else
+      {
+        $('#vidNavB').append("<a href='#Practice/page_"+i+"'>"+i+"</a>    ");
+      }
+      i++
+    }
+
+    if(this.options.page+9 > this.options.pages)
+    {
+      if(this.options.terms)
+      {
+        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(limits+10)+"'>></a>    ");
+      }
+      else
+      {
+        $('#vidNavB').append("<a href='#Practice/page_"+(limits+10)+"'>></a>    ");
+      }
+    }
+    return this;*/

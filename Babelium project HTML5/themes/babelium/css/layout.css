@@ -23,14 +23,6 @@ nav#topnav
 	nav#topnav > ul > li:first-child {margin-left: 16px;}
 	nav#topnav > ul > li:last-child {margin-right: 16px;}
 
-div#logo
-{
-	position: absolute;
-	left: 15px;
-	top: 35px;
-	z-index: 1;
-}
-
 /* MAIN NAVIGATION */
 
 nav#mainnav
@@ -50,17 +42,6 @@ nav#mainnav
 			min-height: 50px;
 			line-height: 50px;
 		}
-
-
-/* SEARCH BAR */
-
-div#searchnav
-{
-	height: 35px;
-	/* logo width  */
-	padding-left: 200px;
-	padding-right: 10px;
-}
 
 /* END OF HEADER */
 

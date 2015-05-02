@@ -7,5 +7,6 @@
 /* Imports */
 @import url("reset.css");	/* resets browsers default style */
 @import url("layout.css");	/* base layout */
-@import url("style.css");	/* main style */
 @import url("mxml.css");	/* flex bindings */
+@import url("forms.css");
+@import url("resources.css");	/* flex bindings */

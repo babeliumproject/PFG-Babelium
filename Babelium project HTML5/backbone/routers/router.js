@@ -104,6 +104,7 @@ var TodoRouter = Backbone.Router.extend({
 
     goSearch: function(terms,p)
     {
+        $('#bodyTitle').html("Search exercise");
         var search = terms.split('&');
         var tags;
         var videos = new VideoList();

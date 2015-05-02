@@ -31,6 +31,7 @@ var UploadView = Backbone.View.extend({
     +"<option value='Attribution Non-Commercial No Derivative'>Attribution Non-Commercial No Derivative</option>"
     +"<option value='Other (Copyrighted)'>Other (Copyrighted)</option>"
     +"</select><br>"
+    +"<label for='upAuthor'>Author:</label><br>"
     +"<input type='text' name='upAuthor' id='upAuthor'><br>"
     +"<label for='upCheck'>Choose an uploading method: </label><br><br>"
     +"<input type='radio' name='upCheck' id='upCheckPc' value='fromPc'>Upload a video file from your computer<br>"

@@ -1,6 +1,7 @@
 var VideoView = Backbone.View.extend({
-	my_template: _.template("<article class='exercise'>"
-	  				+"<figure class='thumbnail'>"
+	tagName: 'article',
+	className: 'exercise',
+	my_template: _.template("<figure class='thumbnail'>"
 					+"<img src='http://cdn.visualnews.com/wp-content/uploads/2013/03/Thumbs-and-Ammo-15.jpg' alt='<%= title %>' width='120' height='90' align='left'/>"
 					+"<figcaption><%= duration %></figcaption>"
 					+"</figure>"
@@ -19,7 +20,7 @@ var VideoView = Backbone.View.extend({
 					+"<p>Tags:<%= tags %></p>"
 					+"<p><a href='http://creativecommons.org/licenses/<%= license %>/3.0/'>"
 					+"<img src='http://www.mintzabel.com/themes/babelium/images/licenses/<%= license %>.png' width='80' height='15' alt='<%= license %>' border='0'></a>"
-					+"</p></div></article>"
+					+"</p></div>"
 ),
 
 	initialize: function(){
