@@ -1,8 +1,8 @@
 var VideoListView = Backbone.View.extend({
   el : $("#mainBody"),
   
-  my_template: _.template("<div class='vidNavB'>"
-    +"<% if (this.options.pages == 1) { %>"
+  my_template: _.template("<div id='vidNavB' class='vidNavB'>"
+    /*+"<% if (this.options.pages == 1) { %>"
     +"<button id='previous' disabled>Previous</button><button id='next' disabled>Next</button>"
     +"<% } else { if(this.options.page == 1){ %>"
     +"<button id='previous' disabled>Previous</button><button id='next'>Next</button>"
@@ -10,7 +10,7 @@ var VideoListView = Backbone.View.extend({
     +"<button id='previous'>Previous</button><button id='next' disabled>Next</button>"
     +"<% } else { %>"
     +"<button id='previous'>Previous</button><button id='next'>Next</button>"
-    +"<% }}} %>"
+    +"<% }}} %>"*/
     +"</div>"
 ),
   events:
@@ -40,7 +40,14 @@ var VideoListView = Backbone.View.extend({
 
     for(var i = 1;i<=this.options.pages;i++)
     {
-      $('#vidNavB').append("<a href='#Practice/page_"+i+"'>"+i+"</a>    ");
+      if(this.options.terms)
+      {
+        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+i+"'>"+i+"</a>    ");
+      }
+      else
+      {
+        $('#vidNavB').append("<a href='#Practice/page_"+i+"'>"+i+"</a>    ");
+      }
     }
   	return this;
   },
