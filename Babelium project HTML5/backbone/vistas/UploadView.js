@@ -1,6 +1,6 @@
 var UploadView = Backbone.View.extend({
   el : $("#mainBody"),
-  my_template: _.template("<form class='upForm' action='action_page.php'>"
+  my_template: _.template("<form class='upForm' id='upForm' action='action_page.php'>"
     +"<label for='upTitle'>Title: *</label><br>"
     +"<input type='text' name='upTitle' id='upTitle' required><br>"
     +"<label for='upDescrip'>Description: *</label><br>"
@@ -31,22 +31,22 @@ var UploadView = Backbone.View.extend({
     +"<option value='Attribution Non-Commercial No Derivative'>Attribution Non-Commercial No Derivative</option>"
     +"<option value='Other (Copyrighted)'>Other (Copyrighted)</option>"
     +"</select><br>"
-    +"<label for='upAuthor'>Language: </label><br>"
     +"<input type='text' name='upAuthor' id='upAuthor'><br>"
     +"<label for='upCheck'>Choose an uploading method: </label><br><br>"
-    +"<input type='radio' name='upCheck' value='fromPc'>Upload a video file from your computer<br>"
-    +"<input type='radio' name='upCheck' value='fromCam'>Record an exercise with the webcam and save it"
+    +"<input type='radio' name='upCheck' id='upCheckPc' value='fromPc'>Upload a video file from your computer<br>"
+    +"<input type='radio' name='upCheck' id='upCheckCam' value='fromCam'>Record an exercise with the webcam and save it<br>"
     +"<div id='divFile' style='display:none'><input type='file' name='upFile' accept='video/*'></div>"
     +"<div id='divRecord' style='display:none'></div>"
     +"</form><br><br>"
-    +"<p>NOTE: The maximum allowed video size is 2000MB. In addition, the videos shouldn't be shorter than 15 seconds or longer than 360 seconds, otherwise they will be rejected.</p><br>"
-    +"<p style='padding-bottom:30px'>In our research we've found that the user's concentration level drops significantly when dubbing videos longer than 360 seconds."
+    +"<p style='padding-left:200px;padding-right:200px'><b>NOTE:</b> The maximum allowed video size is <b>2000MB</b>. In addition, the videos shouldn't be shorter than <b>15 seconds</b> or longer than <b>360 seconds</b>, otherwise they will be rejected.</p><br>"
+    +"<p style='padding-left:200px;padding-right:200px;padding-bottom:30px'>In our research we've found that the user's concentration level drops significantly when dubbing videos longer than 360 seconds.<br>"
     +"Also, since live dubbing is a stressful task, we limit the duration in hopes to keep a balance between the amount of speaking practice the user achieves and the frustration he/she gets along the process.</p>"
 ),
 
   events:
   { 
-    'change upCheck': 'goFromCam'
+    'change #upCheckPc': 'goFromPc',
+    'change #upCheckCam': 'goFromCam'
   },
 
   initialize: function(options) 
@@ -59,6 +59,27 @@ var UploadView = Backbone.View.extend({
   render: function() 
   {
     this.$el.html(this.my_template());
-  }
+  },
 
+  goFromPc: function()
+  {
+    $('#divFile').css('display','none');
+    $('#divRecord').css('display','none');
+
+    if($('#upCheckPc').is(':checked'))
+    {
+        $('#divFile').css('display','inline-block');
+    }
+  },
+
+  goFromCam: function()
+  {
+    $('#divFile').css('display','none');
+    $('#divRecord').css('display','none');
+
+    if($('#upCheckCam').is(':checked'))
+    {
+        $('#divRecord').css('display','inline-block');
+    }
+  }
 });
