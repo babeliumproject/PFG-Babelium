@@ -1400,12 +1400,36 @@ div.evaluationItemInfo > *
 
 /** END OF PAGINATION **/
 
+/** HELP **/
+	
+.helpBtn {
+	text-align: center;
+	padding-top: 10px;
+}
+
+.helpBtn > button {
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+.helpBtn > div {
+	text-align: center;
+}
+
+/** END OF HELP **/
+
 /**	ABOUT **/
 
 p.abTitle {
 	font-size: 20px;
 	color: orange;
 	font-weight: bold;
+	padding-left: 10px;
+}
+
+p.abText {
+	padding-left: 10px;
+	padding-bottom: 10px;
 }
 
 /**	END OF ABOUT **/
