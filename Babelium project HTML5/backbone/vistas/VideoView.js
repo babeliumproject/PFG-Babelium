@@ -22,11 +22,19 @@ var VideoView = Backbone.View.extend({
             + "<img src='http://www.mintzabel.com/themes/babelium/images/licenses/<%= license %>.png' width='80' height='15' alt='<%= license %>' border='0'></a>"
             + "</p></div>"
             ),
+    events:
+            {
+                'click': 'goVideo'
+            },
     initialize: function () {
         this.render();
     },
     render: function () {
         this.$el.html(this.my_template(this.model.toJSON()));
         return this;
+    },
+    
+    goVideo: function () {console.log(this.model);
+        window.location.href = '#Practice/exercise/'+this.model.attributes.name;
     }
 });

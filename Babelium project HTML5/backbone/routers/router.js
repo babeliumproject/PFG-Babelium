@@ -4,6 +4,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 "Home": "goHome",
                 "Practice/page_:p": "goPractice",
+                "Practice/exercise/:exid": "goPrExercise",
                 "Evaluate": "goEvaluate",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
@@ -53,6 +54,13 @@ var TodoRouter = Backbone.Router.extend({
             var searchNavView = new SearchNavView({search: true});
         });
     },
+
+    goPrExercise: function (exid) {
+    	$('#bodyTitle').html("Practice");
+    	var prEx = new PrExercise({exid: exid});
+        var searchNavView = new SearchNavView({search: true});
+    },
+
     goEvaluate: function () {
         $('#bodyTitle').html("Evaluate");
         $('#mainBody').html("Evaluate entered");
