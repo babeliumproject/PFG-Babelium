@@ -1,4 +1,4 @@
 var VideoList = Backbone.Collection.extend({
-  model: Video,
-  url: '/test.json',
+    model: Video,
+    url: 'json/test.json'
 });

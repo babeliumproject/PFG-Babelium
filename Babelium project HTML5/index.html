@@ -1,214 +1,214 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8" /> 
-	<title>Babelium Project</title>
-	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" media="screen" href="themes/babelium/css/main.css" />
-	<link rel="stylesheet" type="text/css" href="themes/babelium/css/jquery-ui.min.css">
+    <head>
+        <meta charset="UTF-8" /> 
+        <title>Babelium Project</title>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" media="screen" href="themes/babelium/css/main.css" />
+        <link rel="stylesheet" type="text/css" href="themes/babelium/css/jquery-ui.min.css">
 
-	<!-- JQuery --> 
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-	<script language="javascript" type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	
-</head>
-<body class="VBox hcenter">
-<!-- HEADER -->
-	<header id="tophead">
-		<!-- top naviation -->
-		<nav id="topnav" class="HBox">
-			<!-- left aligned box -->
-			<ul class="HBox vcenter">
-				<li>Language:</li>
-				<li>
-					<select id="localebox">
-						<option value="EU" data-icon="themes/babelium/images/flags/flag_basque_country.png">Basque</option>
-						<option value="US" data-icon="themes/babelium/images/flags/flag_united_states.png" selected="true">English (United States)</option>
-						<option value="ES" data-icon="themes/babelium/images/flags/flag_spain.png">Spanish (Spain)</option>
-						<option value="DE" data-icon="themes/babelium/images/flags/flag_germany.png">German</option>
-						<option value="FR" data-icon="themes/babelium/images/flags/flag_france.png">French</option>
-					</select>
-				</li>
-			</ul>
-			<!-- spacer just to fill space between boxes -->
-			<div class="spacer"></div>
-			<!-- right aligned box -->
-			<ul id='userNav' class='HBox vcenter'>
-			</ul>
-		</nav>
-		
-		<!--Login dialog-->
-		<div id="loginDialog" title="Login" style="display:none">
-			<label for="user">User name</label><br>
-			<input type="text" id="user" placeholder="User name" class="text ui-widget-content ui-corner-all"><br><br>
-			<label for="password">Password</label><br>
-			<input type="text" id="password" placeholder="Password" class="text ui-widget-content ui-corner-all"><br><br>
-			<input type="checkbox" id="remember" class="checkbox ui-widget-content ui-corner-all">
-			<label for="remember">Remember me</label>
-			<div style="text-align:right">
-				<a href="#">I forgot my password</a>
-			</div>
+        <!-- JQuery --> 
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-			<!-- Allow form submission with keyboard without duplicating the dialog button -->
-			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		</div>
+    </head>
+    <body class="VBox hcenter">
+        <!-- HEADER -->
+        <header id="tophead">
+            <!-- top naviation -->
+            <nav id="topnav" class="HBox">
+                <!-- left aligned box -->
+                <ul class="HBox vcenter">
+                    <li>Language:</li>
+                    <li>
+                        <select id="localebox">
+                            <option value="EU" data-icon="themes/babelium/images/flags/flag_basque_country.png">Basque</option>
+                            <option value="US" data-icon="themes/babelium/images/flags/flag_united_states.png" selected>English (United States)</option>
+                            <option value="ES" data-icon="themes/babelium/images/flags/flag_spain.png">Spanish (Spain)</option>
+                            <option value="DE" data-icon="themes/babelium/images/flags/flag_germany.png">German</option>
+                            <option value="FR" data-icon="themes/babelium/images/flags/flag_france.png">French</option>
+                        </select>
+                    </li>
+                </ul>
+                <!-- spacer just to fill space between boxes -->
+                <div class="spacer"></div>
+                <!-- right aligned box -->
+                <ul id='userNav' class='HBox vcenter'>
+                </ul>
+            </nav>
 
-		<!-- Register dialog -->
-		<div id="regisDialog" title="Register" style="display:none">
-			<p class="validateTips">All fields with * are required.</p><br>
-			<label for="userReg">* User name</label><br>
-			<input type="text" id="userReg" placeholder="User name"><br><br>
-			<label for="emailReg">* Email</label><br>
-			<input type="email" id="emailReg" placeholder="example@gmail.com"><br><br>
-			<label for="passwordReg">* Password</label><br>
-			<input type="text" id="passwordReg" placeholder="Password"><br><br>
-        	<label for="passwordReg2">* Repeat your password</label><br>
-        	<input type="text" id="passwordReg2" placeholder="Password"><br><br>
-			<label for="nReal">Real name</label><br>
-			<input type="text" id="nReal" placeholder="Name"><br><br>
-			<label for="aReal">Real last name</label><br>
-			<input type="text" id="aReal" placeholder="Last name"><br><br>
-			<label>* Mother tongue</label>
-			<select id="mLang" required>
-        	   <option value="" selected>Choose a language</option>
-			   <option value="Spanish">Spanish</option>
-			   <option value="English">English</option>
-			   <option value="German">German</option>
-			   <option value="French">French</option>
-			   <option value="Italian">Italian</option>
-			   <option value="Basque">Basque</option>
-			</select><br><br>
-			<label>Other language</label>
-        	<select id="oLang">
-        	   <option value="" selected>Choose a language</option>
-			   <option value="Spanish">Spanish</option>
-			   <option value="English">English</option>
-			   <option value="German">German</option>
-			   <option value="French">French</option>
-			   <option value="Italian">Italian</option>
-			   <option value="Basque">Basque</option>
-			</select><br><br>
-			<label>Level</label>
-			<select id="oLangLvl">
-				<option value="A1 Beginner">A1 Beginner</option>
-				<option value="A2 Elemental">A2 Elemental</option>
-				<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
-				<option value="B2 Intermediate">B2 Intermediate</option>
-				<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
-			</select><br><br>
-	       	<label>Interested in</label>
-        	<select id="iLang">
-        	   <option value="" selected>Choose a language</option>
-			   <option value="Spanish">Spanish</option>
-			   <option value="English">English</option>
-			   <option value="German">German</option>
-			   <option value="French">French</option>
-			   <option value="Italian">Italian</option>
-			   <option value="Basque">Basque</option>
-			</select><br><br>
-			<label>Level</label>
-			<select id="iLangLvl">
-				<option value="A1 Beginner">A1 Beginner</option>
-				<option value="A2 Elemental">A2 Elemental</option>
-				<option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
-				<option value="B2 Intermediate">B2 Intermediate</option>
-				<option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
-			</select><br>
-			<!-- Allow form submission with keyboard without duplicating the dialog button -->
-			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		</div>
+            <!--Login dialog-->
+            <div id="loginDialog" title="Login" style="display:none">
+                <label for="user">User name</label><br>
+                <input type="text" id="user" placeholder="User name"><br><br>
+                <label for="password">Password</label><br>
+                <input type="text" id="password" placeholder="Password"><br><br>
+                <input type="checkbox" id="remember">
+                <label for="remember">Remember me</label>
+                <div style="text-align:right">
+                    <a href="#">I forgot my password</a>
+                </div>
 
-		<!-- logo -->
-		<div id="logo">
-			<a href="/">
-				<img src="themes/babelium/images/flan_dullv2.png" alt="Bablium Project" width="174" height="156" />
-			</a>
-		</div>
-		
-		<!-- main navigation -->
-		<nav id="mainnav" class="HBox vcenter">
-			<!-- x2 left space width a min-width to avoid logo -->
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </div>
 
-			<div class="spacer" style="min-width: 174px;"></div>
-			<!-- nav links -->
+            <!-- Register dialog -->
+            <div id="regisDialog" title="Register" style="display:none">
+                <p>All fields with * are required.</p><br>
+                <label for="userReg">* User name</label><br>
+                <input type="text" id="userReg" placeholder="User name"><br><br>
+                <label for="emailReg">* Email</label><br>
+                <input type="email" id="emailReg" placeholder="example@gmail.com"><br><br>
+                <label for="passwordReg">* Password</label><br>
+                <input type="text" id="passwordReg" placeholder="Password"><br><br>
+                <label for="passwordReg2">* Repeat your password</label><br>
+                <input type="text" id="passwordReg2" placeholder="Password"><br><br>
+                <label for="nReal">Real name</label><br>
+                <input type="text" id="nReal" placeholder="Name"><br><br>
+                <label for="aReal">Real last name</label><br>
+                <input type="text" id="aReal" placeholder="Last name"><br><br>
+                <label>* Mother tongue</label>
+                <select id="mLang" required>
+                    <option value="" selected>Choose a language</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="English">English</option>
+                    <option value="German">German</option>
+                    <option value="French">French</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Basque">Basque</option>
+                </select><br><br>
+                <label>Other language</label>
+                <select id="oLang">
+                    <option value="" selected>Choose a language</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="English">English</option>
+                    <option value="German">German</option>
+                    <option value="French">French</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Basque">Basque</option>
+                </select><br><br>
+                <label>Level</label>
+                <select id="oLangLvl">
+                    <option value="A1 Beginner">A1 Beginner</option>
+                    <option value="A2 Elemental">A2 Elemental</option>
+                    <option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+                    <option value="B2 Intermediate">B2 Intermediate</option>
+                    <option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
+                </select><br><br>
+                <label>Interested in</label>
+                <select id="iLang">
+                    <option value="" selected>Choose a language</option>
+                    <option value="Spanish">Spanish</option>
+                    <option value="English">English</option>
+                    <option value="German">German</option>
+                    <option value="French">French</option>
+                    <option value="Italian">Italian</option>
+                    <option value="Basque">Basque</option>
+                </select><br><br>
+                <label>Level</label>
+                <select id="iLangLvl">
+                    <option value="A1 Beginner">A1 Beginner</option>
+                    <option value="A2 Elemental">A2 Elemental</option>
+                    <option value="B1 Pre-intermediate">B1 Pre-intermediate</option>
+                    <option value="B2 Intermediate">B2 Intermediate</option>
+                    <option value="C1 Intermediate advanced">C1 Intermediate advanced</option>
+                </select><br>
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </div>
 
-			<ul class="HBox">
-				<li><a href="#Home" class="home">Home</a></li>
-				<li><a href="#Practice/page_1" id="practice" class="pract">Practice</a></li>
-				<li><a href="#Evaluate" class="eval">Evaluate</a></li>
-				<li><a href="#Subtitle" class="subt">Subtitle</a></li>
-				<li><a href="#Config" class="config">Configure</a></li>
-				<li><a href="#About" class="about">About Babelium</a></li>
-			</ul>
-			<!-- right space -->
-			<div class="spacer"></div>
-		</nav>		
-		
-		<!-- search bar -->
-		<div id="searchnav" class="HBox vcenter">
-			<button onclick='javascript:window.location.href="#Upload"' id='btnUpload' class='upload'>Upload</button>
-		</div>
-	</header>
+            <!-- logo -->
+            <div id="logo">
+                <a href="/">
+                    <img src="themes/babelium/images/flan_dullv2.png" alt="Bablium Project" width="174" height="156" />
+                </a>
+            </div>
 
-<!--  END OF HEADER -->
-<!-- MAIN CONTENT HEAD -->
-	<section id="maincontent">
-		<header>
-			<h1><p id="bodyTitle">Home</p></h1>
-			<div id="hhelper" class='hhelper'></div>
-		</header>
+            <!-- main navigation -->
+            <nav id="mainnav" class="HBox vcenter">
+                <!-- x2 left space width a min-width to avoid logo -->
 
-		<section class='exerciseList VBox'
-		<!--MAIN CONTENT-->
-		<div id="mainBody" class="exerciseContainer">
+                <div class="spacer" style="min-width: 174px;"></div>
+                <!-- nav links -->
 
-		</div>
-		<!-- END OF MAIN CONTENT -->
-		</section>
-	</section>
+                <ul class="HBox">
+                    <li><a href="#Home" class="home">Home</a></li>
+                    <li><a href="#Practice/page_1" id="practice" class="pract">Practice</a></li>
+                    <li><a href="#Evaluate" class="eval">Evaluate</a></li>
+                    <li><a href="#Subtitle" class="subt">Subtitle</a></li>
+                    <li><a href="#Config" class="config">Configure</a></li>
+                    <li><a href="#About" class="about">About Babelium</a></li>
+                </ul>
+                <!-- right space -->
+                <div class="spacer"></div>
+            </nav>		
+
+            <!-- search bar -->
+            <div id="searchnav" class="HBox vcenter">
+                <button onclick='javascript:window.location.href = "#Upload"' id='btnUpload' class='upload'>Upload</button>
+            </div>
+        </header>
+
+        <!--  END OF HEADER -->
+        <!-- MAIN CONTENT HEAD -->
+        <section id="maincontent">
+            <header>
+                <h1 id="bodyTitle">Home</h1>
+                <div id="hhelper" class='hhelper'></div>
+            </header>
+
+            <section class='exerciseList VBox'>
+                <!--MAIN CONTENT-->
+                <div id="mainBody" class="exerciseContainer">
+
+                </div>
+                <!-- END OF MAIN CONTENT -->
+            </section>
+        </section>
 
 
-<!-- FOOTER -->
-<div class="boxFlex"></div>
-<footer class="HBox vend">
-	<div class="spacer">
-		<div class="hhelper">
-		</div>
-	</div>
-	<ul class="HBox hcenter vcenter">
-		<li>
-			<div class="ejimage">
-				<p class="texto">
-					<img src="themes/babelium/images/bfa.gif" align"middle">
-					Bizkaiako Foru Aldundiaren laguntzaz
-				</p>
-			</div>
-		</li>
-	</ul>
-	<div class="spacer">
-		<div class="hhelper">
-		</div>
-	</div>
-</footer>
-<!-- END OF FOOTER -->
+        <!-- FOOTER -->
+        <div class="boxFlex"></div>
+        <footer class="HBox vend">
+            <div class="spacer">
+                <div class="hhelper">
+                </div>
+            </div>
+            <ul class="HBox hcenter vcenter">
+                <li>
+                    <div>
+                        <p>
+                            <img src="themes/babelium/images/bfa.gif" alt="bfa" style="vertical-align:middle">
+                            Bizkaiako Foru Aldundiaren laguntzaz
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <div class="spacer">
+                <div class="hhelper">
+                </div>
+            </div>
+        </footer>
+        <!-- END OF FOOTER -->
 
-	<!--Backbone.js and dependencies-->
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-	<script type="text/javascript" src="backbone/modelos/user.js"></script>
-	<script type="text/javascript" src="backbone/modelos/video.js"></script>
-	<script type="text/javascript" src="backbone/colecciones/videoList.js"></script>
-	<script type="text/javascript" src="backbone/vistas/UserInfo.js"></script>
-	<script type="text/javascript" src="backbone/vistas/UserNavOn.js"></script>
-	<script type="text/javascript" src="backbone/vistas/UserNavOff.js"></script>
-	<script type="text/javascript" src="backbone/vistas/VideoView.js"></script>
-	<script type="text/javascript" src="backbone/vistas/VideoListView.js"></script>
-	<script type="text/javascript" src="backbone/vistas/HelpView.js"></script>
-	<script type="text/javascript" src="backbone/vistas/AboutView.js"></script>	
-	<script type="text/javascript" src="backbone/vistas/ConfigView.js"></script>
-	<script type="text/javascript" src="backbone/vistas/SearchNavView.js"></script>
-	<script type="text/javascript" src="backbone/vistas/UploadView.js"></script>	
-	<script type="text/javascript" src="backbone/routers/router.js"></script>
-	<script type="text/javascript" src="js/codigo.js"></script>
-</body>
+        <!--Backbone.js and dependencies-->
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+        <script type="text/javascript" src="backbone/modelos/user.js"></script>
+        <script type="text/javascript" src="backbone/modelos/video.js"></script>
+        <script type="text/javascript" src="backbone/colecciones/videoList.js"></script>
+        <script type="text/javascript" src="backbone/vistas/UserInfo.js"></script>
+        <script type="text/javascript" src="backbone/vistas/UserNavOn.js"></script>
+        <script type="text/javascript" src="backbone/vistas/UserNavOff.js"></script>
+        <script type="text/javascript" src="backbone/vistas/VideoView.js"></script>
+        <script type="text/javascript" src="backbone/vistas/VideoListView.js"></script>
+        <script type="text/javascript" src="backbone/vistas/HelpView.js"></script>
+        <script type="text/javascript" src="backbone/vistas/AboutView.js"></script>	
+        <script type="text/javascript" src="backbone/vistas/ConfigView.js"></script>
+        <script type="text/javascript" src="backbone/vistas/SearchNavView.js"></script>
+        <script type="text/javascript" src="backbone/vistas/UploadView.js"></script>	
+        <script type="text/javascript" src="backbone/routers/router.js"></script>
+        <script type="text/javascript" src="js/codigo.js"></script>
+    </body>
 </html>
