@@ -17,6 +17,9 @@ var Video = Backbone.Model.extend({
         // Preparo el idioma para poder cargar la bandera
         switch (this.get('language'))
         {
+            case 'eu_EU':
+                this.set('language', 'flag_basque_country');
+                break;
             case 'de_DE':
                 this.set('language', 'flag_germany');
                 break;

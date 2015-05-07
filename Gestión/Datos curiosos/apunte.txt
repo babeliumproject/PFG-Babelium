@@ -1,0 +1,6 @@
+    for(var i = i;i<=this.options.pages;i++)
+    {
+      $('#numBut').append("<a href='#Practice/page_"+i+"'>"+i+"</a>");
+    }
+
+    Comparación de mi concepto de paginación antes y después.

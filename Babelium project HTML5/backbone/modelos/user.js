@@ -11,7 +11,7 @@ var User = Backbone.Model.extend({
         motherLang: "",
         otherLang: "",
         oLLevel: "",
-        interestedIn: "",
+        interestIn: "",
         iILevel: ""
     }
 });

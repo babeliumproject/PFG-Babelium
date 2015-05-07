@@ -733,6 +733,35 @@ div.hhelper
 
 /** END OF MOTD MESSAGES **/
 
+/** USER INFORMATION **/
+
+.profile {
+    margin: 2%;
+}
+
+.userInfo {
+    margin: 2%;
+}
+
+.userInfo hr {
+    width: 20%;
+    
+}
+
+.userInfo > p {
+    font-size: 16px;
+    color: orange;
+    font-weight: bold;
+    padding-top: 10px 
+}
+
+.userInfo > label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/** END OF USER INFORMATION **/
+
 /** MAIN SECTION **/
 
 section#maincontent

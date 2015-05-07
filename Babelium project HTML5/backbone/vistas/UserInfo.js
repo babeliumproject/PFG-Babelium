@@ -1,15 +1,19 @@
 var UserView = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<br>"
-            + "<p>User name: <%= userName %></p><br>"
-            + "<p>Email: <%= email %></p><br>"
-            + "<p>Real name: <%= realName %></p><br>"
-            + "<p>Real last name: <%= realLastname %></p><br>"
-            + "<p>Mother tongue: <%= motherLang %></p><br>"
-            + "<p>Other tongue: <%= otherLang %></p>"
-            + "<p>Level: <%= oLLevel %></p><br>"
-            + "<p>Interested in: <%= interestedIn %></p>"
-            + "<p>Level: <%= iILevel %></p>"),
+    my_template: _.template("<div class='profile'><h2>My Profile</h2><hr>"
+            + "<p>In this section you can modify all the data and customize your experience in the application.</p>"
+            + "<div class='userInfo'>"
+            + "<p>Personal Information</p><a href='#User_info/Personal_info'>edit personal information</a><hr>"
+            + "<label>Real name:</label> <%= realName %><br>"
+            + "<label>Real surname:</label> <%= realLastname %><br>"
+            + "<label>eMail:</label> <%= email %><br>"
+            + "<p>Security</p><a href='#User_info/Security'>modify password</a><hr>"
+            + "<p>Languages</p><a href='#User_info/edit_languages'>edit languages</a><hr>"
+            + "<label>Mother tongue:</label> <%= motherLang %><br><br>"
+            + "<label>Other tongue:</label> <%= otherLang %><br>"
+            + "<label>Level:</label> <%= oLLevel %><br><br>"
+            + "<label>Interested in:</label> <%= interestIn %><br>"
+            + "<label>Level:</label> <%= iILevel %></div></div>"),
     initialize: function () {
         this.render();
     },
