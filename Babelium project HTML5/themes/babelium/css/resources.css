@@ -1632,3 +1632,7 @@ footer > ul.HBox > li:last-child
 }
 
 /** END OF FOOTER **/
+
+.upForm {
+    margin:2%;
+}
