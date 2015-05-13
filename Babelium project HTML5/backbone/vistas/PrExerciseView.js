@@ -1,13 +1,13 @@
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<section class='exerciseInfo' data-id='526' data-name='<% this.options.exid %>'>"
+    my_template: _.template("<section class='exerciseInfo' data-id='526' data-name='<%= this.options.exid %>'>" // AQUI EL URI Y EL ¿ID?
             +"<header><h1>NONGOA</h1></header>"
             +"<article class='babeliumPlayer'>"
             +"<div>"
             +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"
             +"id='babeliumPlayer' width='100%' height='100%'"
             +"codebase='http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab'>"
-            +"<param name='movie' value='util/swf/babeliumPlayer.swf' />"
+            +"<param name='movie' value='util/babeliumPlayer.swf' />"
             +"<param name='quality' value='high' />"
             +"<param name='bgcolor' value='#ffffff' />"
             +"<param name='flashVars' value='locale=eu' />"
@@ -25,20 +25,70 @@ var PrExercise = Backbone.View.extend({
             +"</object>"
             +"</div>"
             +"</article>"
-            +"<h4>Recording configuration</h4><br>"
-            +"<label>Choose a role</label>"
+            +"<article id='recordingEndOptions' class='recordingEndOptions'>"
+            +"<label>Available actions:</label><br/>"
+            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'>"
+            +"<img src='themes/babelium/images/eo_save_response.png' width='48' height='48' />"
+            +"<span>Erantzuna Gorde</span>"
+            +"</button><br/>"
+            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'>"
+            +"<img src='themes/babelium/images/eo_watch_sim.png' width='48' height='48' />"
+            +"<span>Erantzuna Ikusi</span>"
+            +"</button><br/>"
+            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'>"
+            +"<img src='themes/babelium/images/button_rec.png' width='48' height='48' />"
+            +"<span>Berriro Grabatu</span>"
+            +"</button><br/>"
+            +"<button onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'>"
+            +"<img src='themes/babelium/images/button_abort.png' width='48' height='48' />"
+            +"<span>Erantzuna Baztertu</span>"
+            +"</button>"
+            +"</article>"
+            +"<article id='exerciseInfo' class='exerciseInfo aligned'>  "
+            +"<label>Choose a role: </label>"
+            +"<select id='recRole'>"
+            +"<option value='role 1'>Role 1</option>" // AQUI LOS ROLES
+            +"<option value='role 2'>Role 2</option>"
+            +"</select>"
+            +"<label>Choose a language:</label>"
+            +"<select id='recLocale'>"
+            +"<option value='eu_ES'>eu_ES</option>" //AQUI EL LENGUAJE
+            +"<option value='es_ES'>es_ES</option>"
+            +"<option value='fr_FR'>fr_FR</option>"
+            +"</select>"
+            +"<label>Choose a recording method:</label>"
+            +"<div class='recordmethod'>"
+            +"<input type='radio' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
+            +"<input type='radio' name='recordingMethod' value='micCam'>Camera and microphone</input>"
+            +"</div>"
+            +"<a id='record' alt='Record'>"
+            +"<img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />"
+            +"</a>"
+            +"</article>"
+            +"<article class='videoInfo'>"
+            +"<div class='topbar HBox'>"
+            +"<div class='ratyPreview' data-rating='7.5324545454545' data-readonly='true' id='raty-video-preview'></div>"
+            +"<div class='spacer'></div>"
+            +"<div style='margin-right: 3px'><img src='themes/babelium/images/shield_icon.png' width='20' height='21' alt='Report' align='left'/></div>"
+            +"<div><a href='javascript:void(0);' class='yellow'>Report"
+            +"</a></div>"
+            +"</div>"
+            +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
+            +"</article>"
+
+            /*+"<h4>Recording configuration</h4><br>"
+            +"<label>Choose a role: </label>"
             +"<select>"
-            //¿Y de donde me saco yo los roles?
             +"<option value='role1'>Role 1</option>"
             +"<option value='role2'>Role 2</option>"
             +"</select><br>"
             +"<label>Choose a recording method:</label>"
             +"<input type='radio' name='recordType' value='mic'>Only microphone <input type='radio' name='recordType' value='cammic'>Camera and microphone"
-            +"<div style='width:20%;text-align:right;display:inline-block'><input type='button' name='recButton' style='background-color:red' value='Rec'>"
+            +"<div style='width:20%;text-align:right;display:inline-block'><input type='button' name='recButton' style='background-color:red' value='Rec'>"*/
             ),
     events:
             {
-                'click button': 'record'
+                'click #record': 'record'
             },
     initialize: function (options)
     {
@@ -49,25 +99,26 @@ var PrExercise = Backbone.View.extend({
         //bpPlayer.exerciseSource(this.options.exid:String):Void
     },
     render: function ()
-    {
-        this.$el.html(this.my_template());
-        
+    {                
         $.ajax({
             url: '/php/llamada.php',
             type: 'POST',
             dataType: "json",
             data: { id: this.options.exid }
         }).done(function(data) {
-            alert('BIEN');
-            console.log(data);
+
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
+        this.$el.append(this.my_template());
     },
     
     record: function ()
     {
         // En la documentacion no viene nada de lo de grabar...
+        alert('grabando');
+        $('#recordingEndOptions').css('display,inline-block');
+        $('#exerciseInfo').css('display,none');
     }
 });
