@@ -1,10 +1,10 @@
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
     my_template: _.template("<section class='exerciseInfo' data-id='526' data-name='<%= this.options.exid %>'>" // AQUI EL URI Y EL ¿ID?
-            +"<header><h1>NONGOA</h1></header>"
+            +"<header><h1 style='margin-left:10px'>NONGOA</h1></header>"
             +"<article class='babeliumPlayer'>"
             +"<div>"
-            +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"
+            +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'" // NI IDEA
             +"id='babeliumPlayer' width='100%' height='100%'"
             +"codebase='http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab'>"
             +"<param name='movie' value='util/babeliumPlayer.swf' />"
@@ -27,21 +27,21 @@ var PrExercise = Backbone.View.extend({
             +"</article>"
             +"<article id='recordingEndOptions' class='recordingEndOptions'>"
             +"<label>Available actions:</label><br/>"
-            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'>"
+            +"<button id='publish' disabled>"//onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'
             +"<img src='themes/babelium/images/eo_save_response.png' width='48' height='48' />"
-            +"<span>Erantzuna Gorde</span>"
+            +"<span>Publish response</span>"
             +"</button><br/>"
-            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'>"
+            +"<button id='watch' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'
             +"<img src='themes/babelium/images/eo_watch_sim.png' width='48' height='48' />"
-            +"<span>Erantzuna Ikusi</span>"
+            +"<span>Watch response</span>"
             +"</button><br/>"
-            +"<button disabled='disabled' onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'>"
+            +"<button id='reRecord' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'
             +"<img src='themes/babelium/images/button_rec.png' width='48' height='48' />"
-            +"<span>Berriro Grabatu</span>"
+            +"<span>Record again</span>"
             +"</button><br/>"
-            +"<button onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'>"
+            +"<button id='discard'>" //onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'
             +"<img src='themes/babelium/images/button_abort.png' width='48' height='48' />"
-            +"<span>Erantzuna Baztertu</span>"
+            +"<span>Discard response</span>"
             +"</button>"
             +"</article>"
             +"<article id='exerciseInfo' class='exerciseInfo aligned'>  "
@@ -88,7 +88,8 @@ var PrExercise = Backbone.View.extend({
             ),
     events:
             {
-                'click #record': 'record'
+                'click #record': 'record',
+                'click #discard': 'discard'
             },
     initialize: function (options)
     {
@@ -117,8 +118,13 @@ var PrExercise = Backbone.View.extend({
     record: function ()
     {
         // En la documentacion no viene nada de lo de grabar...
-        alert('grabando');
-        $('#recordingEndOptions').css('display,inline-block');
-        $('#exerciseInfo').css('display,none');
+        $('#exerciseInfo').css('display','none');
+        $('#recordingEndOptions').css('display','inline-block');
+    },
+
+    discard: function ()
+    {
+        $('#recordingEndOptions').css('display','none');
+        $('#exerciseInfo').css('display','inline-block');
     }
 });

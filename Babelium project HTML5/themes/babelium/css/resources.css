@@ -835,7 +835,7 @@ section#maincontent > section > header
     padding-top: 20px;
 }
 
-section#maincontent > section > header > h1
+section#maincontent > section > div > section > header > h1
 {
     width: 600px;
     height: 27px;
