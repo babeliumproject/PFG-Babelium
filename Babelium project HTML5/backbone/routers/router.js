@@ -85,7 +85,6 @@ var TodoRouter = Backbone.Router.extend({
         $('#bodyTitle').html("User Information");
         var user = JSON.parse(sessionStorage.getItem('current_user'));
         var currentUser = new User(user);
-        console.log(currentUser);
         var userView = new UserView({model: currentUser});
         var searchNavView = new SearchNavView({search: false});
     },
@@ -163,7 +162,6 @@ var TodoRouter = Backbone.Router.extend({
             {
                 pages = Math.floor(videos2.length / 10) + 1;
             }
-            console.log(pages + " " + p + " " + terms);
             var videosView = new VideoListView({collection: selected, pages: pages, page: p, terms: terms});
             $('#mainBody').append(videosView.render().el);
             var searchNavView = new SearchNavView({search: true});

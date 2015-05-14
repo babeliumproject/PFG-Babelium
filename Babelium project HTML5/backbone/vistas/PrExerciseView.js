@@ -1,19 +1,20 @@
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<section class='exerciseInfo' data-id='526' data-name='<%= this.options.exid %>'>" // AQUI EL URI Y EL ¿ID?
+    my_template: _.template("<script>function onConnectionReady(compId){console.log(compId);}</script>"
+            +"<section class='exerciseInfo' data-id='526' data-name='<%= this.options.exid %>'>" // AQUI EL URI Y EL ¿ID?
             +"<header><h1 style='margin-left:10px'>NONGOA</h1></header>"
             +"<article class='babeliumPlayer'>"
             +"<div>"
             +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'" // NI IDEA
             +"id='babeliumPlayer' width='100%' height='100%'"
             +"codebase='http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab'>"
-            +"<param name='movie' value='util/babeliumPlayer.swf' />"
+            +"<param name='movie' value='http://babeliumproject.com/babeliumPlayer.swf' />"
             +"<param name='quality' value='high' />"
             +"<param name='bgcolor' value='#ffffff' />"
             +"<param name='flashVars' value='locale=eu' />"
             +"<param name='wmode' value='window' />"
             +"<param name='allowScriptAccess' value='sameDomain' />"
-            +"<embed src='util/babeliumPlayer.swf' quality='high' bgcolor='#ffffff' flashVars='locale=eu'"
+            +"<embed src='http://babeliumproject.com/babeliumPlayer.swf' quality='high' bgcolor='#ffffff' flashVars='locale=eu'"
             +"width='100%' height='100%' name='babeliumPlayer' align='middle' wmode='window'"
             +"play='true'"
             +"loop='false'"
@@ -75,6 +76,7 @@ var PrExercise = Backbone.View.extend({
             +"</div>"
             +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
             +"</article>"
+            +"</section>"
 
             /*+"<h4>Recording configuration</h4><br>"
             +"<label>Choose a role: </label>"
@@ -107,10 +109,10 @@ var PrExercise = Backbone.View.extend({
             dataType: "json",
             data: { id: this.options.exid }
         }).done(function(data) {
-
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            console.log(data);
+        }).fail(function() {
+            /*var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);*/
         });
         this.$el.html(this.my_template());
     },

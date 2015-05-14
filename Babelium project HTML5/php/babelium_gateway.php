@@ -17,7 +17,7 @@ class babelium_config{
 }
 
 class Config{
-   public $dataroot = '/tmp';
+   public $dataroot = 'c:/tmp';
 }
 
 class babelium_gateway{

@@ -30,35 +30,22 @@ var UserNavOff = Backbone.View.extend({
                         // Al hacer clic en log in guardo los valores
                         var user = $("#user").val();
                         var pass = $("#password").val();
-                        var context = $(this);
-                        $.ajax({
-                            url: '/php/login.php',
-                            type: 'POST',
-                            dataType: "text",
-                            data: { 
-                                user: user,
-                                pass: pass
-                            }
-                        }).done(function(data) {
-                            if(data === 'ok')
-                            {
-                                alert("Login successful");
-                                context.dialog("close");
-                                var currentUser = new User();
-                                currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
-                                new UserNavOn({model: currentUser});
-                                sessionStorage.setItem('current_user', JSON.stringify(currentUser));
-                            }
-                            else
-                            {
-                                alert("User or password is not correct");
-                                $('#user').val("");
-                                $('#password').val("");
-                            }
-                        }).fail(function(xhr, status, error) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            alert(err.Message);
-                        });
+
+                        if (user === "jon" && pass === "lachen")
+                        {
+                            alert("Login successful");
+                            $(this).dialog("close");
+                            var currentUser = new User();
+                            currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
+                            new UserNavOn({model: currentUser});
+                            sessionStorage.setItem('current_user', JSON.stringify(currentUser));
+                        }
+                        else
+                        {
+                            alert("User or password is not correct");
+                            $('#user').val("");
+                            $('#password').val("");
+                        }
                     }
                 },
                 {
