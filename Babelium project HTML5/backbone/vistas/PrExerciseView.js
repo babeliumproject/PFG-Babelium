@@ -112,7 +112,7 @@ var PrExercise = Backbone.View.extend({
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
-        this.$el.append(this.my_template());
+        this.$el.html(this.my_template());
     },
     
     record: function ()
