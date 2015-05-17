@@ -8,6 +8,7 @@ var User = Backbone.Model.extend({
         password: "",
         realName: "",
         realLastName: "",
+        credits: "",
         motherLang: "",
         otherLang: "",
         oLLevel: "",

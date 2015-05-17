@@ -31,7 +31,45 @@ var UserNavOff = Backbone.View.extend({
                         var user = $("#user").val();
                         var pass = $("#password").val();
 
-                        if (user === "jon" && pass === "lachen")
+                        var context = $(this);
+                        $.ajax({
+                            url: '/php/login.php',
+                            type: 'POST',
+                            dataType: "json",
+                            data: { 
+                                user: user,
+                                pass: pass
+                            }
+                        }).done(function(data) {
+                            if(data.response !== "wrong_password" && data.response !== "wrong_user")
+                            {
+                                alert("Login successful");
+                                console.log(data.response);
+                                context.dialog("close");
+                                var currentUser = new User();
+                                currentUser.set({userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
+                                new UserNavOn({model: currentUser});
+                                sessionStorage.setItem('current_user', JSON.stringify(currentUser));
+                            }
+                            else
+                            {
+                                if(data.response === "wrong_password")
+                                {
+                                    alert("Password is not correct");
+                                    $('#password').val("");
+                                }
+                                else
+                                {
+                                    alert("User is not correct");
+                                    $('#user').val("");
+                                    $('#password').val("");
+                                }
+                            }
+                        }).fail(function(xhr, status, error) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            alert(err.Message);
+                        });
+                        /*if (user === "jon" && pass === "lachen")
                         {
                             alert("Login successful");
                             $(this).dialog("close");
@@ -45,7 +83,7 @@ var UserNavOff = Backbone.View.extend({
                             alert("User or password is not correct");
                             $('#user').val("");
                             $('#password').val("");
-                        }
+                        }*/
                     }
                 },
                 {
