@@ -5,14 +5,9 @@ var User = Backbone.Model.extend({
     defaults: {
         userName: "",
         email: "",
-        password: "",
         realName: "",
         realLastName: "",
         credits: "",
-        motherLang: "",
-        otherLang: "",
-        oLLevel: "",
-        interestIn: "",
-        iILevel: ""
+        languages: []
     }
 });

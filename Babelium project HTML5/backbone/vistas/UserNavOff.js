@@ -47,7 +47,7 @@ var UserNavOff = Backbone.View.extend({
                                 console.log(data.response);
                                 context.dialog("close");
                                 var currentUser = new User();
-                                currentUser.set({userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
+                                currentUser.set({userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, languages: data.response.userLanguages});
                                 new UserNavOn({model: currentUser});
                                 sessionStorage.setItem('current_user', JSON.stringify(currentUser));
                             }
@@ -69,21 +69,6 @@ var UserNavOff = Backbone.View.extend({
                             var err = eval("(" + xhr.responseText + ")");
                             alert(err.Message);
                         });
-                        /*if (user === "jon" && pass === "lachen")
-                        {
-                            alert("Login successful");
-                            $(this).dialog("close");
-                            var currentUser = new User();
-                            currentUser.set({userName: "Jon", email: "asdf@gmail.com", realName: "Jon", realLastname: "Lachén", motherLang: "Spanish", otherLang: "English", oLLevel: "A1", interestIn: "German", iILevel: "B1"});
-                            new UserNavOn({model: currentUser});
-                            sessionStorage.setItem('current_user', JSON.stringify(currentUser));
-                        }
-                        else
-                        {
-                            alert("User or password is not correct");
-                            $('#user').val("");
-                            $('#password').val("");
-                        }*/
                     }
                 },
                 {

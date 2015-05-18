@@ -9,11 +9,13 @@ var UserView = Backbone.View.extend({
             + "<label>eMail:</label> <%= email %><br>"
             + "<p>Security</p><a href='#User_info/Security'>modify password</a><hr>"
             + "<p>Languages</p><a href='#User_info/edit_languages'>edit languages</a><hr>"
-            + "<label>Mother tongue:</label> <%= motherLang %><br><br>"
-            + "<label>Other tongue:</label> <%= otherLang %><br>"
+            + "<label>Mother tongue:</label> <%= languages[0] %><br><br>"
+            + "<% _.each(languages, function(languages){ %>"
+            + "<label>Other tongue:</label> <%= languages[i] %><br>"
             + "<label>Level:</label> <%= oLLevel %><br><br>"
             + "<label>Interested in:</label> <%= interestIn %><br>"
-            + "<label>Level:</label> <%= iILevel %></div></div>"),
+            + "<label>Level:</label> <%= iILevel %></div></div>"
+            + "<% }); %>"),
     initialize: function () {
         this.render();
     },
