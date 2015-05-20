@@ -9,13 +9,16 @@ var UserView = Backbone.View.extend({
             + "<label>eMail:</label> <%= email %><br>"
             + "<p>Security</p><a href='#User_info/Security'>modify password</a><hr>"
             + "<p>Languages</p><a href='#User_info/edit_languages'>edit languages</a><hr>"
-            + "<label>Mother tongue:</label> <%= languages[0] %><br><br>"
-            + "<% _.each(languages, function(languages){ %>"
-            + "<label>Other tongue:</label> <%= languages[i] %><br>"
-            + "<label>Level:</label> <%= oLLevel %><br><br>"
-            + "<label>Interested in:</label> <%= interestIn %><br>"
-            + "<label>Level:</label> <%= iILevel %></div></div>"
-            + "<% }); %>"),
+            + "<label>Languages I know:</label><br><br>"
+            + "<% _.each(languages, function(language){ %>"
+            + "<% if(language.purpose === 'evaluate') { %>"
+            + "<img src='themes/babelium/images/flags/<%= language.language %>.png' width='16' height='16' alt='flag'/><label class='langLvl'> <%= language.level %></label><br>"
+            + "<% }}); %>"
+            + "<br><label>Languages I'm practicing:</label><br><br>"
+            + "<% _.each(languages, function(language){ %>"
+            + "<% if(language.purpose === 'practice') { %>"
+            + "<img src='themes/babelium/images/flags/<%= language.language %>.png' width='16' height='16' alt='flag'/><label class='langLvl'> <%= language.level %></label><br>"
+            + "<% }}); %>"),
     initialize: function () {
         this.render();
     },

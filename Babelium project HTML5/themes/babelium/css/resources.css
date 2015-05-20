@@ -1636,3 +1636,8 @@ footer > ul.HBox > li:last-child
 .upForm {
     margin:2%;
 }
+
+.langLvl {
+    font-weight: bold;
+    color: #d3aa31;
+}
