@@ -4,7 +4,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 "Home": "goHome",
                 "Practice/page_:p": "goPractice",
-                "Practice/exercise/:exid": "goPrExercise",
+                "Practice/exercise/:name_:id": "goPrExercise",
                 "Evaluate": "goEvaluate",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
@@ -27,26 +27,31 @@ var TodoRouter = Backbone.Router.extend({
         var videos = new VideoList();
         videos.fetch().done(function ()
         {
+            // Saco el JSON de la respuesta del servidor
+            var response = videos.models[0].attributes.response;
+            // Convierto en array el JSON obtenido
+            response = $.map(response, function(el) { return el; });
+
             // Genero una coleccion de videos auxiliar en la que guardar los 10 videos de 
             // la pagina en la que se encuentre el usuario e imprimirlos por pantalla.
             var selected = new VideoList();
             var i, l;
             i = ((p * 10) - 10);
             l = p * 10;
-            while (i < l && i < videos.length)
+            while (i < l && i < response.length)
             {
-                selected.add(videos.models[i]);
+                selected.add(response[i]);
                 i++;
             }
 
             var pages;
-            if (videos.length % 10 === 0)
+            if (response.length % 10 === 0)
             {
-                pages = Math.floor(videos.length / 10);
+                pages = Math.floor(response.length / 10);
             }
             else
             {
-                pages = Math.floor(videos.length / 10) + 1;
+                pages = Math.floor(response.length / 10) + 1;
             }
             var videosView = new VideoListView({collection: selected, pages: pages, page: p});
             $('#mainBody').append(videosView.render().el);
@@ -55,9 +60,9 @@ var TodoRouter = Backbone.Router.extend({
         });
     },
 
-    goPrExercise: function (exid) {
+    goPrExercise: function (name,id) {
     	$('#bodyTitle').html("Practice");
-    	var prEx = new PrExercise({exid: exid});
+    	var prEx = new PrExercise({name:name, id:id});
         var searchNavView = new SearchNavView({search: true});
     },
 
@@ -107,6 +112,10 @@ var TodoRouter = Backbone.Router.extend({
         var videos = new VideoList();
         videos.fetch().done(function ()
         {
+            // Saco el JSON de la respuesta del servidor
+            var response = videos.models[0].attributes.response;
+            // Convierto en array el JSON obtenido
+            response = $.map(response, function(el) { return el; });
 
             function checkTags(search, tags)
             {
@@ -125,8 +134,8 @@ var TodoRouter = Backbone.Router.extend({
                     }
                 }
                 return found;
-            }
-            ;
+            };
+
             // Genero una coleccion de videos auxiliar en la que guardar los videos que
             // contengan en los tags las palabras escritas en la barra de busqueda 
             //y otra para los 10 correspondientes a cada pagina.
@@ -134,16 +143,15 @@ var TodoRouter = Backbone.Router.extend({
             var selected = new VideoList();
 
             // Primero cargo la lista de videos con los que cumplen con el tag
-
-            for (var x = 0; x < videos.length; x++)
+            for (var x = 0; x < response.length; x++)
             {
-                tags = videos.models[x].attributes.tags.split(',');
+                tags = response[x].tags.split(',');
                 if (checkTags(search, tags))
                 {
-                    videos2.add(videos.models[x]);
+                    videos2.add(response[x]);
                 }
             }
-
+            
             var i, i_aux, l;
             i = (p * 10) - 10;
             l = p * 10;

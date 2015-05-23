@@ -27,7 +27,7 @@ var PrExercise = Backbone.View.extend({
         +"</div>"
         +"</article>"*/
         "<section class='exerciseInfo'>"
-        +"<article>"
+        /*+"<article>"
         +"<header><h2 id='babelium-exercise-title'></h2></header>"
         +"<script src='js/swfobject.js' language='javascript'></script>"
         +"<script src='js/babelium.moodle.js' language='javascript'></script>"
@@ -92,7 +92,7 @@ var PrExercise = Backbone.View.extend({
         +"</a></div>"
         +"</div>"
         +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
-        +"</article>"
+        +"</article>"*/
         +"</section>"
     ),
     events:
@@ -105,22 +105,23 @@ var PrExercise = Backbone.View.extend({
         this.options = options;
         _.bindAll(this, 'render');
         this.render();
+        console.log(this.options.id);
+        $.ajax({
+            url: '/php/video.php',
+            type: 'POST',
+            dataType: "json",
+            data: { id: this.options.id }
+        }).done(function(data) {
+            console.log(data);
+        }).fail(function(xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
+        });
         //¿Y que hago yo con esto? 
         //bpPlayer.exerciseSource(this.options.exid:String):Void
     },
     render: function ()
-    {                
-        /*$.ajax({
-            url: '/php/video.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.exid }
-        }).done(function(data) {
-            console.log(data);
-        }).fail(function() {
-            /*var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);*/
-        //});
+    {         
         this.$el.html(this.my_template());
     },
     

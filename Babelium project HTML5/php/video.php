@@ -8,11 +8,11 @@ $id = $_POST['id'];
 
 $params = array();
 
+//$params['exerciseId'] = $id;
+//$response = $g->serviceCall('http','getExerciseById', $params);
+//print_r($response);
 $params['exerciseId'] = $id;
-$response = $g->serviceCall('http','getExerciseById', $params);
-print_r($response);
-// $params['exerciseId'] = '526';
-// $g->serviceCall('http','getExerciseRoles', $params);
+$g->serviceCall('http','getExerciseById', $params);
 
-// $g->serviceCall('http','getRecordableExercises');
+ //$g->serviceCall('http','getRecordableExercises');
 
