@@ -27,7 +27,7 @@ var PrExercise = Backbone.View.extend({
         +"</div>"
         +"</article>"*/
         "<section class='exerciseInfo'>"
-        /*+"<article>"
+        +"<article>"
         +"<header><h2 id='babelium-exercise-title'></h2></header>"
         +"<script src='js/swfobject.js' language='javascript'></script>"
         +"<script src='js/babelium.moodle.js' language='javascript'></script>"
@@ -35,12 +35,12 @@ var PrExercise = Backbone.View.extend({
         +"<p>To view this page ensure that Adobe Flash Player version 11.1.0 or greater is installed. </p>"
         +"<script type='text/javascript'>"
         +"var pageHost = ((document.location.protocol == 'https:') ? 'https://' : 'http://');"
-        +"document.write('<a href='http://www.adobe.com/go/getflashplayer'><img src='' + pageHost + 'www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>' );" 
+        +"document.write('<a href=\"http://www.adobe.com/go/getflashplayer\"><img src=\"\" + pageHost + \"www.adobe.com/images/shared/download_buttons/get_flash_player.gif\" alt=\"Get Adobe Flash player\" /></a>');" 
         +"</script>"
         +"</div>"
         +"<noscript><p>Either scripts and active content are not permitted to run or Adobe Flash Player version 11.1.0 or greater is not installed.</p></noscript>"
         +"<script language='javascript' type='text/javascript'>"
-        +"init('babeliumproject.com', 'en', '1', {'responseName':'resp-1347353488483','responseRole':'Shaman','subtitleId':'140','responseThumbnailUri':'default.jpg','exerciseId':'73','exerciseName':'U1MbBtkIGZQ','duration':'32','exerciseThumbnailUri':'default.jpg','title':'Sintel'}, [{'id':'1293','showTime':'1','hideTime':'6','text':'So, what brings you to the land of the gatekeepers?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1294','showTime':'7','hideTime':'10','text':'I'm searching for someone.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1295','showTime':'10.5','hideTime':'15.5','text':'Someone very dear? A kindred spirit?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1296','showTime':'17.05','hideTime':'18.37','text':'A dragon.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1297','showTime':'21','hideTime':'25.6','text':'A dangerous quest for a lone hunter.','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1298','showTime':'27.24','hideTime':'30','text':'I've been alone for as long as I can remember.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'}], '', '');"
+        +"init('babeliumproject.com', 'en', '5', {'responseName':'resp-1347353488483','responseRole':'Shaman','subtitleId':'140','responseThumbnailUri':'default.jpg','exerciseId':'73','exerciseName':'U1MbBtkIGZQ','duration':'32','exerciseThumbnailUri':'default.jpg','title':'Sintel'}, [{'id':'1293','showTime':'1','hideTime':'6','text':'So, what brings you to the land of the gatekeepers?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1294','showTime':'7','hideTime':'10','text':'I'm searching for someone.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1295','showTime':'10.5','hideTime':'15.5','text':'Someone very dear? A kindred spirit?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1296','showTime':'17.05','hideTime':'18.37','text':'A dragon.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1297','showTime':'21','hideTime':'25.6','text':'A dangerous quest for a lone hunter.','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1298','showTime':'27.24','hideTime':'30','text':'I've been alone for as long as I can remember.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'}], '', '');"
         +"</script>"
         +"</article>"
         +"<article id='recordingEndOptions' class='recordingEndOptions'>"
@@ -92,7 +92,7 @@ var PrExercise = Backbone.View.extend({
         +"</a></div>"
         +"</div>"
         +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
-        +"</article>"*/
+        +"</article>"
         +"</section>"
     ),
     events:
