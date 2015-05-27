@@ -34,31 +34,127 @@ var VideoListView = Backbone.View.extend({
         //Añado los botones para navegar entre las paginas
         this.$el.append(this.my_template());
 
-        // Control de la paginación, es posible hacerlo totalmente parametrizable si es necesario
-        if(this.options.page - 2 >= 1 && this.options.page +2 <= this.options.pages)
+		// Control de la paginación, es posible hacerlo totalmente parametrizable si es necesario
+
+		var curPag = parseInt(this.options.page);
+        var numPags = parseInt(this.options.pages);
+
+        if(this.options.terms)
         {
-            if(this.options.page - 2 > 1)
+        	if(curPag > 3)
+        	{
+	            if(curPag - 5 <= 1)
+	            {
+	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_1'>&lt;</a>");
+	            }
+	            else
+	            {
+	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag - 5)+"'>&lt;</a>");
+	            }
+	        }
+        }
+        else
+        {
+        	if(curPag > 3)
+        	{
+	            if(curPag - 5 <= 1)
+	            {
+	                 $('#vidNavB').append("<a href='#Practice/page_1'>&lt;</a>");
+	            }
+	            else
+	            {
+	                 $('#vidNavB').append("<a href='#Practice/page_"+ (curPag - 5) +"'>&lt;</a>");
+	            }
+	        }
+        }
+
+		// Creo un contador y una condicion para terminar la iteración para poder actualizar la
+        // condicion dinamicamente en caso de que se cumplan ciertos casos
+        var cont = -2;
+        var condition = 3;
+        
+        while(cont < condition)
+        {
+        	if(curPag + cont < 1)
+        	{
+        		condition++;
+        	}
+        	else
+        	{
+        		if(curPag + cont > numPags)
+        		{
+
+        		}
+        		else
+        		{
+        			if(this.options.terms)
+	                {
+                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag + cont)+"'>"+(curPag + cont)+"</a>");
+                    }
+	                else
+	                {
+             		    $('#vidNavB').append("<a href='#Practice/page_"+ (curPag + cont) +"'>"+(curPag + cont)+"</a>");
+	                }
+        		}
+        	}
+        	cont++;
+        }
+        if(this.options.terms)
+        {
+        	if(curPag < numPags - 2)
+        	{
+	            if(curPag + 5 >= numPags)
+	            {
+	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+numPags+"'>&lt;</a>");
+	            }
+	            else
+	            {
+	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag + 5)+"'>&lt;</a>");
+	            }
+        	}
+        }
+        else
+        {
+        	if(curPag < numPags - 2)
+        	{
+	            if(curPag + 5 >= numPags)
+	            {
+	                 $('#vidNavB').append("<a href='#Practice/page_"+numPags+"'>&gt;</a>");
+	            }
+	            else
+	            {
+	                 $('#vidNavB').append("<a href='#Practice/page_"+(curPag + 5)+"'>&gt;</a>");
+	            }
+	        }
+        }
+	},
+        // Control de la paginación, es posible hacerlo totalmente parametrizable si es necesario
+        /*var curPag = parseInt(this.options.page);
+        var numPags = parseInt(this.options.pages);
+        if(curPag - 2 >= 1 && curPag +2 <= numPags)
+        {
+            if(curPag - 2 > 1)
             {
                 if(this.options.terms)
                 {
-                    if(this.options.page - 5 <= 1)
+                    if(curPag - 5 <= 1)
                     {
                         $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_1'>&lt;</a>");
                     }
                     else
                     {
-                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(this.options.page - 5)+"'>&lt;</a>");
+                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag - 5)+"'>&lt;</a>");
                     }
                 }
                 else
                 {
-                    if(this.options.page - 5 <= 1)
+                    if(curPag - 5 <= 1)
                     {
                          $('#vidNavB').append("<a href='#Practice/page_1'>&lt;</a>");
                     }
                     else
                     {
-                         $('#vidNavB').append("<a href='#Practice/page_"+ (this.options.page - 5) +"'>&lt;</a>");
+                         $('#vidNavB').append("<a href='#Practice/page_"+ (curPag - 5) +"'>&lt;</a>");
                     }
                 }
             }
@@ -67,21 +163,21 @@ var VideoListView = Backbone.View.extend({
             {
                 if (this.options.terms)
                 {
-                    $('#vidNavB').append("<a href='#Search/" + this.options.terms + "/page_" + (this.options.page + i) + "'>" + (this.options.page + i) + "</a>");
+                    $('#vidNavB').append("<a href='#Search/" + this.options.terms + "/page_" + (curPag + i) + "'>" + (curPag + i) + "</a>");
                 }
                 else
                 {
-                    $('#vidNavB').append("<a href='#Practice/page_" + (this.options.page + i) + "'>" + (this.options.page + i) + "</a>");
+                    $('#vidNavB').append("<a href='#Practice/page_" + (curPag + i) + "'>" + (curPag + i) + "</a>");
                 }
             }
             
-            if(this.options.page + 2 < this.options.pages)
+            if(curPag + 2 < numPags)
             {
                 if(this.options.terms)
                 {
-                    if(this.options.page + 5 >= this.options.pages)
+                    if(curPag + 5 >= numPags)
                     {
-                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(this.options.pages)+"'>&gt;</a>");
+                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(numPags)+"'>&gt;</a>");
                     }
                     else
                     {
@@ -90,62 +186,62 @@ var VideoListView = Backbone.View.extend({
                 }
                 else
                 {
-                    if(this.options.page + 5 >= this.options.pages)
+                    if(curPag + 5 >= numPags)
                     {
-                        $('#vidNavB').append("<a href='#Practice/page_"+(this.options.pages)+"'>&gt;</a>");
+                        $('#vidNavB').append("<a href='#Practice/page_"+(numPags)+"'>&gt;</a>");
                     }
                     else
                     {
-                        $('#vidNavB').append("<a href='#Practice/page_"+(this.options.page+5)+"'>&gt;</a>");
+                        $('#vidNavB').append("<a href='#Practice/page_"+(curPag+5)+"'>&gt;</a>");
                     }
                 }
             }
         }
         else
         {
-            if(this.options.page - 2 >= 1 && this.options.page +2 > this.options.pages)
+            if(curPag - 2 >= 1 && curPag +2 > numPags)
             {
-                if(this.options.page - 2 > 1)
+                if(curPag - 2 > 1)
                 {
                     if(this.options.terms)
                     {
-                        if(this.options.page - 5 <= 1)
+                        if(curPag - 5 <= 1)
                         {
                             $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_1'>&lt;</a>");
                         }
                         else
                         {
-                            $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(this.options.page - 5)+"'>&lt;</a>");
+                            $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag - 5)+"'>&lt;</a>");
                         }
                     }
                     else
                     {
-                        if(this.options.page - 5 <= 1)
+                        if(curPag - 5 <= 1)
                         {
                              $('#vidNavB').append("<a href='#Practice/page_1'>&lt;</a>");
                         }
                         else
                         {
-                             $('#vidNavB').append("<a href='#Practice/page_"+ (this.options.page - 5) +"'>&lt;</a>");
+                             $('#vidNavB').append("<a href='#Practice/page_"+(curPag - 5)+"'>&lt;</a>");
                         }
                     }
                 }
 
-                for(var i = -2; i < this.options.pages; i++)
+                for(var i = -2; i < numPags; i++)
                 {
                     if (this.options.terms)
                     {
-                        $('#vidNavB').append("<a href='#Search/" + this.options.terms + "/page_" + (this.options.page + i) + "'>" + (this.options.page + i) + "</a>");
+                        $('#vidNavB').append("<a href='#Search/" + this.options.terms + "/page_" + (curPag + i) + "'>" + (curPag + i) + "</a>");
                     }
                     else
                     {
-                        $('#vidNavB').append("<a href='#Practice/page_" + (this.options.page + i) + "'>" + (this.options.page + i) + "</a>");
+                        $('#vidNavB').append("<a href='#Practice/page_" + (curPag + i) + "'>" + (curPag + i) + "</a>");
                     }
                 }
             }
             else
             {
-                if(this.options.page - 2 < 1 && this.options.page +2 <= this.options.pages)
+                if(curPag - 2 < 1 && curPag +2 <= numPags)
                 {
                     for(var i = 1; i < 5; i++)
                     {
@@ -159,35 +255,35 @@ var VideoListView = Backbone.View.extend({
                         }
                     }
                     
-                    if(this.options.page + 2 < this.options.pages)
+                    if(curPag + 2 < numPags)
                     {
                         if(this.options.terms)
                         {
-                            if(this.options.page + 5 >= this.options.pages)
+                            if(curPag + 5 >= numPags)
                             {
-                                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(this.options.pages)+"'>&gt;</a>");
+                                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(numPags)+"'>&gt;</a>");
                             }
                             else
                             {
-                                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(this.options.page+5)+"'>&gt;</a>");
+                                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag+5)+"'>&gt;</a>");
                             }
                         }
                         else
                         {
-                            if(this.options.page + 5 >= this.options.pages)
+                            if(curPag + 5 >= numPags)
                             {
-                                $('#vidNavB').append("<a href='#Practice/page_"+(this.options.pages)+"'>&gt;</a>");
+                                $('#vidNavB').append("<a href='#Practice/page_"+(numPags)+"'>&gt;</a>");
                             }
                             else
                             {
-                                $('#vidNavB').append("<a href='#Practice/page_"+(this.options.page+5)+"'>&gt;</a>");
+                                $('#vidNavB').append("<a href='#Practice/page_"+(curPag+5)+"'>&gt;</a>");
                             }
                         }
                     }
                 }
                 else
                 {
-                    for (var i = 1; i <= this.options.pages; i++)
+                    for (var i = 1; i <= numPags; i++)
                     {
                         if (this.options.terms)
                         {
@@ -203,7 +299,7 @@ var VideoListView = Backbone.View.extend({
         }
 
         return this;
-    },
+    },*/
     goPrevious: function ()
     {
         var n = this.options.page--;
