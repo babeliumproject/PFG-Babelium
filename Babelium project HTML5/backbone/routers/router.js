@@ -54,7 +54,7 @@ var TodoRouter = Backbone.Router.extend({
                 pages = Math.floor(response.length / 10) + 1;
             }
             var videosView = new VideoListView({collection: selected, pages: pages, page: p});
-            $('#mainBody').append(videosView.render().el);
+            $('#mainBody').append(videosView.render());
 
             var searchNavView = new SearchNavView({search: true});
         });
@@ -171,7 +171,7 @@ var TodoRouter = Backbone.Router.extend({
                 pages = Math.floor(videos2.length / 10) + 1;
             }
             var videosView = new VideoListView({collection: selected, pages: pages, page: p, terms: terms});
-            $('#mainBody').append(videosView.render().el);
+            $('#mainBody').append(videosView.render());
             var searchNavView = new SearchNavView({search: true});
         });
     }

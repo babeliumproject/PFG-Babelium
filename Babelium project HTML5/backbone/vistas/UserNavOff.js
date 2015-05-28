@@ -93,22 +93,22 @@ var UserNavOff = Backbone.View.extend({
                     text: "Register",
                     click: function ()
                     {
-                        if($('passwordReg2') === $('passwordReg') && $("#userReg").val() !== '' && $("#emailReg").val() !== '' && $("#passwordReg").val() !== '' && $("#passwordReg2").val() !== '' && $("mLang").val() !== '')
+                        if($('passwordReg2').val() === $('passwordReg').val() && $("#userReg").val() !== '' && $("#emailReg").val() !== '' && $("#passwordReg").val() !== '' && $("#passwordReg2").val() !== '' && $("mLang").val() !== '')
                         {
                             $.ajax({
                                 url: '/php/register.php',
                                 type: 'POST',
                                 dataType: "json",
                                 data: {
-                                    userName: $("#userReg").val(), 
-                                    email: $("#emailReg").val(), 
-                                    password: $("#passwordReg").val(), 
-                                    realName: $("#nReal").val(), 
-                                    realLastname: $("aReal").val(), 
-                                    languages: [{'language':$("mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
+                                    'userName': $("#userReg").val(), 
+                                    'email': $("#emailReg").val(), 
+                                    'password': $("#passwordReg").val(), 
+                                    'realName': $("#nReal").val(), 
+                                    'realLastname': $("aReal").val(), 
+                                    'languages': [{'language':$("mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
                                 }
                             }).done(function(data) {
-                                if(data.response !== "mail_taken")
+                                if(data.response === "")
                                 {
                                     alert("Register successful.");
                                     $(this).dialog("close");
@@ -135,7 +135,7 @@ var UserNavOff = Backbone.View.extend({
                         }
                         else
                         {
-                            alert('Password is different');
+                            alert('Error, try again');
                             $("#passwordReg").val("");
                             $("#passwordReg2").val("");
                         }

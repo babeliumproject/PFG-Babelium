@@ -5,7 +5,7 @@ var PrExercise = Backbone.View.extend({
         +"<header><h1 style='margin-left:10px'>NONGOA</h1></header>"
         +"<article class='babeliumPlayer'>"
         +"<div>"
-        +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'" // NI IDEA
+        +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"
         +"id='babeliumPlayer' width='100%' height='100%'"
         +"codebase='http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab'>"
         +"<param name='movie' value='http://babeliumproject.com/babeliumPlayer.swf' />"

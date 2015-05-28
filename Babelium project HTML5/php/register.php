@@ -10,3 +10,6 @@ $password = $_POST['password'];
 $realName = $_POST['realName'];
 $realLastName = $_POST['realLastname'];
 $languages = $_POST['languages'];
+
+$sql = "SELECT id FROM user WHERE (email = $email)";
+

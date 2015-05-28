@@ -2,7 +2,7 @@ var VideoView = Backbone.View.extend({
     tagName: 'article',
     className: 'exercise',
     my_template: _.template("<figure class='thumbnail'>"
-            + "<img src='http://cdn.visualnews.com/wp-content/uploads/2013/03/Thumbs-and-Ammo-15.jpg' alt='<%= title %>' width='120' height='90' align='left'/>"
+            + "<img src='http://babeliumproject.com/resources/images/thumbs/<%= name %>/default.jpg' alt='<%= title %>' width='120' height='90' align='left'/>"
             + "<figcaption><%= duration %></figcaption>"
             + "</figure>"
             + "<div>"
