@@ -90,26 +90,55 @@ var UserNavOff = Backbone.View.extend({
             },
             buttons: [
                 {
-                    text: "Log in",
+                    text: "Register",
                     click: function ()
                     {
-                        // Al hacer clic en log in guardo los valores
-                        var member = new User();
-                        member.set({userName: $("#userReg").val(), email: $("#emailReg").val(), password: $("#passwordReg").val(), realName: $("#nReal").val(), realLastname: $("aReal").val(), motherLang: $("mLang").val(), otherLang: $("#oLang").val(), oLLevel: $("#oLangLvl").val(), interestIn: $("#iLang").val(), iILevel: $("#iLangLvl").val()});
-                        console.log(member);
-                        // TODO GUARDAR EN EL SERVIDOR CON AJAX
-                        $(this).dialog("close");
-
-                        $("#userReg").val("");
-                        $("#emailReg").val("");
-                        $("#passwordReg").val("");
-                        $("#nReal").val("");
-                        $("aReal").val("");
-                        $("mLang").val("");
-                        $("#oLang").val("");
-                        $("#oLangLvl").val("");
-                        $("#iLang").val("");
-                        $("#iLangLvl").val("");
+                        if($('passwordReg2') === $('passwordReg') && $("#userReg").val() !== '' && $("#emailReg").val() !== '' && $("#passwordReg").val() !== '' && $("#passwordReg2").val() !== '' && $("mLang").val() !== '')
+                        {
+                            $.ajax({
+                                url: '/php/register.php',
+                                type: 'POST',
+                                dataType: "json",
+                                data: {
+                                    userName: $("#userReg").val(), 
+                                    email: $("#emailReg").val(), 
+                                    password: $("#passwordReg").val(), 
+                                    realName: $("#nReal").val(), 
+                                    realLastname: $("aReal").val(), 
+                                    languages: [{'language':$("mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
+                                }
+                            }).done(function(data) {
+                                if(data.response !== "mail_taken")
+                                {
+                                    alert("Register successful.");
+                                    $(this).dialog("close");
+                                }
+                                else
+                                {
+                                    alert("Email already in use.");
+                                    $("#userReg").val("");
+                                    $("#emailReg").val("");
+                                    $("#passwordReg").val("");
+                                    $("#passwordReg2").val("");
+                                    $("#nReal").val("");
+                                    $("aReal").val("");
+                                    $("mLang").val("");
+                                    $("#oLang").val("");
+                                    $("#oLangLvl").val("");
+                                    $("#iLang").val("");
+                                    $("#iLangLvl").val("");
+                                }
+                            }).fail(function(xhr, status, error) {
+                                var err = eval("(" + xhr.responseText + ")");
+                                alert(err.Message);
+                            });
+                        }
+                        else
+                        {
+                            alert('Password is different');
+                            $("#passwordReg").val("");
+                            $("#passwordReg2").val("");
+                        }
                     }
                 },
                 {
