@@ -35,6 +35,6 @@ var VideoView = Backbone.View.extend({
     },
     
     goVideo: function () {
-        window.location.href = '#Practice/exercise/'+this.model.attributes.name+'_'+this.model.attributes.id;
+        window.location.href = '#Practice/exercise/'+this.model.attributes.name+'/'+this.model.attributes.id;
     }
 });

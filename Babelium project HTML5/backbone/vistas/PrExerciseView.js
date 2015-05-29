@@ -28,20 +28,19 @@ var PrExercise = Backbone.View.extend({
         +"</article>"*/
         "<section class='exerciseInfo'>"
         +"<article>"
-        +"<header><h2 id='babelium-exercise-title'></h2></header>"
+        +"<div class='no-overflow'>"
+        +"<h2 id='babelium-exercise-title'>Sintel</h2>"
         +"<script src='js/swfobject.js' language='javascript'></script>"
-        +"<script src='js/babelium.moodle.js' language='javascript'></script>"
-        +"<div id='flashContent'>"
-        +"<p>To view this page ensure that Adobe Flash Player version 11.1.0 or greater is installed. </p>"
-        +"<script type='text/javascript'>"
-        +"var pageHost = ((document.location.protocol == 'https:') ? 'https://' : 'http://');"
-        +"document.write('<a href=\"http://www.adobe.com/go/getflashplayer\"><img src=\"\" + pageHost + \"www.adobe.com/images/shared/download_buttons/get_flash_player.gif\" alt=\"Get Adobe Flash player\" /></a>');" 
-        +"</script>"
+        +"<script src='js/babelium.moodle.js' language='javascript'>"
+        +"</script><object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='640' height='380' style='height: 380px; width: 640px;'>"
+        +"<param name='quality' value='high'>"
+        +"<param name='bgcolor' value='#000000'>"
+        +"<param name='allowscriptaccess' value='always'>"
+        +"<param name='allowfullscreen' value='true'>"
+        +"<param name='wmode' value='window'>"
+        +"<param name='flashvars' value='locale=es&amp;forcertmpt=1&amp;jsCallbackObj='>"
+        +"</object>"
         +"</div>"
-        +"<noscript><p>Either scripts and active content are not permitted to run or Adobe Flash Player version 11.1.0 or greater is not installed.</p></noscript>"
-        +"<script language='javascript' type='text/javascript'>"
-        +"init('babeliumproject.com', 'en', '5', {'responseName':'resp-1347353488483','responseRole':'Shaman','subtitleId':'140','responseThumbnailUri':'default.jpg','exerciseId':'73','exerciseName':'U1MbBtkIGZQ','duration':'32','exerciseThumbnailUri':'default.jpg','title':'Sintel'}, [{'id':'1293','showTime':'1','hideTime':'6','text':'So, what brings you to the land of the gatekeepers?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1294','showTime':'7','hideTime':'10','text':'I'm searching for someone.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1295','showTime':'10.5','hideTime':'15.5','text':'Someone very dear? A kindred spirit?','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1296','showTime':'17.05','hideTime':'18.37','text':'A dragon.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'},{'id':'1297','showTime':'21','hideTime':'25.6','text':'A dangerous quest for a lone hunter.','exerciseRoleId':'265','exerciseRoleName':'Shaman','subtitleId':'140'},{'id':'1298','showTime':'27.24','hideTime':'30','text':'I've been alone for as long as I can remember.','exerciseRoleId':'266','exerciseRoleName':'Sintel','subtitleId':'140'}], '', '');"
-        +"</script>"
         +"</article>"
         +"<article id='recordingEndOptions' class='recordingEndOptions'>"
         +"<label>Available actions:</label><br/>"
@@ -105,6 +104,12 @@ var PrExercise = Backbone.View.extend({
         this.options = options;
         _.bindAll(this, 'render');
         this.render();
+        //¿Y que hago yo con esto? 
+        //bpPlayer.exerciseSource(this.options.exid:String):Void
+    },
+    render: function ()
+    {   
+
         console.log(this.options.id);
         $.ajax({
             url: '/php/video.php',
@@ -112,17 +117,15 @@ var PrExercise = Backbone.View.extend({
             dataType: "json",
             data: { id: this.options.id }
         }).done(function(data) {
+            init('jlachen', 'en', '1', {'exerciseId':data.response.id,'exerciseName':data.response.name,'duration':data.response.duration,'exerciseThumbnailUri':data.response.thumbnailUri,'title':data.response.title}, [{'id':'1540','showTime':'95','hideTime':'105','text':'\u00bfPor qu\u00e9 se est\u00e1n derritiendo los polos? \u00bfCu\u00e1les ser\u00e1n las consecuencias?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'},{'id':'1541','showTime':'156','hideTime':'210','text':'\u00bfQu\u00e9 medidas de ahorro crees que podr\u00edas llevar a cabo para contribuir a parar el cambio clim\u00e1tico?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'}], '', '');
             console.log(data);
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
-        //¿Y que hago yo con esto? 
-        //bpPlayer.exerciseSource(this.options.exid:String):Void
-    },
-    render: function ()
-    {         
+
         this.$el.html(this.my_template());
+
     },
     
     record: function ()
