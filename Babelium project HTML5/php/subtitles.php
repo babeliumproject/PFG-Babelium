@@ -7,8 +7,8 @@ $g = new babelium_gateway();
 $id = $_POST['id'];
 $params = array();
 
-$params['id'] = $id;
-$g->serviceCall('http','getExerciseById', $params);
+$params['subtitle'] = $id;
+$g->serviceCall('http','getSubtitleLines', $params);
 
  //$g->serviceCall('http','getRecordableExercises');
 
