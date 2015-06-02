@@ -5,7 +5,8 @@ var TodoRouter = Backbone.Router.extend({
                 "Home": "goHome",
                 "Practice/page_:p": "goPractice",
                 "Practice/exercise/:name/:id": "goPrExercise",
-                "Evaluate": "goEvaluate",
+                "Evaluate/page_:p": "goEvaluate",
+                "Evaluate/exercise/:id" : "goEvExercise",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
                 "About": "goAbout",
@@ -66,10 +67,48 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search: true});
     },
 
-    goEvaluate: function () {
-        $('#bodyTitle').html("Evaluate");
-        $('#mainBody').html("Evaluate entered");
+    goEvExercise: function (id) {
+        $('#bodyTitle').html("Practice");
+        var evEx = new EvExercise({id:id.toString()});
         var searchNavView = new SearchNavView({search: true});
+    },
+
+    goEvaluate: function (p) {
+        $('#bodyTitle').html("Evaluate");
+        // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
+        var videos = new ResponseList();
+        videos.fetch().done(function ()
+        {console.log(videos);
+            // Saco el JSON de la respuesta del servidor
+            var response = videos.models[0].attributes.response;
+            // Convierto en array el JSON obtenido
+            response = $.map(response, function(el) { return el; });
+            // Genero una coleccion de videos auxiliar en la que guardar los 10 videos de 
+            // la pagina en la que se encuentre el usuario e imprimirlos por pantalla.
+            var selected = new ResponseList();console.log(selected);
+            var i, l;
+            i = ((p * 10) - 10);
+            l = p * 10;
+            while (i < l && i < response.length)
+            {
+                selected.add(response[i]);
+                i++;
+            }
+
+            var pages;
+            if (response.length % 10 === 0)
+            {
+                pages = Math.floor(response.length / 10);
+            }
+            else
+            {
+                pages = Math.floor(response.length / 10) + 1;
+            }
+            var videosView = new ResponseView({collection: selected, pages: pages, page: p});
+            $('#mainBody').append(videosView.render());
+
+            var searchNavView = new SearchNavView({search: false});
+        });
     },
     goSubtitle: function () {
         $('#bodyTitle').html("Subtitle");
