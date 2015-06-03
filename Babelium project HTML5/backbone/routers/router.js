@@ -6,7 +6,7 @@ var TodoRouter = Backbone.Router.extend({
                 "Practice/page_:p": "goPractice",
                 "Practice/exercise/:name/:id": "goPrExercise",
                 "Evaluate/page_:p": "goEvaluate",
-                "Evaluate/exercise/:id" : "goEvExercise",
+                "Evaluate/response/:id" : "goEvExercise",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
                 "About": "goAbout",
@@ -54,7 +54,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 pages = Math.floor(response.length / 10) + 1;
             }
-            var videosView = new VideoListView({collection: selected, pages: pages, page: p});
+            var videosView = new VideoListView({collection: selected, pages: pages, page: p, numVid: response.length});
             $('#mainBody').append(videosView.render());
 
             var searchNavView = new SearchNavView({search: true});
@@ -68,7 +68,7 @@ var TodoRouter = Backbone.Router.extend({
     },
 
     goEvExercise: function (id) {
-        $('#bodyTitle').html("Practice");
+        $('#bodyTitle').html("Evaluate");
         var evEx = new EvExercise({id:id.toString()});
         var searchNavView = new SearchNavView({search: true});
     },
@@ -104,7 +104,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 pages = Math.floor(response.length / 10) + 1;
             }
-            var videosView = new ResponseView({collection: selected, pages: pages, page: p});
+            var videosView = new EvaluateView({collection: selected, pages: pages, page: p});
             $('#mainBody').append(videosView.render());
 
             var searchNavView = new SearchNavView({search: false});

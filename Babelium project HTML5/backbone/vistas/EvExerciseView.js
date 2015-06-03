@@ -14,57 +14,11 @@ var EvExercise = Backbone.View.extend({
         +"</object>"
         +"</div>"
         +"</article>"
-        +"<article id='recordingEndOptions' class='recordingEndOptions'>"
-        +"<label>Available actions:</label><br/>"
-        +"<button id='publish' disabled>"//onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'
-        +"<img src='themes/babelium/images/eo_save_response.png' width='48' height='48' />"
-        +"<span>Publish response</span>"
-        +"</button><br/>"
-        +"<button id='watch' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'
-        +"<img src='themes/babelium/images/eo_watch_sim.png' width='48' height='48' />"
-        +"<span>Watch response</span>"
-        +"</button><br/>"
-        +"<button id='reRecord' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'
-        +"<img src='themes/babelium/images/button_rec.png' width='48' height='48' />"
-        +"<span>Record again</span>"
-        +"</button><br/>"
-        +"<button id='discard'>" //onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'
-        +"<img src='themes/babelium/images/button_abort.png' width='48' height='48' />"
-        +"<span>Discard response</span>"
-        +"</button>"
-        +"</article>"
-        +"<article id='exerciseInfo' class='exerciseInfo aligned'>  "
-        +"<label>Choose a role: </label>"
-        +"<select id='recRole'>"
-        +"</select>"
-        +"<label>Choose a language:</label>"
-        +"<select id='recLocale'>"
-        +"</select>"
-        +"<label>Choose a recording method:</label>"
-        +"<div class='recordmethod'>"
-        +"<input type='radio' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
-        +"<input type='radio' name='recordingMethod' value='micCam'>Camera and microphone</input>"
-        +"</div>"
-        +"<a id='record' alt='Record'>"
-        +"<img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />"
-        +"</a>"
-        +"</article>"
-        +"<article class='videoInfo'>"
-        +"<div class='topbar HBox'>"
-        +"<div class='ratyPreview' data-rating='7.5324545454545' data-readonly='true' id='raty-video-preview'></div>"
-        +"<div class='spacer'></div>"
-        +"<div style='margin-right: 3px'><img src='themes/babelium/images/shield_icon.png' width='20' height='21' alt='Report' align='left'/></div>"
-        +"<div><a href='javascript:void(0);' class='yellow'>Report"
-        +"</a></div>"
-        +"</div>"
-        +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
-        +"</article>"
         +"</section>"
     ),
     events:
             {
-                'click #record': 'record',
-                'click #discard': 'discard'
+
             },
     initialize: function (options)
     {
@@ -99,40 +53,14 @@ var EvExercise = Backbone.View.extend({
             alert(err.Message);
         });
 
-        $.ajax({
-            url: '/php/videoLocale.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.id }
-        }).done(function(data) {
-        	exLoc = data;
-            console.log(data);
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });
-
-        $.ajax({
-            url: '/php/videoRoles.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.id }
-        }).done(function(data) {
-        	exRoles = data;
-	        console.log(data);
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });
-
         var ctx = this;
         // Hay que hacer esperar un poco para obtener las respuestas a todas las llamadas necesarias
         var varCheck = setInterval(function()
     	{
-    		if(exData && exRoles && exLoc)
+    		if(exData)
 			{
 				window.clearInterval(varCheck);
-				ctx.render(exData,exRoles,exLoc);
+				ctx.render(exData);
 			}
 		},500);
         

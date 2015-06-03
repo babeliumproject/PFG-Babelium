@@ -1042,6 +1042,7 @@ aside.paginationPanel
     padding-left: 30px;
     padding-right: 30px;
     margin: 30px;
+    text-align: center;
 
     /** Default background **/
     background-color: #FEFEFE;
@@ -1078,7 +1079,8 @@ aside.paginationPanel > div.paginationFilter > input
 
 aside.paginationPanel > div.paginationPaging > *
 {
-    margin-right: 5px;
+    font-size: 15px;
+    margin-right: 15px;
 }
 
 div.paginationButtons > div > span, #pagesbox > span

@@ -29,7 +29,7 @@ var PrExercise = Backbone.View.extend({
         "<section class='exerciseInfo'>"
         +"<article>"
         +"<div class='no-overflow'>"
-        +"<h2 id='babelium-exercise-title'>Sintel</h2>"
+        +"<h2 id='babelium-exercise-title'></h2>"
         +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='640' height='380' style='height: 332px; width: 500px;'>"
         +"<param name='quality' value='high'>"
         +"<param name='bgcolor' value='#000000'>"
@@ -170,6 +170,8 @@ var PrExercise = Backbone.View.extend({
         init('jlachen', 'en', '1', {'exerciseId':exData.response.id,'exerciseName':exData.response.name,'duration':exData.response.duration,'exerciseThumbnailUri':exData.response.thumbnailUri,'title':exData.response.title}, [{'id':'1540','showTime':'95','hideTime':'105','text':'\u00bfPor qu\u00e9 se est\u00e1n derritiendo los polos? \u00bfCu\u00e1les ser\u00e1n las consecuencias?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'},{'id':'1541','showTime':'156','hideTime':'210','text':'\u00bfQu\u00e9 medidas de ahorro crees que podr\u00edas llevar a cabo para contribuir a parar el cambio clim\u00e1tico?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'}], '', '');
         this.$el.html(this.my_template());
         
+        $("#babelium-exercise-title").append(exData.response.title);
+
         var i = 0;
 
         while(exRoles.response[i])
