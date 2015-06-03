@@ -16,6 +16,7 @@ var ResponseView = Backbone.View.extend({
             + "<div><%= addingDate %></div>"
             + "</div>"
             + "<p class='username'>User: <font color='#666'><%= userName %></font></p>"
+            + "<p>Role:<%= characterName %></p>"
             + "</div>"
             ),
     events:

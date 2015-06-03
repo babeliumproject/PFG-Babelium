@@ -1,7 +1,9 @@
 var EvaluateView = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<div id='vidNavB' class='vidNavB'>"
-            + "</div>"
+    my_template: _.template("<aside class='paginationPanel HBox vcenter'>"
+            + "<div id='vidNavB'class='paginationPaging HBox vcenter'></div>"
+            + "<div class='spacer'></div>"
+            + "<div id='pagInfo' class='paginationInfo'></div></aside>"
             ),
     initialize: function (options)
     {
@@ -20,10 +22,19 @@ var EvaluateView = Backbone.View.extend({
         //Añado los botones para navegar entre las paginas
         this.$el.append(this.my_template());
 
-		// Control de la paginación, es posible hacerlo totalmente parametrizable si es necesario
-
+		// Control de la paginación
 		var curPag = parseInt(this.options.page);
         var numPags = parseInt(this.options.pages);
+
+        // Aquí añado información al pie de pagina con la paginación
+        if(curPag*10 > this.options.numVid)
+        {
+            $("#pagInfo").html((curPag*10 - 9) +" - "+this.options.numVid+" of "+ this.options.numVid);
+        }
+        else
+        {
+            $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ this.options.numVid);
+        }
 
     	if(curPag > 3)
     	{

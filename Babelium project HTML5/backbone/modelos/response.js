@@ -58,8 +58,6 @@ var Response = Backbone.Model.extend({
                 break;
         }
 
-        // Preparo la fecha del video
-        this.set('addingDate', this.get('addingDate').split(' ')[0]);
     },
     defaults: {
         id: "",
@@ -69,6 +67,7 @@ var Response = Backbone.Model.extend({
         fileIdentifier: "",
         thumbnailUri: "",
         addingDate: "",
+        characterName: "",
         duration: "",
         userName: "",
         avgDifficulty: "",

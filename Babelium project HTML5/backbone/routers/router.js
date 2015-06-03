@@ -104,7 +104,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 pages = Math.floor(response.length / 10) + 1;
             }
-            var videosView = new EvaluateView({collection: selected, pages: pages, page: p});
+            var videosView = new EvaluateView({collection: selected, pages: pages, page: p, numVid: response.length});
             $('#mainBody').append(videosView.render());
 
             var searchNavView = new SearchNavView({search: false});

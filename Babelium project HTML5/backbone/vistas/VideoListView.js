@@ -28,7 +28,14 @@ var VideoListView = Backbone.View.extend({
         var numPags = parseInt(this.options.pages);
 
         // Aquí añado información al pie de pagina con la paginación
-        $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ this.options.numVid);
+        if(curPag*10 > this.options.numVid)
+        {
+            $("#pagInfo").html((curPag*10 - 9) +" - "+this.options.numVid+" of "+ this.options.numVid);
+        }
+        else
+        {
+            $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ this.options.numVid);
+        }
 
         if(this.options.terms)
         {
