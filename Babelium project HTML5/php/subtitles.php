@@ -5,9 +5,12 @@ $CFG = new Config();
 $g = new babelium_gateway();
 
 $id = $_POST['id'];
+$lang = $_POST['lang'];
+
 $params = array();
 
-$params['subtitle'] = $id;
+$params['exerciseId'] = $id;
+$params['language'] = $lang;
 $g->serviceCall('http','getSubtitleLines', $params);
 
  //$g->serviceCall('http','getRecordableExercises');

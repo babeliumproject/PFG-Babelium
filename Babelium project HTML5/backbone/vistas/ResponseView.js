@@ -27,12 +27,11 @@ var ResponseView = Backbone.View.extend({
         this.render();
     },
     render: function () {
-        console.log(this.model);
         this.$el.html(this.my_template(this.model.toJSON()));
         return this;
     },
     
     goResponse: function () {
-        window.location.href = '#Evaluate/response/'+this.model.attributes.fileIdentifier;
+        window.location.href = '#Evaluate/response/'+this.model.attributes.fileIdentifier+'/'+this.model.attributes.id;
     }
 });

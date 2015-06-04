@@ -1,3 +1,5 @@
+var prevData,prevLoc,prevRoles,prevSubs;
+
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
     my_template: _.template(/*"<script>function onConnectionReady(compId){console.log(compId);}</script>"
@@ -27,9 +29,9 @@ var PrExercise = Backbone.View.extend({
         +"</div>"
         +"</article>"*/
         "<section class='exerciseInfo'>"
+        +"<p><h2 id='babelium-exercise-title'></h2></p>"
         +"<article>"
         +"<div class='no-overflow'>"
-        +"<h2 id='babelium-exercise-title'></h2>"
         +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='640' height='380' style='height: 332px; width: 500px;'>"
         +"<param name='quality' value='high'>"
         +"<param name='bgcolor' value='#000000'>"
@@ -59,7 +61,7 @@ var PrExercise = Backbone.View.extend({
         +"<span>Discard response</span>"
         +"</button>"
         +"</article>"
-        +"<article id='exerciseInfo' class='exerciseInfo aligned'>  "
+        +"<article id='exerciseInfo' class='exerciseInfo aligned'>"
         +"<label>Choose a role: </label>"
         +"<select id='recRole'>"
         +"</select>"
@@ -68,8 +70,8 @@ var PrExercise = Backbone.View.extend({
         +"</select>"
         +"<label>Choose a recording method:</label>"
         +"<div class='recordmethod'>"
-        +"<input type='radio' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
-        +"<input type='radio' name='recordingMethod' value='micCam'>Camera and microphone</input>"
+        +"<input type='radio' id='checkM' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
+        +"<input type='radio' id='checkCM' name='recordingMethod' value='micCam'>Camera and microphone</input>"
         +"</div>"
         +"<a id='record' alt='Record'>"
         +"<img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />"
@@ -90,14 +92,18 @@ var PrExercise = Backbone.View.extend({
     events:
             {
                 'click #record': 'record',
-                'click #discard': 'discard'
+                'click #discard': 'discard',
+                'change #recRole': 'changeRole',
+                'change #recLocale': 'changeLang',
+                'change #checkM':'changeMC',
+                'change #checkCM':'changeMC'
             },
     initialize: function (options)
     {
         this.options = options;
         _.bindAll(this, 'render');
 
-        var exData, exRoles, exLoc;
+        var exData, exRoles, exLoc, exSubs;
 
         $.ajax({
             url: '/php/video.php',
@@ -108,18 +114,6 @@ var PrExercise = Backbone.View.extend({
         	exData = data;
         	console.log(exData);
             console.log(data);
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });
-
-        $.ajax({
-            url: '/php/subtitles.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.id }
-        }).done(function(data) {
-	        console.log(data);
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
@@ -154,20 +148,42 @@ var PrExercise = Backbone.View.extend({
         var ctx = this;
         // Hay que hacer esperar un poco para obtener las respuestas a todas las llamadas necesarias
         var varCheck = setInterval(function()
-    	{
-    		if(exData && exRoles && exLoc)
+    	{  
+            // Para evitar que se se repita el proceso innecesariamente
+            if(exLoc && !exSubs)
+            {
+                $.ajax({
+                    url: '/php/subtitles.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: { id: ctx.options.id, lang: exLoc.response[0].locale}
+                }).done(function(data) {
+                    exSubs = data;
+                    console.log(data);
+                }).fail(function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });
+            }
+
+            // Seguimos cuando están todos los datos guardados
+    		if(exData && exRoles && exLoc && exSubs)
 			{
+                prevData = exData;
+                prevLoc = exLoc;
+                prevRoles = exRoles;
+                prevSubs = exSubs;
+
 				window.clearInterval(varCheck);
-				ctx.render(exData,exRoles,exLoc);
+				ctx.render(exData,exRoles,exLoc,exSubs);
 			}
 		},500);
-        
-        //¿Y que hago yo con esto? 
-        //bpPlayer.exerciseSource(this.options.exid:String):Void
     },
-    render: function (exData,exRoles,exLoc)
+    render: function (exData,exRoles,exLoc,exSubs)
     {
-        init('jlachen', 'en', '1', {'exerciseId':exData.response.id,'exerciseName':exData.response.name,'duration':exData.response.duration,'exerciseThumbnailUri':exData.response.thumbnailUri,'title':exData.response.title}, [{'id':'1540','showTime':'95','hideTime':'105','text':'\u00bfPor qu\u00e9 se est\u00e1n derritiendo los polos? \u00bfCu\u00e1les ser\u00e1n las consecuencias?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'},{'id':'1541','showTime':'156','hideTime':'210','text':'\u00bfQu\u00e9 medidas de ahorro crees que podr\u00edas llevar a cabo para contribuir a parar el cambio clim\u00e1tico?','exerciseRoleId':'316','exerciseRoleName':'Estudiante','subtitleId':'173'}], '', '');
+        var exercise = {'exerciseId':exData.response.id,'exerciseName':exData.response.name,'duration':exData.response.duration,'exerciseThumbnailUri':exData.response.thumbnailUri,'title':exData.response.title};
+
+        init('jlachen', 'en', '1', exercise, exSubs, '', '');
         this.$el.html(this.my_template());
         
         $("#babelium-exercise-title").append(exData.response.title);
@@ -200,5 +216,65 @@ var PrExercise = Backbone.View.extend({
     {
         $('#recordingEndOptions').css('display','none');
         $('#exerciseInfo').css('display','inline-block');
+    },
+
+    changeRole: function ()
+    {
+        // Para cambiar lo que haya que cambiar al elegir el rol si es que hay que hacer algo en la visualización del video, si solo vale para cuando le das a grabar entonces nada
+    },
+    
+    changeLang: function ()
+    {
+        /*var x = 0;
+        var found = false;
+        while(x < prevLoc.length && !found)
+        {
+            if(prevLoc.response[x].locale === $('#recLocale').value)
+            {
+                found = true;
+            }
+            else
+            {
+                x++;
+            }
+        }
+
+        if(found)
+        {
+            var varCheck = setInterval(function()
+            {
+                var exSubs;
+                // Para evitar que se se repita el proceso innecesariamente
+                if(!exSubs)
+                {
+                    $.ajax({
+                        url: '/php/subtitles.php',
+                        type: 'POST',
+                        dataType: "json",
+                        data: { id: ctx.options.id, lang: exLoc.response[0].locale}
+                    }).done(function(data) {
+                        exSubs = data;
+                        console.log(data);
+                    }).fail(function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                    });
+                }
+
+                // Seguimos cuando están todos los datos guardados
+                if(exSubs)
+                {
+                    prevSubs = exSubs;
+
+                    window.clearInterval(varCheck);
+                    init
+                }
+            },500);
+        }*/
+    },
+
+    changeMC: function ()
+    {
+
     }
 });

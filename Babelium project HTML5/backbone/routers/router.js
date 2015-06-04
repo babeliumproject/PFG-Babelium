@@ -6,7 +6,7 @@ var TodoRouter = Backbone.Router.extend({
                 "Practice/page_:p": "goPractice",
                 "Practice/exercise/:name/:id": "goPrExercise",
                 "Evaluate/page_:p": "goEvaluate",
-                "Evaluate/response/:id" : "goEvExercise",
+                "Evaluate/response/:name/:id" : "goEvExercise",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
                 "About": "goAbout",
@@ -67,9 +67,9 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search: true});
     },
 
-    goEvExercise: function (id) {
+    goEvExercise: function (name,id) {
         $('#bodyTitle').html("Evaluate");
-        var evEx = new EvExercise({id:id.toString()});
+        var evEx = new EvExercise({name:name, id:id.toString()});
         var searchNavView = new SearchNavView({search: true});
     },
 
@@ -78,14 +78,14 @@ var TodoRouter = Backbone.Router.extend({
         // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
         var videos = new ResponseList();
         videos.fetch().done(function ()
-        {console.log(videos);
+        {
             // Saco el JSON de la respuesta del servidor
             var response = videos.models[0].attributes.response;
             // Convierto en array el JSON obtenido
             response = $.map(response, function(el) { return el; });
             // Genero una coleccion de videos auxiliar en la que guardar los 10 videos de 
             // la pagina en la que se encuentre el usuario e imprimirlos por pantalla.
-            var selected = new ResponseList();console.log(selected);
+            var selected = new ResponseList();
             var i, l;
             i = ((p * 10) - 10);
             l = p * 10;
@@ -209,7 +209,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 pages = Math.floor(videos2.length / 10) + 1;
             }
-            var videosView = new VideoListView({collection: selected, pages: pages, page: p, terms: terms});
+            var videosView = new VideoListView({collection: selected, pages: pages, page: p, terms: terms, numVid: videos2.length});
             $('#mainBody').append(videosView.render());
             var searchNavView = new SearchNavView({search: true});
         });
