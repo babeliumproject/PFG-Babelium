@@ -1,34 +1,6 @@
-var prevData,prevLoc,prevRoles,prevSubs;
-
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template(/*"<script>function onConnectionReady(compId){console.log(compId);}</script>"
-        +"<section class='exerciseInfo' data-id='526' data-name='<%= this.options.exid %>'>" // AQUI EL URI Y EL ¿ID?
-        +"<header><h1 style='margin-left:10px'>NONGOA</h1></header>"
-        +"<article class='babeliumPlayer'>"
-        +"<div>"
-        +"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"
-        +"id='babeliumPlayer' width='100%' height='100%'"
-        +"codebase='http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab'>"
-        +"<param name='movie' value='http://babeliumproject.com/babeliumPlayer.swf' />"
-        +"<param name='quality' value='high' />"
-        +"<param name='bgcolor' value='#ffffff' />"
-        +"<param name='flashVars' value='locale=eu' />"
-        +"<param name='wmode' value='window' />"
-        +"<param name='allowScriptAccess' value='sameDomain' />"
-        +"<embed src='http://babeliumproject.com/babeliumPlayer.swf' quality='high' bgcolor='#ffffff' flashVars='locale=eu'"
-        +"width='100%' height='100%' name='babeliumPlayer' align='middle' wmode='window'"
-        +"play='true'"
-        +"loop='false'"
-        +"quality='high'"
-        +"allowScriptAccess='sameDomain'"
-        +"type='application/x-shockwave-flash'"
-        +"pluginspage='http://www.adobe.com/go/getflashplayer'>"
-        +"</embed>"
-        +"</object>"
-        +"</div>"
-        +"</article>"*/
-        "<section class='exerciseInfo'>"
+    my_template: _.template("<section class='exerciseInfo'>"
         +"<p><h2 id='babelium-exercise-title'></h2></p>"
         +"<article>"
         +"<div class='no-overflow'>"
@@ -64,10 +36,10 @@ var PrExercise = Backbone.View.extend({
         +"<article id='exerciseInfo' class='exerciseInfo aligned'>"
         +"<label>Choose a role: </label>"
         +"<select id='recRole'>"
-        +"</select>"
+        +"</select><br>"
         +"<label>Choose a language:</label>"
         +"<select id='recLocale'>"
-        +"</select>"
+        +"</select><br>"
         +"<label>Choose a recording method:</label>"
         +"<div class='recordmethod'>"
         +"<input type='radio' id='checkM' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
@@ -103,6 +75,7 @@ var PrExercise = Backbone.View.extend({
         this.options = options;
         _.bindAll(this, 'render');
 
+        var ctx = this;
         var exData, exRoles, exLoc, exSubs;
 
         $.ajax({
@@ -111,9 +84,7 @@ var PrExercise = Backbone.View.extend({
             dataType: "json",
             data: { id: this.options.id }
         }).done(function(data) {
-        	exData = data;
-        	console.log(exData);
-            console.log(data);
+        	exData = data.response;
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
@@ -125,8 +96,18 @@ var PrExercise = Backbone.View.extend({
             dataType: "json",
             data: { id: this.options.id }
         }).done(function(data) {
-        	exLoc = data;
-            console.log(data);
+        	exLoc = data.response;
+            $.ajax({
+                url: '/php/subtitles.php',
+                type: 'POST',
+                dataType: "json",
+                data: { id: ctx.options.id, lang: exLoc[0].locale}
+            }).done(function(data2) {
+                exSubs = data2.response;
+            }).fail(function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            });
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
@@ -138,69 +119,45 @@ var PrExercise = Backbone.View.extend({
             dataType: "json",
             data: { id: this.options.id }
         }).done(function(data) {
-        	exRoles = data;
-	        console.log(data);
+        	exRoles = data.response;
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
 
-        var ctx = this;
         // Hay que hacer esperar un poco para obtener las respuestas a todas las llamadas necesarias
         var varCheck = setInterval(function()
-    	{  
-            // Para evitar que se se repita el proceso innecesariamente
-            if(exLoc && !exSubs)
-            {
-                $.ajax({
-                    url: '/php/subtitles.php',
-                    type: 'POST',
-                    dataType: "json",
-                    data: { id: ctx.options.id, lang: exLoc.response[0].locale}
-                }).done(function(data) {
-                    exSubs = data;
-                    console.log(data);
-                }).fail(function(xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                });
-            }
-
+    	{
             // Seguimos cuando están todos los datos guardados
     		if(exData && exRoles && exLoc && exSubs)
 			{
-                prevData = exData;
-                prevLoc = exLoc;
-                prevRoles = exRoles;
-                prevSubs = exSubs;
-
 				window.clearInterval(varCheck);
 				ctx.render(exData,exRoles,exLoc,exSubs);
 			}
-		},500);
+		},300);
     },
     render: function (exData,exRoles,exLoc,exSubs)
     {
-        var exercise = {'exerciseId':exData.response.id,'exerciseName':exData.response.name,'duration':exData.response.duration,'exerciseThumbnailUri':exData.response.thumbnailUri,'title':exData.response.title};
+        var exercise = {'exerciseId':exData.id,'exerciseName':exData.name,'duration':exData.duration,'exerciseThumbnailUri':exData.thumbnailUri,'title':exData.title};
 
         init('jlachen', 'en', '1', exercise, exSubs, '', '');
         this.$el.html(this.my_template());
         
-        $("#babelium-exercise-title").append(exData.response.title);
+        $("#babelium-exercise-title").append(exData.title);
 
         var i = 0;
 
-        while(exRoles.response[i])
+        while(exRoles[i])
     	{
-    		$("#recRole").append('<option value='+exRoles.response[i].characterName+'>'+exRoles.response[i].characterName+'</option>');
+    		$("#recRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
     		i++;
     	}
 
     	i = 0;
 
-    	while(exLoc.response[i])
+    	while(exLoc[i])
     	{
-    		$("#recLocale").append('<option value='+exLoc.response[i].locale+'>'+exLoc.response[i].locale+'</option>');
+    		$("#recLocale").append('<option value='+exLoc[i].locale+'>'+exLoc[i].locale+'</option>');
     		i++;
     	}
     },

@@ -4,7 +4,7 @@ var EvExercise = Backbone.View.extend({
         +"<p><h2 id='babelium-exercise-title'></h2></p>"
         +"<article>"
         +"<div class='no-overflow'>"
-        +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='640' height='380' style='height: 400px; width: 900px;'>"
+        +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='400' height='380' style='height: 332px; width: 600px;'>"
         +"<param name='quality' value='high'>"
         +"<param name='bgcolor' value='#000000'>"
         +"<param name='allowscriptaccess' value='always'>"
@@ -40,78 +40,55 @@ var EvExercise = Backbone.View.extend({
         this.options = options;
         _.bindAll(this, 'render');
 
-        var exData, exRoles, exSubs, respData;
+        var ctx = this;
+
+        // Response (Necesito los datos de la respuesta para reproducirla)
         $.ajax({
             url: '/php/response.php',
             type: 'POST',
             dataType: "json",
             data: { id: this.options.id }
         }).done(function(data) {
-            respData = data;
-            console.log(data);
+            // Video (Para los subtitulos necesito el ID y el lenguaje, el ID lo podría coger de Response pero no el lenguaje)
+            $.ajax({
+                url: '/php/video.php',
+                type: 'POST',
+                dataType: "json",
+                data: { id: data.response.exerciseId }
+            }).done(function(data2) {
+                // Subtitulos
+                $.ajax({
+                    url: '/php/subtitles.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: { id: data2.response.id, lang: data2.response.language}
+                }).done(function(data3) {
+                              // respData       exSubs
+                    ctx.render(data.response,data3.response);
+                }).fail(function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });
+            }).fail(function(xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            });
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
 
-//init("babeliumproject.com", "es", "1", {"responseName":"resp-1347271137704","responseRole":"Shaman","subtitleId":"140","responseThumbnailUri":"default.jpg","exerciseId":"73","exerciseName":"U1MbBtkIGZQ","duration":"32","exerciseThumbnailUri":"default.jpg","title":"Sintel"}, [{"id":"1293","showTime":"1","hideTime":"6","text":"So, what brings you to the land of the gatekeepers?","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1294","showTime":"7","hideTime":"10","text":"I'm searching for someone.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"},{"id":"1295","showTime":"10.5","hideTime":"15.5","text":"Someone very dear? A kindred spirit?","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1296","showTime":"17.05","hideTime":"18.37","text":"A dragon.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"},{"id":"1297","showTime":"21","hideTime":"25.6","text":"A dangerous quest for a lone hunter.","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1298","showTime":"27.24","hideTime":"30","text":"I've been alone for as long as I can remember.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"}], "", "");
-                      
-        var ctx = this;
-        // Hay que hacer esperar un poco para obtener las respuestas a todas las llamadas necesarias
-        var varCheck = setInterval(function()
-        {  
-            if(respData && !exData)
-            {
-                $.ajax({
-                    url: '/php/video.php',
-                    type: 'POST',
-                    dataType: "json",
-                    data: { id: respData.response.exerciseId }
-                }).done(function(data) {
-                    exData = data;
-                    console.log(data);
-                }).fail(function(xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                });
-            }
-            // Para evitar que se se repita el proceso innecesariamente
-            if(exData && !exSubs)
-            {
-                $.ajax({
-                    url: '/php/subtitles.php',
-                    type: 'POST',
-                    dataType: "json",
-                    data: { id: exData.response.id, lang: exData.response.language}
-                }).done(function(data) {
-                    exSubs = data;
-                    console.log(data);
-                }).fail(function(xhr, status, error) {
-                    var err = eval("(" + xhr.responseText + ")");
-                    alert(err.Message);
-                });
-            }
-
-            // Seguimos cuando están todos los datos guardados
-            if(exData && respData && exSubs)
-            {
-                window.clearInterval(varCheck);
-                ctx.render(exData,respData,exSubs);
-            }
-        },500);
+                
     },
-    render: function (exData,respData,exSubs)
+    render: function (respData,exSubs)
     {
-        var exercise = {'exerciseId':exData.response.id,'exerciseName':exData.response.name,'duration':exData.response.duration,'exerciseThumbnailUri':exData.response.thumbnailUri,'title':exData.response.title};
-console.log(respData);
-        console.log("jlachen,en,1,"+ JSON.stringify(respData)+","+ JSON.stringify(exSubs)+",'',''");
-        init("babeliumproject.com", "es", "1", {"responseName":"resp-1347271137704","responseRole":"Shaman","subtitleId":"140","responseThumbnailUri":"default.jpg","exerciseId":"73","exerciseName":"U1MbBtkIGZQ","duration":"32","exerciseThumbnailUri":"default.jpg","title":"Sintel"}, [{"id":"1293","showTime":"1","hideTime":"6","text":"So, what brings you to the land of the gatekeepers?","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1294","showTime":"7","hideTime":"10","text":"I'm searching for someone.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"},{"id":"1295","showTime":"10.5","hideTime":"15.5","text":"Someone very dear? A kindred spirit?","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1296","showTime":"17.05","hideTime":"18.37","text":"A dragon.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"},{"id":"1297","showTime":"21","hideTime":"25.6","text":"A dangerous quest for a lone hunter.","exerciseRoleId":"265","exerciseRoleName":"Shaman","subtitleId":"140"},{"id":"1298","showTime":"27.24","hideTime":"30","text":"I've been alone for as long as I can remember.","exerciseRoleId":"266","exerciseRoleName":"Sintel","subtitleId":"140"}], "", "");
+        init("jlachen", "es", "1", respData, exSubs, "", "");
 
         this.$el.html(this.my_template());
         
         var i = 0;
 
-        $("#babelium-exercise-title").append(exData.response.title);
+        $("#babelium-exercise-title").append(respData.title);
     },
     
     addTxt: function ()
