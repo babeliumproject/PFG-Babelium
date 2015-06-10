@@ -3,9 +3,9 @@ var User = Backbone.Model.extend({
         console.log("User created");
         var dif,x;
 
-        for(x = 0; x < this.get('languages').length ;x++)
+        for(x = 0; x < this.get('userLanguages').length ;x++)
         {
-            dif = this.get('languages');
+            dif = this.get('userLanguages');
             // Preparo el idioma para poder cargar la bandera
             switch (dif[x].language)
             {
@@ -30,7 +30,7 @@ var User = Backbone.Model.extend({
             }
         }
 
-        for(x = 0; x < this.get('languages').length ;x++)
+        for(x = 0; x < this.get('userLanguages').length ;x++)
         {
             // Preparo la dificultad
             switch (dif[x].level)
@@ -55,15 +55,15 @@ var User = Backbone.Model.extend({
                     break;
             }
         }
-
-        console.log(this.get('languages'));
     },
     defaults: {
-        userName: "",
+        username: "",
         email: "",
-        realName: "",
-        realLastName: "",
-        credits: "",
-        languages: []
+        firstname: "",
+        lastname: "",
+        creditCount: "",
+        userLanguages: [],
+        joiningDate: "",
+        isAdmin: ""
     }
 });

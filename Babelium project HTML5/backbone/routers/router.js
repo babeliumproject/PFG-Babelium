@@ -127,8 +127,16 @@ var TodoRouter = Backbone.Router.extend({
     },
     goUserInfo: function () {
         $('#bodyTitle').html("User Information");
-        var user = JSON.parse(sessionStorage.getItem('current_user'));
-        var currentUser = new User(user);
+        $.ajax({
+            url: '/php/getSessionData.php',
+            type: 'POST'
+        }).done(function(data) {
+            console.log(data);
+        }).fail(function(xhr, status, error) {
+            var err = eval("(" + xhr.responseText + ")");
+            alert(err.Message);
+        });
+        var currentUser = new User();
         var userView = new UserView({model: currentUser});
         var searchNavView = new SearchNavView({search: false});
     },

@@ -47,9 +47,9 @@ var UserNavOff = Backbone.View.extend({
                                 console.log(data.response);
                                 context.dialog("close");
                                 var currentUser = new User();
-                                currentUser.set({userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, languages: data.response.userLanguages});
+                                currentUser.set(data.response);//{userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, languages: data.response.userLanguages});
+                                console.log(currentUser);
                                 new UserNavOn({model: currentUser});
-                                sessionStorage.setItem('current_user', JSON.stringify(currentUser));
                             }
                             else
                             {
