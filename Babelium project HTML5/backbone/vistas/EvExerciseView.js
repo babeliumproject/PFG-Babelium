@@ -1,9 +1,9 @@
 var EvExercise = Backbone.View.extend({
     el: $("#mainBody"),
     my_template: _.template("<section class='exerciseInfo'>"
-        +"<p><h2 id='babelium-exercise-title'></h2></p>"
+        +"<p><h2 style='text-align:center' id='babelium-exercise-title'></h2></p>"
         +"<article>"
-        +"<div class='no-overflow'>"
+        +"<div class='no-overflow' style='padding-left:30%'>"
         +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='400' height='380' style='height: 332px; width: 600px;'>"
         +"<param name='quality' value='high'>"
         +"<param name='bgcolor' value='#000000'>"
@@ -17,11 +17,11 @@ var EvExercise = Backbone.View.extend({
         +"<article id='exerciseInfo' class='evaluation aligned'>"
         +"<p><h2>Rate the user's response</h2></p>"
         +"<p><h4>Compulsory evaluation data:</h4></p>"
-        +"<label>Intonation & accent</label><select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select><br>"
-        +"<label>Pronunciation</label><select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select><br>"
-        +"<label>Rhythm</label><select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select><br>"
-        +"<label>Spontaneity</label><select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select><br>"
-        +"<label>Overall Score</label><select><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option><option value='5'>5</option></select><br>"
+        +"<label>Intonation & accent</label><div id='rateIntonation'></div><br>"
+        +"<label>Pronunciation</label><div id='ratePronunciation'></div><br>"
+        +"<label>Rhythm</label><div id='rateRhythm'></div><br>"
+        +"<label>Spontaneity</label><div id='rateSpontaneity'></div><br>"
+        +"<label>Overall Score</label><div id='rateOverall'></div><br>"
         +"<input id='txtComCheck' type='checkbox'><label>Include a text comment</label><br>"
         +"<div id='txtComDiv' style='display:none'><textarea id='txtCom'></textarea></div>"
         +"<input id='vidComCheck' type='checkbox'><label>Include a video comment</label><br>"
@@ -85,7 +85,11 @@ var EvExercise = Backbone.View.extend({
         init("jlachen", "es", "1", respData, exSubs, "", "");
 
         this.$el.html(this.my_template());
-        
+        $('#rateIntonation').raty();
+        $('#ratePronunciation').raty();
+        $('#rateRhythm').raty();
+        $('#rateSpontaneity').raty();
+        $('#rateOverall').raty();
         var i = 0;
 
         $("#babelium-exercise-title").append(respData.title);
