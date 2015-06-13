@@ -16,17 +16,31 @@ var EvExercise = Backbone.View.extend({
         +"</article>"
         +"<article id='exerciseInfo' class='evaluation aligned'>"
         +"<p><h2>Rate the user's response</h2></p>"
-        +"<p><h4>Compulsory evaluation data:</h4></p>"
-        +"<label>Intonation & accent</label><div id='rateIntonation'></div><br>"
+        +"<p><h4>All criteria are optional except Overall score:</h4></p>"
+        +"<label>Accuracy</label><div id='rateAcc'></div><br>"
+        +"<label>Adequacy</label><div id='rateAdequacy'></div><br>"
+        +"<label>Comprehensibility</label><div id='rateComprehen'></div><br>"
+        +"<label>Fluency</label><div id='rateFluency'></div><br>"
+        +"<label>Intonation</label><div id='rateIntonation'></div><br>"
         +"<label>Pronunciation</label><div id='ratePronunciation'></div><br>"
+        +"<label>Range</label><div id='rateRange'></div><br>"
         +"<label>Rhythm</label><div id='rateRhythm'></div><br>"
         +"<label>Spontaneity</label><div id='rateSpontaneity'></div><br>"
-        +"<label>Overall Score</label><div id='rateOverall'></div><br>"
-        +"<input id='txtComCheck' type='checkbox'><label>Include a text comment</label><br>"
+        +"<label>Overall score</label><div id='rateIntonation'></div><br>"
+        +"<input name='comment' id='txtComCheck' type='radio'><label>Include a text comment</label><br>"
         +"<div id='txtComDiv' style='display:none'><textarea id='txtCom'></textarea></div>"
-        +"<input id='vidComCheck' type='checkbox'><label>Include a video comment</label><br>"
-        +"<div id='vidComDiv' style='display:none'>Aquí va el video</div>"
-        +"<div style='text-align:center, padding-left:10px' id='evButtons'><button id='sendEv'>Send evaluation</button><button id='reset'>Reset evaluation</button>"
+        +"<input name='comment' id='vidComCheck' type='radio'><label>Include a video comment</label><br>"
+        +"<div id='vidComDiv' style='display:none'>"
+        +"<object type='application/x-shockwave-flash' id='commentRecord' name='commentRecord' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='400' height='380' style='height: 332px; width: 500px;'>"
+        +"<param name='quality' value='high'>"
+        +"<param name='bgcolor' value='#000000'>"
+        +"<param name='allowscriptaccess' value='always'>"
+        +"<param name='allowfullscreen' value='true'>"
+        +"<param name='wmode' value='window'>"
+        +"<param name='flashvars' value='locale=es&amp;forcertmpt=1&amp;jsCallbackObj='>"
+        +"</object>"
+        +"</div>"
+        +"<div style='text-align:center' id='evButtons'><button id='sendEv'>Send evaluation</button><button id='reset'>Reset evaluation</button></div>"
         +"</article>"
         +"</section>"
     ),
@@ -83,8 +97,12 @@ var EvExercise = Backbone.View.extend({
     render: function (respData,exSubs)
     {
         init("jlachen", "es", "1", respData, exSubs, "", "");
-
         this.$el.html(this.my_template());
+        $('#rateAcc').raty();
+        $('#rateAdequacy').raty();
+        $('#rateComprehen').raty();
+        $('#rateFluency').raty();
+        $('#rateRange').raty();
         $('#rateIntonation').raty();
         $('#ratePronunciation').raty();
         $('#rateRhythm').raty();
@@ -97,25 +115,23 @@ var EvExercise = Backbone.View.extend({
     
     addTxt: function ()
     {
-        if($('#txtComCheck').is(':checked'))
+        $('#txtComDiv').css('display', 'none');
+        $('#vidComDiv').css('display', 'none');
+
+        if ($('#txtComCheck').is(':checked'))
         {
-            $('#txtComDiv').css('display','block');
-        }
-        else
-        {
-            $('#txtComDiv').css('display','none');   
+            $('#txtComDiv').css('display', 'block');
         }
     },
 
     addVid: function ()
     {
-        if($('#vidComCheck').is(':checked'))
+        $('#txtComDiv').css('display', 'none');
+        $('#vidComDiv').css('display', 'none');
+
+        if ($('#vidComCheck').is(':checked'))
         {
-            $('#vidComDiv').css('display','block');
-        }
-        else
-        {
-            $('#vidComDiv').css('display','none');   
+            $('#vidComDiv').css('display', 'block');
         }
     }
 });

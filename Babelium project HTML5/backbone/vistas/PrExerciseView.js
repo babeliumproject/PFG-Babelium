@@ -1,3 +1,4 @@
+var exData, exRoles, exLoc, exSubs;
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
     my_template: _.template("<section class='exerciseInfo'>"
@@ -76,7 +77,6 @@ var PrExercise = Backbone.View.extend({
         _.bindAll(this, 'render');
 
         var ctx = this;
-        var exData, exRoles, exLoc, exSubs;
 
         $.ajax({
             url: '/php/video.php',
