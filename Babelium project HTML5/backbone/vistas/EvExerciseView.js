@@ -17,6 +17,7 @@ var EvExercise = Backbone.View.extend({
         +"<article id='exerciseInfo' class='evaluation aligned'>"
         +"<p><h2>Rate the user's response</h2></p>"
         +"<p><h4>All criteria are optional except Overall score:</h4></p>"
+        +"<form action='/php/uploadEvaluation.php' method='POST'>"
         +"<label>Accuracy</label><div id='rateAcc'></div><br>"
         +"<label>Adequacy</label><div id='rateAdequacy'></div><br>"
         +"<label>Comprehensibility</label><div id='rateComprehen'></div><br>"
@@ -40,8 +41,8 @@ var EvExercise = Backbone.View.extend({
         +"<param name='flashvars' value='locale=es&amp;forcertmpt=1&amp;jsCallbackObj='>"
         +"</object>"
         +"</div>"
-        +"<div style='text-align:center' id='evButtons'><button id='sendEv'>Send evaluation</button><button id='reset'>Reset evaluation</button></div>"
-        +"</article>"
+        +"<div style='text-align:center' id='evButtons'><input type='submit' value='Submit'><input type='reset' value='Reset''><br></div>"
+        +"</form></article>"
         +"</section>"
     ),
     events:

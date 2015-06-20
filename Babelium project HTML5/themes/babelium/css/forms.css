@@ -32,7 +32,7 @@ select:focus
 	border-width: 3px;
 }
 
-form > input[type=button], button
+form > input[type=button], input[type=submit], input[type=reset], button
 {		
 	border: 1px solid #92D3D5;
 	height: 27px;
@@ -55,7 +55,7 @@ form > input[type=button], button
 	background: -moz-linear-gradient(top, white, #E2EFF3);
 }
 
-form input[type=button]:hover, button:hover
+form input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover,button:hover
 {
 	cursor: pointer;	
 	text-shadow: 1px 1px 1px rgba(0,0,0,.2);

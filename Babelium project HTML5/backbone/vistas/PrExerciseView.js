@@ -35,8 +35,9 @@ var PrExercise = Backbone.View.extend({
         +"</button>"
         +"</article>"
         +"<article id='exerciseInfo' class='exerciseInfo aligned'>"
+        +"<form name=mform1>"
         +"<label>Choose a role: </label>"
-        +"<select id='recRole'>"
+        +"<select id='recordedRole'>"
         +"</select><br>"
         +"<label>Choose a language:</label>"
         +"<select id='recLocale'>"
@@ -46,7 +47,7 @@ var PrExercise = Backbone.View.extend({
         +"<input type='radio' id='checkM' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
         +"<input type='radio' id='checkCM' name='recordingMethod' value='micCam'>Camera and microphone</input>"
         +"</div>"
-        +"<a id='record' alt='Record'>"
+        +"<a id='id_startStopRecordingBtn' alt='Record'>"
         +"<img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />"
         +"</a>"
         +"</article>"
@@ -66,7 +67,7 @@ var PrExercise = Backbone.View.extend({
             {
                 'click #record': 'record',
                 'click #discard': 'discard',
-                'change #recRole': 'changeRole',
+                'change #recordedRole': 'changeRole',
                 'change #recLocale': 'changeLang',
                 'change #checkM':'changeMC',
                 'change #checkCM':'changeMC'
@@ -142,14 +143,13 @@ var PrExercise = Backbone.View.extend({
 
         init('jlachen', 'en', '1', exercise, exSubs, '', '');
         this.$el.html(this.my_template());
-        
         $("#babelium-exercise-title").append(exData.title);
 
         var i = 0;
 
         while(exRoles[i])
     	{
-    		$("#recRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
+    		$("#recordedRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
     		i++;
     	}
 
