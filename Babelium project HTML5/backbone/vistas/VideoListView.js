@@ -16,13 +16,16 @@ var VideoListView = Backbone.View.extend({
         //Por cada video genera un view de video individual
         this.collection.each(function (video) {
             var vidView = new VideoView({model: video});
-            console.log(video.id);
             //Une el view a donde se pone la coleccion
             this.$el.append(vidView.render().el);
         }, this);
         //Añado los botones para navegar entre las paginas
         this.$el.append(this.my_template());
-
+        /*var ctx = this;
+        $.get("themes/babelium/templates/videoList.html",function(data){
+            template = _.template(data,{});
+            ctx.$el.append(template);
+        },'html');*/
 		// Control de la paginación
 		var curPag = parseInt(this.options.page);
         var numPags = parseInt(this.options.pages);
