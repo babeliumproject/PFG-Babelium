@@ -1,11 +1,5 @@
 var UserNavOff = Backbone.View.extend({
     el: $("#userNav"),
-    my_template: _.template(
-            "<li><a href='#Help/page_1' class='img'><img src='themes/babelium/images/help_icon.png' alt='Help' width='17' height='17'/></a></li>"
-            + "<li><a href='#Help/page_1' class='blue'>Help</a></li>"
-            + "<li><a href='http://blog.babeliumproject.com/' class='blue'>Blog</a></li>"
-            + "<li><a id='loginD' class='yellow'>Login</a></li>"
-            + "<li><a id='regisD' class='yellow'>Register</a></li>"),
     events:
             {
                 'click #loginD': 'goLogin',
@@ -15,7 +9,11 @@ var UserNavOff = Backbone.View.extend({
         this.render();
     },
     render: function () {
-        this.$el.html(this.my_template());
+        var ctx = this;
+        $.get("themes/babelium/templates/userNavOff.html",function(data){
+            template = _.template(data,{});
+            ctx.$el.html(template);
+        },'html');
     },
     goLogin: function () {
         $("#loginDialog").dialog({
@@ -44,11 +42,9 @@ var UserNavOff = Backbone.View.extend({
                             if(data.response !== "wrong_password" && data.response !== "wrong_user")
                             {
                                 alert("Login successful");
-                                console.log(data.response);
                                 context.dialog("close");
                                 var currentUser = new User();
-                                currentUser.set(data.response);//{userName: data.response.username, email: data.response.email, realName: data.response.firstname, realLastname: data.response.lastname, credits: data.response.creditCount, languages: data.response.userLanguages});
-                                console.log(currentUser);
+                                currentUser.set(data.response);
                                 new UserNavOn({model: currentUser});
                             }
                             else

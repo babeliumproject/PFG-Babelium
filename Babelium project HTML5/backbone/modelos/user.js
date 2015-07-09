@@ -1,11 +1,10 @@
 var User = Backbone.Model.extend({
     initialize: function () {
-        console.log("User created");
         var dif,x;
 
         for(x = 0; x < this.get('userLanguages').length ;x++)
         {
-            dif = this.get('userLanguages');
+            dif = this.get('userLanguages');console.log(dif[x].language);
             // Preparo el idioma para poder cargar la bandera
             switch (dif[x].language)
             {

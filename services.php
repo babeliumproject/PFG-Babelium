@@ -82,9 +82,9 @@ class PluginSubset{
                                SL.hide_time as hideTime,
                                SL.text,
                                SL.fk_exercise_role_id as exerciseRoleId,
-                               ER.character_name as exerciseRoleName,
+                         ER.character_name as exerciseRoleName,
                                S.id as subtitleId
-                       FROM (subtitle_line AS SL INNER JOIN subtitle AS S ON SL.fk_subtitle_id = S.id)
+                        FROM (subtitle_line AS SL INNER JOIN subtitle AS S ON SL.fk_subtitle_id = S.id)
                         INNER JOIN exercise AS E ON E.id = S.fk_exercise_id
                         RIGHT OUTER JOIN exercise_role AS ER ON ER.id=SL.fk_exercise_role_id
                         WHERE ";
@@ -125,7 +125,7 @@ class PluginSubset{
                                e.thumbnail_uri as thumbnailUri,
                            e.adding_date as addingDate,
                                e.duration,
-                               u.username as userName,
+                      u.username as userName,
                            avg (suggested_level) as avgDifficulty,
                                e.status,
                                e.license,
@@ -147,7 +147,7 @@ class PluginSubset{
                 if(!$name)
                         return;
                 $sql = "SELECT e.id,
- e.title,
+                               e.title,
                                e.description,
                                e.language,
                                e.tags,
@@ -168,7 +168,7 @@ class PluginSubset{
                         GROUP BY e.id";
 
                 $result = $this->db->_singleSelect($sql,$name);
-                return $result;
+             return $result;
         }
 
         public function getExerciseById($id = 0){
@@ -208,7 +208,9 @@ class PluginSubset{
 
                 $sql = "SELECT DISTINCT language as locale FROM subtitle
                                 WHERE fk_exercise_id = %d";
- $results = $this->db->_multipleSelect ( $sql, $exerciseId );
+
+                $results = $this->db->_multipleSelect ( $sql, $exerciseId );
+
 
                 return $results; // return languages
         }
@@ -271,7 +273,7 @@ class PluginSubset{
 
         /**
          * RESPONSE.PHP
-  */
+         */
         public function admSaveResponse($data){
                 try{
                         $userId = self::$userId;
@@ -294,7 +296,7 @@ class PluginSubset{
                                         $thumbPath = $this->conf->imagePath . '/' . $data->fileIdentifier;^M
                                         if(!is_dir($thumbPath)){^M
                                                 if(!mkdir($thumbPath))^M
-                                                        throw new Exception("You don't have enough permissions to create the thumbail folder: ".$thumbPath."\n");^M
+                                                     throw new Exception("You don't have enough permissions to create the thumbail folder: ".$thumbPath."\n");^M
                                                 if(!is_writable($thumbPath))^M
                                                         throw new Exception("You don't have enough permissions to write to the thumbnail folder: ".$thumbPath."\n");^M
                                                 if( !symlink($this->conf->imagePath.'/nothumb.png', $thumbPath.'/default.jpg')  )^M
@@ -334,8 +336,8 @@ class PluginSubset{
         private function _getResourceDirectories(){
                 $sql = "SELECT prefValue
                         FROM preferences
-                                               WHERE (prefName='exerciseFolder' OR prefName='responseFolder' OR prefName='evaluationFolder')
-                        ORDER BY prefName";
+                        WHERE (prefName='exerciseFolder' OR prefName='responseFolder' OR prefName='evaluationFolder')
+                  ORDER BY prefName";
                 $result = $this->db->_multipleSelect($sql);
                 if($result){
                         $this->evaluationFolder = $result[0] ? $result[0]->prefValue : '';
@@ -378,8 +380,7 @@ class PluginSubset{
                         throw new Exception($e->getMessage());
                 }
         }
-
-        public function getResponseVideos(){
+ public function getResponseVideos(){
         /*        $where = "";
                 $userId = self::$userId;
                 if ($userId)
@@ -422,7 +423,7 @@ class PluginSubset{
          * @return array $result
          *              Returns an array of languages or null when nothing found
          */
-        private function _getUserLanguages($userId){
+private function _getUserLanguages($userId){
                 $sql = "SELECT language,
                                            level,
                                            positives_to_next_level as positivesToNextLevel,
@@ -460,13 +461,12 @@ class PluginSubset{
         public function processLogin($user = null){
                 if($user && is_object($user)){
                         //Check if the given username exists
-
                         if($this->getUserInfo($user->username)==false){
                                 return "wrong_user";
                         } else {
                                 //Check whether the user is active or not
                                 $sql = "SELECT id FROM user WHERE (username = '%s' AND active = 0)";
-                                $result = $this->db->_singleSelect($sql, $user->username);
+                        $result = $this->db->_singleSelect($sql, $user->username);
                                 if ( $result )
                                 return "inactive_user";
                                 //Check if the user provided correct authentication data
@@ -508,7 +508,7 @@ class PluginSubset{
          * @return int $result
          *              Returns the last insert id if the session storing went well or false when something went wrong
          */
-        private function _startUserSession($userData){
+ private function _startUserSession($userData){
                 $this->_setSessionData($userData);
 
                 $sql = "INSERT INTO user_session (fk_user_id, session_id, session_date, duration, keep_alive)
@@ -522,8 +522,7 @@ class PluginSubset{
          * @param stdClass $userData
          *              An object with the following properties: (id, name, realName, realSurname, email, creditCount, joiningDate, isAdmin, userLanguages[])
          */
-
-                private function _setSessionData($userData){
+        private function _setSessionData($userData){
                 //We are changing the privilege level, so we generate a new session id
                 if(!headers_sent())
                         session_regenerate_id();
@@ -543,10 +542,8 @@ class PluginSubset{
                 $userData-> id = null;
                 return $userData;
         }
-
         public function endSession() {
                 session_destroy();
         }
 }
 ?>
-

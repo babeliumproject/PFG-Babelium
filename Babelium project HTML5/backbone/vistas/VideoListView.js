@@ -1,10 +1,6 @@
 var VideoListView = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<aside class='paginationPanel HBox vcenter'>"
-            + "<div id='vidNavB'class='paginationPaging HBox vcenter'></div>"
-            + "<div class='spacer'></div>"
-            + "<div id='pagInfo' class='paginationInfo'></div></aside>"
-            ),
+    
     initialize: function (options)
     {
         this.options = options;
@@ -20,37 +16,36 @@ var VideoListView = Backbone.View.extend({
             this.$el.append(vidView.render().el);
         }, this);
         //Añado los botones para navegar entre las paginas
-        this.$el.append(this.my_template());
-        /*var ctx = this;
+        //this.$el.append(this.my_template());
+        var ctx = this;
         $.get("themes/babelium/templates/videoList.html",function(data){
             template = _.template(data,{});
             ctx.$el.append(template);
-        },'html');*/
 		// Control de la paginación
-		var curPag = parseInt(this.options.page);
-        var numPags = parseInt(this.options.pages);
+		var curPag = parseInt(ctx.options.page);
+        var numPags = parseInt(ctx.options.pages);
 
         // Aquí añado información al pie de pagina con la paginación
-        if(curPag*10 > this.options.numVid)
+        if(curPag*10 > ctx.options.numVid)
         {
-            $("#pagInfo").html((curPag*10 - 9) +" - "+this.options.numVid+" of "+ this.options.numVid);
+            $("#pagInfo").html((curPag*10 - 9) +" - "+ctx.options.numVid+" of "+ ctx.options.numVid);
         }
         else
         {
-            $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ this.options.numVid);
+            $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ ctx.options.numVid);
         }
 
-        if(this.options.terms)
+        if(ctx.options.terms)
         {
         	if(curPag > 3)
         	{
 	            if(curPag - 5 <= 1)
 	            {
-	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_1'>&lt;</a>");
+	                $('#vidNavB').append("<a href='#Search/"+ctx.options.terms+"/page_1'>&lt;</a>");
 	            }
 	            else
 	            {
-	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag - 5)+"'>&lt;</a>");
+	                $('#vidNavB').append("<a href='#Search/"+ctx.options.terms+"/page_"+(curPag - 5)+"'>&lt;</a>");
 	            }
 	        }
         }
@@ -88,9 +83,9 @@ var VideoListView = Backbone.View.extend({
         		}
         		else
         		{
-        			if(this.options.terms)
+        			if(ctx.options.terms)
 	                {
-                        $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag + cont)+"'>"+(curPag + cont)+"</a>");
+                        $('#vidNavB').append("<a href='#Search/"+ctx.options.terms+"/page_"+(curPag + cont)+"'>"+(curPag + cont)+"</a>");
                     }
 	                else
 	                {
@@ -100,17 +95,17 @@ var VideoListView = Backbone.View.extend({
         	}
         	cont++;
         }
-        if(this.options.terms)
+        if(ctx.options.terms)
         {
         	if(curPag < numPags - 2)
         	{
 	            if(curPag + 5 >= numPags)
 	            {
-	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+numPags+"'>&lt;</a>");
+	                $('#vidNavB').append("<a href='#Search/"+ctx.options.terms+"/page_"+numPags+"'>&lt;</a>");
 	            }
 	            else
 	            {
-	                $('#vidNavB').append("<a href='#Search/"+this.options.terms+"/page_"+(curPag + 5)+"'>&lt;</a>");
+	                $('#vidNavB').append("<a href='#Search/"+ctx.options.terms+"/page_"+(curPag + 5)+"'>&lt;</a>");
 	            }
         	}
         }
@@ -128,5 +123,6 @@ var VideoListView = Backbone.View.extend({
 	            }
 	        }
         }
+        },'html');
 	},
 });

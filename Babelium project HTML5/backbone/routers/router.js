@@ -131,14 +131,14 @@ var TodoRouter = Backbone.Router.extend({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
-            console.log(data);
+            var d = JSON.parse(data);
+            var currentUser = new User(d.response);console.log(currentUser);
+            var userView = new UserView({model: currentUser});
+            var searchNavView = new SearchNavView({search: false});
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
-        var currentUser = new User();
-        var userView = new UserView({model: currentUser});
-        var searchNavView = new SearchNavView({search: false});
     },
     goHelp: function (p) {
         $('#bodyTitle').html("Help");
