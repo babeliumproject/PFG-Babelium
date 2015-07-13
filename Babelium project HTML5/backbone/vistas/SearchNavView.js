@@ -1,11 +1,5 @@
 var SearchNavView = Backbone.View.extend({
     el: $("#searchnav"),
-    my_template: _.template("<button id='btnUpload' class='upload'>Upload</button>"
-            + "<% if (this.options.search) { %>"
-            + "<input id='txtSearch' type='text' placeholder='Enter your search terms...' class='search boxFlex' />"
-            + "<button id='btnSearch'>Search</button>"
-            + "<% } %>"
-            ),
     events:
             {
                 'click #btnSearch': 'goSearch',
@@ -19,7 +13,11 @@ var SearchNavView = Backbone.View.extend({
     },
     render: function ()
     {
-        this.$el.html(this.my_template());
+        var ctx = this;
+        $.get("themes/babelium/templates/searchNav.html",function(data){
+            template = _.template(data,{'search':ctx.options.search});
+            ctx.$el.html(template);
+        },'html');
     },
     goSearch: function ()
     {

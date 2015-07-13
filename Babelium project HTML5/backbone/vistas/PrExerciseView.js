@@ -1,68 +1,6 @@
 var exData, exRoles, exLoc, exSubs;
 var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<section class='exerciseInfo'>"
-        +"<p><h2 id='babelium-exercise-title'></h2></p>"
-        +"<article>"
-        +"<div class='no-overflow'>"
-        +"<object type='application/x-shockwave-flash' id='babeliumPlayer' name='babeliumPlayer' align='middle' data='http://babeliumproject.com/babeliumPlayer.swf' width='640' height='380' style='height: 332px; width: 500px;'>"
-        +"<param name='quality' value='high'>"
-        +"<param name='bgcolor' value='#000000'>"
-        +"<param name='allowscriptaccess' value='always'>"
-        +"<param name='allowfullscreen' value='true'>"
-        +"<param name='wmode' value='window'>"
-        +"<param name='flashvars' value='locale=es&amp;forcertmpt=1&amp;jsCallbackObj='>"
-        +"</object>"
-        +"</div>"
-        +"</article>"
-        +"<article id='recordingEndOptions' class='recordingEndOptions'>"
-        +"<label>Available actions:</label><br/>"
-        +"<button id='publish' disabled>"//onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'
-        +"<img src='themes/babelium/images/eo_save_response.png' width='48' height='48' />"
-        +"<span>Publish response</span>"
-        +"</button><br/>"
-        +"<button id='watch' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'
-        +"<img src='themes/babelium/images/eo_watch_sim.png' width='48' height='48' />"
-        +"<span>Watch response</span>"
-        +"</button><br/>"
-        +"<button id='reRecord' disabled>" //onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'
-        +"<img src='themes/babelium/images/button_rec.png' width='48' height='48' />"
-        +"<span>Record again</span>"
-        +"</button><br/>"
-        +"<button id='discard'>" //onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'
-        +"<img src='themes/babelium/images/button_abort.png' width='48' height='48' />"
-        +"<span>Discard response</span>"
-        +"</button>"
-        +"</article>"
-        +"<article id='exerciseInfo' class='exerciseInfo aligned'>"
-        +"<form name=mform1>"
-        +"<label>Choose a role: </label>"
-        +"<select id='recordedRole'>"
-        +"</select><br>"
-        +"<label>Choose a language:</label>"
-        +"<select id='recLocale'>"
-        +"</select><br>"
-        +"<label>Choose a recording method:</label>"
-        +"<div class='recordmethod'>"
-        +"<input type='radio' id='checkM' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>"
-        +"<input type='radio' id='checkCM' name='recordingMethod' value='micCam'>Camera and microphone</input>"
-        +"</div>"
-        +"<a id='id_startStopRecordingBtn' alt='Record'>"
-        +"<img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />"
-        +"</a>"
-        +"</article>"
-        +"<article class='videoInfo'>"
-        +"<div class='topbar HBox'>"
-        +"<div class='ratyPreview' data-rating='7.5324545454545' data-readonly='true' id='raty-video-preview'></div>"
-        +"<div class='spacer'></div>"
-        +"<div style='margin-right: 3px'><img src='themes/babelium/images/shield_icon.png' width='20' height='21' alt='Report' align='left'/></div>"
-        +"<div><a href='javascript:void(0);' class='yellow'>Report"
-        +"</a></div>"
-        +"</div>"
-        +"<div class='tag'><p></p></div>" //AQUI LOS TAGS
-        +"</article>"
-        +"</section>"
-    ),
     events:
             {
                 'click #record': 'record',
@@ -142,24 +80,28 @@ var PrExercise = Backbone.View.extend({
         var exercise = {'exerciseId':exData.id,'exerciseName':exData.name,'duration':exData.duration,'exerciseThumbnailUri':exData.thumbnailUri,'title':exData.title};
 
         init('jlachen', 'en', '1', exercise, exSubs, '', '');
-        this.$el.html(this.my_template());
-        $("#babelium-exercise-title").append(exData.title);
+        var ctx = this;
+        $.get("themes/babelium/templates/prExercise.html",function(data){
+            template = _.template(data,{});
+            ctx.$el.html(template);
+            $("#babelium-exercise-title").append(exData.title);
 
-        var i = 0;
+            var i = 0;
 
-        while(exRoles[i])
-    	{
-    		$("#recordedRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
-    		i++;
-    	}
+            while(exRoles[i])
+            {
+                $("#recordedRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
+                i++;
+            }
 
-    	i = 0;
+            i = 0;
 
-    	while(exLoc[i])
-    	{
-    		$("#recLocale").append('<option value='+exLoc[i].locale+'>'+exLoc[i].locale+'</option>');
-    		i++;
-    	}
+            while(exLoc[i])
+            {
+                $("#recLocale").append('<option value='+exLoc[i].locale+'>'+exLoc[i].locale+'</option>');
+                i++;
+            }
+        },'html');
     },
     
     record: function ()
