@@ -1,10 +1,5 @@
 var EvExercise = Backbone.View.extend({
     el: $("#mainBody"),
-    events:
-            {
-                'change #txtComCheck' : 'addTxt',
-                'change #vidComCheck' : 'addVid'
-            },
     initialize: function (options)
     {
         this.options = options;
@@ -69,27 +64,5 @@ var EvExercise = Backbone.View.extend({
 
             $("#babelium-exercise-title").append(respData.title);
         },'html');
-    },
-    
-    addTxt: function ()
-    {
-        $('#txtComDiv').css('display', 'none');
-        $('#vidComDiv').css('display', 'none');
-
-        if ($('#txtComCheck').is(':checked'))
-        {
-            $('#txtComDiv').css('display', 'block');
-        }
-    },
-
-    addVid: function ()
-    {
-        $('#txtComDiv').css('display', 'none');
-        $('#vidComDiv').css('display', 'none');
-
-        if ($('#vidComCheck').is(':checked'))
-        {
-            $('#vidComDiv').css('display', 'block');
-        }
     }
 });

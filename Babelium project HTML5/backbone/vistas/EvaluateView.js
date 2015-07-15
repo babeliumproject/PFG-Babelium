@@ -1,10 +1,5 @@
 var EvaluateView = Backbone.View.extend({
     el: $("#mainBody"),
-    my_template: _.template("<aside class='paginationPanel HBox vcenter'>"
-            + "<div id='vidNavB'class='paginationPaging HBox vcenter'></div>"
-            + "<div class='spacer'></div>"
-            + "<div id='pagInfo' class='paginationInfo'></div></aside>"
-            ),
     initialize: function (options)
     {
         this.options = options;
@@ -20,68 +15,72 @@ var EvaluateView = Backbone.View.extend({
             this.$el.append(vidView.render().el);
         }, this);
         //Añado los botones para navegar entre las paginas
-        this.$el.append(this.my_template());
+        var ctx = this;
+        $.get("themes/babelium/templates/evaluate.html",function(data){
+            template = _.template(data,{});
+            ctx.$el.append(template);
 
-		// Control de la paginación
-		var curPag = parseInt(this.options.page);
-        var numPags = parseInt(this.options.pages);
+    		// Control de la paginación
+    		var curPag = parseInt(ctx.options.page);
+            var numPags = parseInt(ctx.options.pages);
 
-        // Aquí añado información al pie de pagina con la paginación
-        if(curPag*10 > this.options.numVid)
-        {
-            $("#pagInfo").html((curPag*10 - 9) +" - "+this.options.numVid+" of "+ this.options.numVid);
-        }
-        else
-        {
-            $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ this.options.numVid);
-        }
-
-    	if(curPag > 3)
-    	{
-            if(curPag - 5 <= 1)
+            // Aquí añado información al pie de pagina con la paginación
+            if(curPag*10 > ctx.options.numVid)
             {
-                 $('#vidNavB').append("<a href='#Evaluate/page_1'>&lt;</a>");
+                $("#pagInfo").html((curPag*10 - 9) +" - "+ctx.options.numVid+" of "+ ctx.options.numVid);
             }
             else
             {
-                 $('#vidNavB').append("<a href='#Evaluate/page_"+ (curPag - 5) +"'>&lt;</a>");
+                $("#pagInfo").html((curPag*10 - 9) +" - "+(curPag*10)+" of "+ ctx.options.numVid);
             }
-        }
 
-		// Creo un contador y una condicion para terminar la iteración para poder actualizar la
-        // condicion dinamicamente en caso de que se cumplan ciertos casos
-        var cont = -2;
-        var condition = 3;
-        
-        while(cont < condition)
-        {
-        	if(curPag + cont < 1)
+        	if(curPag > 3)
         	{
-        		condition++;
-        	}
-        	else
-        	{
-        		if(curPag + cont > numPags)
-        		{
+                if(curPag - 5 <= 1)
+                {
+                     $('#vidNavB').append("<a href='#Evaluate/page_1'>&lt;</a>");
+                }
+                else
+                {
+                     $('#vidNavB').append("<a href='#Evaluate/page_"+ (curPag - 5) +"'>&lt;</a>");
+                }
+            }
 
-        		}
-        		else
-	            {
-             	    $('#vidNavB').append("<a href='#Evaluate/page_"+ (curPag + cont) +"'>"+(curPag + cont)+"</a>");
-	            }
-        	}
-        	cont++;
-        }
-        if(curPag < numPags - 2)
-    	{
-            if(curPag + 5 >= numPags)
+    		// Creo un contador y una condicion para terminar la iteración para poder actualizar la
+            // condicion dinamicamente en caso de que se cumplan ciertos casos
+            var cont = -2;
+            var condition = 3;
+            
+            while(cont < condition)
             {
-                 $('#vidNavB').append("<a href='#Evaluate/page_"+numPags+"'>&gt;</a>");
+            	if(curPag + cont < 1)
+            	{
+            		condition++;
+            	}
+            	else
+            	{
+            		if(curPag + cont > numPags)
+            		{
+
+            		}
+            		else
+    	            {
+                 	    $('#vidNavB').append("<a href='#Evaluate/page_"+ (curPag + cont) +"'>"+(curPag + cont)+"</a>");
+    	            }
+            	}
+            	cont++;
             }
-            else
-            {
-                 $('#vidNavB').append("<a href='#Evaluate/page_"+(curPag + 5)+"'>&gt;</a>");
+            if(curPag < numPags - 2)
+        	{
+                if(curPag + 5 >= numPags)
+                {
+                     $('#vidNavB').append("<a href='#Evaluate/page_"+numPags+"'>&gt;</a>");
+                }
+                else
+                {
+                     $('#vidNavB').append("<a href='#Evaluate/page_"+(curPag + 5)+"'>&gt;</a>");
+                }
             }
-        }
+        },'html');
 	},
 });

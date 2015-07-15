@@ -16,6 +16,7 @@ var UserNavOff = Backbone.View.extend({
         },'html');
     },
     goLogin: function () {
+
         $("#loginDialog").dialog({
             open: function () {
 
