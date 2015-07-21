@@ -24,25 +24,25 @@ var PrExercise = Backbone.View.extend({
             data: { id: this.options.id }
         }).done(function(data) {
         	exData = data.response;
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });
-
-        $.ajax({
-            url: '/php/videoLocale.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.id }
-        }).done(function(data) {
-        	exLoc = data.response;
             $.ajax({
                 url: '/php/subtitles.php',
                 type: 'POST',
                 dataType: "json",
-                data: { id: ctx.options.id, lang: exLoc[0].locale}
+                data: { id: ctx.options.id, lang: exData.language}
             }).done(function(data2) {
                 exSubs = data2.response;
+                $.ajax({
+                    url: '/php/videoRoles.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: { id: ctx.options.id }
+                }).done(function(data) {
+                    exRoles = data.response;
+                    ctx.render(exData,exRoles,exSubs);
+                }).fail(function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });
             }).fail(function(xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
                 alert(err.Message);
@@ -51,34 +51,11 @@ var PrExercise = Backbone.View.extend({
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         });
-
-        $.ajax({
-            url: '/php/videoRoles.php',
-            type: 'POST',
-            dataType: "json",
-            data: { id: this.options.id }
-        }).done(function(data) {
-        	exRoles = data.response;
-        }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });
-
-        // Hay que hacer esperar un poco para obtener las respuestas a todas las llamadas necesarias
-        var varCheck = setInterval(function()
-    	{
-            // Seguimos cuando están todos los datos guardados
-    		if(exData && exRoles && exLoc && exSubs)
-			{
-				window.clearInterval(varCheck);
-				ctx.render(exData,exRoles,exLoc,exSubs);
-			}
-		},300);
     },
-    render: function (exData,exRoles,exLoc,exSubs)
+    render: function (exData,exRoles,exSubs)
     {
         var exercise = {'exerciseId':exData.id,'exerciseName':exData.name,'duration':exData.duration,'exerciseThumbnailUri':exData.thumbnailUri,'title':exData.title};
-
+        console.log(exData);
         init('jlachen', 'en', '1', exercise, exSubs, '', '');
         var ctx = this;
         $.get("themes/babelium/templates/prExercise.html",function(data){
@@ -102,12 +79,9 @@ var PrExercise = Backbone.View.extend({
             }
 
             i = 0;
+            
+            $("#recLocale").append('<option value='+exData.language+'>'+exData.language+'</option>');
 
-            while(exLoc[i])
-            {
-                $("#recLocale").append('<option value='+exLoc[i].locale+'>'+exLoc[i].locale+'</option>');
-                i++;
-            }
         },'html');
     },
     
