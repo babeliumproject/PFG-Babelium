@@ -18,8 +18,14 @@ var UserNavOff = Backbone.View.extend({
     goLogin: function () {
 
         $("#loginDialog").dialog({
-            open: function () {
-
+            open: function ()
+            {
+                $(document).keypress(function(event) {
+                    if (event.which == 13) {
+                        event.preventDefault();
+                        $("#MyForm").submit();
+                    }
+                });
             },
             buttons: [
                 {

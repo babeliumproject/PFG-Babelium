@@ -3,7 +3,7 @@ var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
     events:
             {
-                'click #record': 'record',
+                'click #id_startStopRecordingBtn': 'record',
                 'click #discard': 'discard',
                 'change #recordedRole': 'changeRole',
                 'change #recLocale': 'changeLang',
@@ -85,7 +85,14 @@ var PrExercise = Backbone.View.extend({
             template = _.template(data,{});
             ctx.$el.html(template);
             $("#babelium-exercise-title").append(exData.title);
-
+            
+            // Fijo los tags en su sitio
+            var tags = exData.tags.split(',');
+            for(var t = 0 ; t < tags.length ; t++)
+            {
+                $("#prTags").append(document.createTextNode(tags[t]));    
+            }
+            
             var i = 0;
 
             while(exRoles[i])
@@ -115,61 +122,6 @@ var PrExercise = Backbone.View.extend({
     {
         $('#recordingEndOptions').css('display','none');
         $('#exerciseInfo').css('display','inline-block');
-    },
-
-    changeRole: function ()
-    {
-        // Para cambiar lo que haya que cambiar al elegir el rol si es que hay que hacer algo en la visualización del video, si solo vale para cuando le das a grabar entonces nada
-    },
-    
-    changeLang: function ()
-    {
-        /*var x = 0;
-        var found = false;
-        while(x < prevLoc.length && !found)
-        {
-            if(prevLoc.response[x].locale === $('#recLocale').value)
-            {
-                found = true;
-            }
-            else
-            {
-                x++;
-            }
-        }
-
-        if(found)
-        {
-            var varCheck = setInterval(function()
-            {
-                var exSubs;
-                // Para evitar que se se repita el proceso innecesariamente
-                if(!exSubs)
-                {
-                    $.ajax({
-                        url: '/php/subtitles.php',
-                        type: 'POST',
-                        dataType: "json",
-                        data: { id: ctx.options.id, lang: exLoc.response[0].locale}
-                    }).done(function(data) {
-                        exSubs = data;
-                        console.log(data);
-                    }).fail(function(xhr, status, error) {
-                        var err = eval("(" + xhr.responseText + ")");
-                        alert(err.Message);
-                    });
-                }
-
-                // Seguimos cuando están todos los datos guardados
-                if(exSubs)
-                {
-                    prevSubs = exSubs;
-
-                    window.clearInterval(varCheck);
-                    init
-                }
-            },500);
-        }*/
     },
 
     changeMC: function ()
