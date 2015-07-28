@@ -20,16 +20,12 @@ var UserNavOff = Backbone.View.extend({
         $("#loginDialog").dialog({
             open: function ()
             {
-                $(document).keypress(function(event) {
-                    if (event.which == 13) {
-                        event.preventDefault();
-                        $("#MyForm").submit();
-                    }
-                });
+
             },
             buttons: [
                 {
                     text: "Log in",
+                    id: "bLogIn",
                     click: function ()
                     {
                         // Al hacer clic en log in guardo los valores
