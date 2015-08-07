@@ -4,10 +4,10 @@ require_once("babelium_gateway.php");
 $CFG = new Config();
 $g = new babelium_gateway();
 
-$id = $_POST['id'];
+$name = $_POST['name'];
 
 $params = array();
 
-$params['responseId'] = $id;
+$params['responseName'] = $name;
 
-$g->serviceCall('http','admGetResponseById', $params);
+$g->serviceCall('http','admGetResponseByName', $params);

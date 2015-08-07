@@ -4,9 +4,9 @@ var TodoRouter = Backbone.Router.extend({
             {
                 "Home": "goHome",
                 "Practice/page_:p": "goPractice",
-                "Practice/exercise/:name/:id": "goPrExercise",
+                "Practice/exercise/:name": "goPrExercise",
                 "Evaluate/page_:p": "goEvaluate",
-                "Evaluate/response/:name/:id" : "goEvExercise",
+                "Evaluate/response/:name" : "goEvExercise",
                 "Subtitle": "goSubtitle",
                 "Config": "goConfig",
                 "About": "goAbout",
@@ -23,15 +23,15 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search: false});
     },
     goPractice: function (p) {
-        $.ajax({
+        /*$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
             var d = JSON.parse(data);
-
+console.log(d);
             // Comprobación de si esta logueado o no
             if(d.response.username)
-            {
+            {*/
                 $('#bodyTitle').html("Practice");
                 // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
                 var videos = new VideoList();
@@ -68,7 +68,7 @@ var TodoRouter = Backbone.Router.extend({
 
                     var searchNavView = new SearchNavView({search: true});
                 });
-            }
+            /*}
             else
             {
                 alert('You must log in first');
@@ -76,12 +76,12 @@ var TodoRouter = Backbone.Router.extend({
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
-        });
+        });*/
 
     },
 
-    goPrExercise: function (name,id) {
-    	$.ajax({
+    goPrExercise: function (name) {
+    	/*$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
@@ -89,11 +89,11 @@ var TodoRouter = Backbone.Router.extend({
 
             // Comprobación de si esta logueado o no
             if(d.response.username)
-            {
+            {*/
                 $('#bodyTitle').html("Practice");
-                var prEx = new PrExercise({name:name, id:id.toString()});
+                var prEx = new PrExercise({name:name});
                 var searchNavView = new SearchNavView({search: true});
-            }
+            /*}
             else
             {
                 alert('You must log in first');
@@ -101,11 +101,11 @@ var TodoRouter = Backbone.Router.extend({
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
-        });
+        });*/
     },
 
-    goEvExercise: function (name,id) {
-        $.ajax({
+    goEvExercise: function (name) {
+        /*$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
@@ -113,11 +113,11 @@ var TodoRouter = Backbone.Router.extend({
 
             // Comprobación de si esta logueado o no
             if(d.response.username)
-            {
+            {*/
                 $('#bodyTitle').html("Evaluate");
-                var evEx = new EvExercise({name:name, id:id.toString()});
+                var evEx = new EvExercise({name:name});
                 var searchNavView = new SearchNavView({search: true});
-            }
+            /*}
             else
             {
                 alert('You must log in first');
@@ -125,11 +125,11 @@ var TodoRouter = Backbone.Router.extend({
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
-        });
+        });*/
     },
 
     goEvaluate: function (p) {
-        $.ajax({
+        /*$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
@@ -137,7 +137,7 @@ var TodoRouter = Backbone.Router.extend({
 
             // Comprobación de si esta logueado o no
             if(d.response.username)
-            {
+            {*/
                 $('#bodyTitle').html("Evaluate");
                 // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
                 var videos = new ResponseList();
@@ -173,7 +173,7 @@ var TodoRouter = Backbone.Router.extend({
 
                     var searchNavView = new SearchNavView({search: false});
                 });
-            }
+            /*}
             else
             {
                 alert('You must log in first');
@@ -181,7 +181,7 @@ var TodoRouter = Backbone.Router.extend({
         }).fail(function(xhr, status, error) {
             var err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
-        });
+        });*/
     },
     goSubtitle: function () {
         $('#bodyTitle').html("Subtitle");

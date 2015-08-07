@@ -16,26 +16,25 @@ var PrExercise = Backbone.View.extend({
         _.bindAll(this, 'render');
 
         var ctx = this;
-
         $.ajax({
             url: '/php/video.php',
             type: 'POST',
             dataType: "json",
-            data: { id: this.options.id }
+            data: { name: this.options.name }
         }).done(function(data) {
         	exData = data.response;
             $.ajax({
                 url: '/php/subtitles.php',
                 type: 'POST',
                 dataType: "json",
-                data: { id: ctx.options.id, lang: exData.language}
+                data: { id: exData.id, lang: exData.language}
             }).done(function(data2) {
                 exSubs = data2.response;
                 $.ajax({
                     url: '/php/videoRoles.php',
                     type: 'POST',
                     dataType: "json",
-                    data: { id: ctx.options.id }
+                    data: { id: exData.id }
                 }).done(function(data) {
                     exRoles = data.response;
                     ctx.render(exData,exRoles,exSubs);
@@ -97,9 +96,4 @@ var PrExercise = Backbone.View.extend({
         $('#recordingEndOptions').css('display','none');
         $('#exerciseInfo').css('display','inline-block');
     },
-
-    changeMC: function ()
-    {
-
-    }
 });

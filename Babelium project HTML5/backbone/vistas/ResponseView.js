@@ -18,6 +18,6 @@ var ResponseView = Backbone.View.extend({
     },
     
     goResponse: function () {
-        window.location.href = '#Evaluate/response/'+this.model.attributes.fileIdentifier+'/'+this.model.attributes.id;
+        window.location.href = '#Evaluate/response/'+this.model.attributes.fileIdentifier;
     }
 });

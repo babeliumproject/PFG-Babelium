@@ -44,6 +44,8 @@ var UserNavOff = Backbone.View.extend({
                         }).done(function(data) {
                             if(data.response !== "wrong_password" && data.response !== "wrong_user")
                             {
+
+console.log(data.response);
                                 alert("Login successful");
                                 context.dialog("close");
                                 var currentUser = new User();

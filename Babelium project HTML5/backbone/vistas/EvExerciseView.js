@@ -6,20 +6,20 @@ var EvExercise = Backbone.View.extend({
         _.bindAll(this, 'render');
 
         var ctx = this;
-
+        
         // Response (Necesito los datos de la respuesta para reproducirla)
         $.ajax({
             url: '/php/response.php',
             type: 'POST',
             dataType: "json",
-            data: { id: this.options.id }
+            data: { name: this.options.name }
         }).done(function(data) {
             // Video (Para los subtitulos necesito el ID y el lenguaje, el ID lo podría coger de Response pero no el lenguaje)
             $.ajax({
                 url: '/php/video.php',
                 type: 'POST',
                 dataType: "json",
-                data: { id: data.response.exerciseId }
+                data: { name: data.response.exerciseName }
             }).done(function(data2) {
                 // Subtitulos
                 $.ajax({

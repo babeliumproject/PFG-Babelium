@@ -4,6 +4,10 @@ session_start();
 require_once dirname(__FILE__) . '/../../services/utils/Config.php';
 require_once dirname(__FILE__) . '/../../services/utils/Datasource.php';
 require_once dirname(__FILE__) . '/../../services/utils/VideoProcessor.php';
+require_once dirname(__FILE__) . '/../../services/utils/EmailAddressValidator.php';
+require_once dirname(__FILE__) . '/../../services/utils/Mailer.php';
+require_once dirname(__FILE__) . '/../../services/vo/UserVO.php';
+require_once dirname(__FILE__) . '/../../services/vo/NewUserVO.php';
 
 /**
  * This is a minimum subset of the services Babelium provides, quickly piled up
@@ -82,7 +86,7 @@ class PluginSubset{
                                SL.hide_time as hideTime,
                                SL.text,
                                SL.fk_exercise_role_id as exerciseRoleId,
-                         ER.character_name as exerciseRoleName,
+                               ER.character_name as exerciseRoleName,
                                S.id as subtitleId
                         FROM (subtitle_line AS SL INNER JOIN subtitle AS S ON SL.fk_subtitle_id = S.id)
                         INNER JOIN exercise AS E ON E.id = S.fk_exercise_id
@@ -125,7 +129,7 @@ class PluginSubset{
                                e.thumbnail_uri as thumbnailUri,
                            e.adding_date as addingDate,
                                e.duration,
-                      u.username as userName,
+                               u.username as userName,
                            avg (suggested_level) as avgDifficulty,
                                e.status,
                                e.license,
@@ -164,11 +168,11 @@ class PluginSubset{
                         FROM  exercise e INNER JOIN user u ON e.fk_user_id= u.id
                         LEFT OUTER JOIN exercise_score s ON e.id=s.fk_exercise_id
                         LEFT OUTER JOIN exercise_level l ON e.id=l.fk_exercise_id
-                        WHERE (e.name = %s AND e.status='Available')
+                        WHERE (e.name = '%s' AND e.status='Available')
                         GROUP BY e.id";
 
                 $result = $this->db->_singleSelect($sql,$name);
-             return $result;
+                return $result;
         }
 
         public function getExerciseById($id = 0){
@@ -210,7 +214,6 @@ class PluginSubset{
                                 WHERE fk_exercise_id = %d";
 
                 $results = $this->db->_multipleSelect ( $sql, $exerciseId );
-
 
                 return $results; // return languages
         }
@@ -296,7 +299,7 @@ class PluginSubset{
                                         $thumbPath = $this->conf->imagePath . '/' . $data->fileIdentifier;^M
                                         if(!is_dir($thumbPath)){^M
                                                 if(!mkdir($thumbPath))^M
-                                                     throw new Exception("You don't have enough permissions to create the thumbail folder: ".$thumbPath."\n");^M
+                                                        throw new Exception("You don't have enough permissions to create the thumbail folder: ".$thumbPath."\n");^M
                                                 if(!is_writable($thumbPath))^M
                                                         throw new Exception("You don't have enough permissions to write to the thumbnail folder: ".$thumbPath."\n");^M
                                                 if( !symlink($this->conf->imagePath.'/nothumb.png', $thumbPath.'/default.jpg')  )^M
@@ -337,7 +340,7 @@ class PluginSubset{
                 $sql = "SELECT prefValue
                         FROM preferences
                         WHERE (prefName='exerciseFolder' OR prefName='responseFolder' OR prefName='evaluationFolder')
-                  ORDER BY prefName";
+                        ORDER BY prefName";
                 $result = $this->db->_multipleSelect($sql);
                 if($result){
                         $this->evaluationFolder = $result[0] ? $result[0]->prefValue : '';
@@ -380,7 +383,30 @@ class PluginSubset{
                         throw new Exception($e->getMessage());
                 }
         }
- public function getResponseVideos(){
+        
+        public function admGetResponseByName($responseName){
+                try{
+                        $sql = "SELECT r.file_identifier as responseName,
+                                       r.character_name as responseRole,
+                                       r.fk_subtitle_id as subtitleId,
+                                       r.thumbnail_uri as responseThumbnailUri,
+                                       e.id as exerciseId,
+                                       e.name as exerciseName,
+                                       e.duration,
+                                       e.thumbnail_uri as exerciseThumbnailUri,
+                                       e.title
+                                FROM response r INNER JOIN exercise e ON r.fk_exercise_id = e.id
+                                WHERE (e.status='Available' AND r.file_identifier = '%s')";
+                        //new SessionValidation(true);
+                        $result = $this->db->_singleSelect($sql, $responseName);
+                        return $result;
+                } catch(Exception $e){
+                        throw new Exception($e->getMessage());
+                }
+        }
+
+
+        public function getResponseVideos(){
         /*        $where = "";
                 $userId = self::$userId;
                 if ($userId)
@@ -423,7 +449,7 @@ class PluginSubset{
          * @return array $result
          *              Returns an array of languages or null when nothing found
          */
-private function _getUserLanguages($userId){
+        private function _getUserLanguages($userId){
                 $sql = "SELECT language,
                                            level,
                                            positives_to_next_level as positivesToNextLevel,
@@ -466,7 +492,7 @@ private function _getUserLanguages($userId){
                         } else {
                                 //Check whether the user is active or not
                                 $sql = "SELECT id FROM user WHERE (username = '%s' AND active = 0)";
-                        $result = $this->db->_singleSelect($sql, $user->username);
+                                $result = $this->db->_singleSelect($sql, $user->username);
                                 if ( $result )
                                 return "inactive_user";
                                 //Check if the user provided correct authentication data
@@ -508,7 +534,7 @@ private function _getUserLanguages($userId){
          * @return int $result
          *              Returns the last insert id if the session storing went well or false when something went wrong
          */
- private function _startUserSession($userData){
+        private function _startUserSession($userData){
                 $this->_setSessionData($userData);
 
                 $sql = "INSERT INTO user_session (fk_user_id, session_id, session_date, duration, keep_alive)
@@ -545,5 +571,263 @@ private function _getUserLanguages($userId){
         public function endSession() {
                 session_destroy();
         }
+
+
+
+        /**
+         * Sign-up a new user in the system
+         *
+         * @param stdClass $user
+         *              An object with the new user's data
+         * @throws Exception
+         *              There was a problem inserting the data on the database or while sending the activation email to the user. Changes are rollbacked.
+         */
+        public function register($user = null)
+        {
+                if(!$user)
+                        return 'empty_parameter';
+                $validator = new EmailAddressValidator();
+                if(!$validator->check_email_address($user->email)){
+                        return 'invalid_email';
+                } else {
+                        $initialCredits = $this->_getInitialCreditsQuery();
+                        $hash = $this->_createRegistrationHash();
+
+                        try{
+                                $this->db->_startTransaction();
+
+                                $insert = "INSERT INTO user (username, password, email, firstname, lastname, creditCount, activation_hash)";
+                                $insert .= " VALUES ('%s', '%s', '%s' , '%s', '%s', '%d', '%s' ) ";
+
+                                $realName = $user->firstname ? $user->firstname : "unknown";
+                                $realSurname = $user->lastname ? $user->lastname : "unknown";
+
+                                $result = $this->_create ($insert, $user->username, $user->password, $user->email,$realName, $realSurname, $initialCredits, $hash);
+                                if ($result)
+                                {
+                                        //Add the languages selected by the user
+                                        $motherTongueLocale = 'en_US';
+                                        $languages = $user->languages;
+                                        if ($languages && is_array($languages) && count($languages) > 0){
+                                                $languageInsertResult = $this->addUserLanguages($languages, $result->id);
+                                                //We get the first mother tongue as message locale
+                                                $motherTongueLocale = $languages[0]->language;
+                                        }
+                                        if($result && $languageInsertResult){
+                                                $this->db->_endTransaction();
+                                        } else {
+                                                throw new Exception("Error inserting user or adding user languages");
+                                        }
+
+                                        // Submit activation email
+                                        $mail = new Mailer($user->username);
+
+                                        $subject = 'Babelium Project: Account Activation';
+
+                                        //$params = new stdClass();
+                                        //$params->name = $user->name;
+                                        //$params->activationHash = $hash;
+                                        $activation_link = htmlspecialchars('http://'.$_SERVER['HTTP_HOST'].'/Main.html#/activation/activate/hash='.$hash.'&user='.$user->username);
+
+                                        $args = array(
+                                                'PROJECT_NAME' => 'Babelium Project',
+                                                'USERNAME' => $user->username,
+                                                'PROJECT_SITE' => 'http://'.$_SERVER['HTTP_HOST'],
+                                                'ACTIVATION_LINK' => $activation_link,
+                                                'SIGNATURE' => 'The Babelium Project Team');
+
+                                        if ( !$mail->makeTemplate("mail_activation", $args, $motherTongueLocale) )
+                                                return "error_sending_email";
+
+                                        $mail = $mail->send($mail->txtContent, $subject, $mail->htmlContent);
+                                        if (!$mail) return "error_sending_email";
+
+                                        return $this->db->recast('UserVO',$result);
+                                }
+                                return "error_user_email_exists";
+                        } catch (Exception $e){
+                                $this->db->_failedTransaction();
+                                // error_log(print_r($e, 1), 3, "/tmp/error.log");
+                                return "error_registering_user";
+                        }
+                }
+        }
+
+        /**
+         * Adds a set of languages to the user's profile
+         *
+         * @param array $languages
+         *              An array of stdClass with information about each language the user has added to his/her profile
+         * @param int $userId
+         *              The user id for the provided languages
+         *
+         * @return int $result
+         *              The user language id of the latest added user language. False on error.
+         */
+        private function addUserLanguages($languages, $userId) {
+                // error_log(print_r($languages, 1), 3, "/tmp/error.log");
+                $positivesToNextLevel = $this->_getPositivesToNextLevel();
+
+                $params = array();
+
+                $sql = "INSERT INTO user_languages (fk_user_id, language, level, purpose, positives_to_next_level) VALUES ";
+                foreach($languages as $language) {
+                        $sql .= " ('%d', '%s', '%d', '%s', '%d'),";
+                        array_push($params, $userId, $language->language, $language->level, $language->purpose, $positivesToNextLevel);
+                }
+                unset($language);
+                $sql = substr($sql,0,-1);
+                // put sql query and all params in one array
+                $merge = array_merge((array)$sql, $params);
+
+                $result = $this->db->_insert($merge);
+                return $result;
+
+        }
+
+        /**
+         * Activates the user profile so that the user is able to use the system
+         *
+         * @param stdClass $user
+         *              An object with user data that allows us to enable it's profile
+         *
+         * @result mixed
+         *              The prefered interface language of the just-activated user. Null on error.
+         */
+        public function activate($user = null){
+
+                if(!$user)
+                        return false;
+
+                $sql = "SELECT language
+                                FROM user AS u INNER JOIN user_languages AS ul ON u.id = ul.fk_user_id
+                                WHERE (u.username = '%s' AND u.activation_hash = '%s') LIMIT 1";
+                $result = $this->db->_singleSelect($sql, $user->username, $user->activationHash);
+
+                if ( $result )
+                {
+                        $sql = "UPDATE user SET active = 1, activation_hash = ''
+                                WHERE (username = '%s' AND activation_hash = '%s')";
+                        $update = $this->db->_update($sql, $user->username, $user->activationHash);
+                }
+
+                return ($result && $update)? $result->language : NULL ;
+        }
+
+
+        /**
+         * Inserts the new user data while checking of the username or email is duplicated
+         *
+         * @param String $insert
+         * @param String $userName
+         * @param String $userPass
+         * @param String $userEmail
+         * @param String $userFirstname
+         * @param String $userLastname
+         * @param int $userInitialCredits
+         * @param String $userHash
+         *
+         * @return int $result
+         *              The latest inserted user id. False on error.
+         */
+        private function _create($insert, $userName, $userPass, $userEmail, $userFirstname, $userLastname, $userInitialCredits, $userHash) {
+                // Check user with same name or same email
+                $sql = "SELECT id FROM user WHERE (username='%s' OR email = '%s' ) ";
+                $result = $this->db->_singleSelect($sql, $userName, $userEmail);
+                if ($result)
+                        return false;
+
+                $userId = $this->db->_insert( $insert, $userName, $userPass, $userEmail, $userFirstname, $userLastname, $userInitialCredits, $userHash );
+                if($userId){
+                        $sql = "SELECT id, username, email, password, creditCount FROM user WHERE (id=%d) ";
+                        $result = $this->db->_singleSelect($sql,$userId);
+                        return $result;
+                } else {
+                        return false;
+                }
+        }
+
+        /**
+         * Generates a pseudo-random activation hash for the activation process
+         *
+         * @return String $hash
+         *              The random activation hash
+         */
+        private function _createRegistrationHash()
+        {
+                $hash = "";
+                $chars = $this->_getHashChars();
+                $length = $this->_getHashLength();
+
+                // Generate Hash
+                for ( $i = 0; $i < $length; $i++ )
+                $hash .= substr($chars, rand(0, strlen($chars)-1), 1);  // java: chars.charAt( random );
+
+                return $hash;
+        }
+
+        /**
+         * Retrieves the activation hash length from the preferences table of the application
+         *
+         * @return int $result
+         *              Returns the value of the preference table. Returns 20 by default when the query fails
+         */
+        private function _getHashLength()
+        {
+                $sql = "SELECT prefValue FROM preferences WHERE ( prefName = 'hashLength' ) ";
+                $result = $this->db->_singleSelect($sql);
+                return $result ? $result->prefValue : 20;
+        }
+
+        /**
+         * Retrieves the subset of characters allowed to create the activation hash
+         *
+         * @return String $result
+         *              Returns the value of the preference table. Returns a default set of characters when the query fails.
+         */
+        private function _getHashChars()
+        {
+                $sql = "SELECT prefValue FROM preferences WHERE ( prefName = 'hashChars' ) ";
+                $result = $this->db->_singleSelect($sql);
+                return $result ? $result->prefValue : "abcdefghijklmnopqrstuvwxyz0123456789-_"; // Default: avoiding crashes
+        }
+
+        /**
+         * Get the initial amount of credits granted to new users
+         *
+         * @return int
+         *              The initial amount of credits granted to the user
+         * @throws Exception
+         *              There was a problem while querying the database
+         */
+        private function _getInitialCreditsQuery(){
+                $sql = "SELECT prefValue FROM preferences WHERE ( prefName='initialCredits' )";
+                $result = $this->db->_singleSelect($sql);
+                if($result){
+                        return $result->prefValue;
+                } else {
+                        throw new Exception("An unexpected error occurred while trying to save your registration data.");
+                }
+        }
+
+        /**
+         * Retrieves the amount of positive assessments an user has to receive in order to increase the knowledge level he/she has in a particular language
+         *
+         * @return int
+         *              The amount of positive reviews needed to get to the next level of a language
+         * @throws Exception
+         *              There was a problem while querying the database
+         */
+        private function _getPositivesToNextLevel(){
+                $sql = "SELECT prefValue FROM preferences WHERE ( prefName='positives_to_next_level' )";
+                $result = $this->db->_singleSelect($sql);
+                if($result){
+                        return $result->prefValue;
+                } else {
+                        throw new Exception("Unexpected error while trying to retrieve preference data");
+                }
+        }
+
+
 }
 ?>
