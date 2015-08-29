@@ -42,7 +42,7 @@ var UserNavOff = Backbone.View.extend({
                                 pass: pass
                             }
                         }).done(function(data) {
-                            if(data.response !== "wrong_password" && data.response !== "wrong_user")
+                            if(data.response !== "wrong_password" && data.response !== "wrong_user" && data.response !== "inactive_user")
                             {
 
 console.log(data.response);
@@ -61,9 +61,17 @@ console.log(data.response);
                                 }
                                 else
                                 {
-                                    alert("User is not correct");
-                                    $('#user').val("");
-                                    $('#password').val("");
+                                    if(data.response === "wrong_user")
+                                    {                                        
+                                        alert("User is not correct");
+                                        $('#user').val("");
+                                        $('#password').val("");
+                                    }
+                                    else
+                                    {
+                                        alert("User is not active");
+                                        $('#password').val("");
+                                    }
                                 }
                             }
                         }).fail(function(xhr, status, error) {
@@ -105,30 +113,87 @@ console.log(data.response);
                                     'email': $("#emailReg").val(), 
                                     'password': $("#passwordReg").val(), 
                                     'realName': $("#nReal").val(), 
-                                    'realLastname': $("aReal").val(), 
-                                    'languages': [{'language':$("mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
+                                    'realLastName': $("#aReal").val(), 
+                                    'languages': [{'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
                                 }
                             }).done(function(data) {
-                                if(data.response === "")
+                                // empty_parameter no lo compruebo por la comprobación previa al ajax
+                                if(data.response === "invalid_email")
                                 {
-                                    alert("Register successful.");
-                                    $(this).dialog("close");
-                                }
-                                else
-                                {
-                                    alert("Email already in use.");
+                                    alert("Invalid email.");
                                     $("#userReg").val("");
                                     $("#emailReg").val("");
                                     $("#passwordReg").val("");
                                     $("#passwordReg2").val("");
                                     $("#nReal").val("");
-                                    $("aReal").val("");
-                                    $("mLang").val("");
+                                    $("#aReal").val("");
+                                    $("#mLang").val("");
                                     $("#oLang").val("");
                                     $("#oLangLvl").val("");
                                     $("#iLang").val("");
                                     $("#iLangLvl").val("");
                                 }
+                                else
+                                {
+                                    if(data.response === "error_sending_email")
+                                    {
+                                        alert("Error sending email.");
+                                        $("#userReg").val("");
+                                        $("#emailReg").val("");
+                                        $("#passwordReg").val("");
+                                        $("#passwordReg2").val("");
+                                        $("#nReal").val("");
+                                        $("#aReal").val("");
+                                        $("#mLang").val("");
+                                        $("#oLang").val("");
+                                        $("#oLangLvl").val("");
+                                        $("#iLang").val("");
+                                        $("#iLangLvl").val("");
+                                    }
+                                    else
+                                    {
+                                        if(data.response === "error_user_email_exists")
+                                        {
+                                            alert("Email already exists in database.");
+                                            $("#userReg").val("");
+                                            $("#emailReg").val("");
+                                            $("#passwordReg").val("");
+                                            $("#passwordReg2").val("");
+                                            $("#nReal").val("");
+                                            $("#aReal").val("");
+                                            $("#mLang").val("");
+                                            $("#oLang").val("");
+                                            $("#oLangLvl").val("");
+                                            $("#iLang").val("");
+                                            $("#iLangLvl").val("");
+                                        }
+                                        else
+                                        {
+                                            if(data.response === "error_registering_user")
+                                            {
+                                                alert("Error registering user.");
+                                                $("#userReg").val("");
+                                                $("#emailReg").val("");
+                                                $("#passwordReg").val("");
+                                                $("#passwordReg2").val("");
+                                                $("#nReal").val("");
+                                                $("#aReal").val("");
+                                                $("#mLang").val("");
+                                                $("#oLang").val("");
+                                                $("#oLangLvl").val("");
+                                                $("#iLang").val("");
+                                                $("#iLangLvl").val("");
+                                            }
+                                            else
+                                            {
+                                                alert("Register successful.");
+                                                $(this).dialog("close");
+                                                console.log(data);
+                                            }
+                                        }
+                                    }
+                                }
+                            
                             }).fail(function(xhr, status, error) {
                                 var err = eval("(" + xhr.responseText + ")");
                                 alert(err.Message);
@@ -152,8 +217,8 @@ console.log(data.response);
                         $("#emailReg").val("");
                         $("#passwordReg").val("");
                         $("#nReal").val("");
-                        $("aReal").val("");
-                        $("mLang").val("");
+                        $("#aReal").val("");
+                        $("#mLang").val("");
                         $("#oLang").val("");
                         $("#oLangLvl").val("");
                         $("#iLang").val("");
