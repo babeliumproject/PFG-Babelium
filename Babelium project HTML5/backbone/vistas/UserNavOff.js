@@ -20,7 +20,19 @@ var UserNavOff = Backbone.View.extend({
         $("#loginDialog").dialog({
             open: function ()
             {
-
+            	// Al usar la tecla enter en el nombre de usuario se ejecuta el login
+            	$("#user").keypress(function(e) {
+			      if (e.keyCode == $.ui.keyCode.ENTER) {
+			        $("#bLogIn").trigger("click");
+			      }
+			    });
+				
+				// Al usar la tecla enter en la contraseña se ejecuta el login
+            	$("#password").keypress(function(e) {
+			      if (e.keyCode == $.ui.keyCode.ENTER) {
+			        $("#bLogIn").trigger("click");
+			      }
+			    });
             },
             buttons: [
                 {
@@ -44,8 +56,6 @@ var UserNavOff = Backbone.View.extend({
                         }).done(function(data) {
                             if(data.response !== "wrong_password" && data.response !== "wrong_user" && data.response !== "inactive_user")
                             {
-
-console.log(data.response);
                                 alert("Login successful");
                                 context.dialog("close");
                                 var currentUser = new User();
@@ -75,8 +85,7 @@ console.log(data.response);
                                 }
                             }
                         }).fail(function(xhr, status, error) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            alert(err.Message);
+                            alert("Error: Login failed");
                         });
                     }
                 },
@@ -104,6 +113,14 @@ console.log(data.response);
                     {
                         if($('passwordReg2').val() === $('passwordReg').val() && $("#userReg").val() !== '' && $("#emailReg").val() !== '' && $("#passwordReg").val() !== '' && $("#passwordReg2").val() !== '' && $("mLang").val() !== '')
                         {
+                            var languages = [{'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}];
+                            languages = JSON.stringify(languages);
+                            /*var language = {'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'};
+                            language = JSON.stringify(language);
+                            console.log(language);*/
+
+                            var context = $(this);
+
                             $.ajax({
                                 url: '/php/register.php',
                                 type: 'POST',
@@ -114,7 +131,7 @@ console.log(data.response);
                                     'password': $("#passwordReg").val(), 
                                     'realName': $("#nReal").val(), 
                                     'realLastName': $("#aReal").val(), 
-                                    'languages': [{'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}]
+                                    'languages': languages
                                 }
                             }).done(function(data) {
                                 // empty_parameter no lo compruebo por la comprobación previa al ajax
@@ -187,16 +204,14 @@ console.log(data.response);
                                             else
                                             {
                                                 alert("Register successful.");
-                                                $(this).dialog("close");
-                                                console.log(data);
+                                                context.dialog("close");
                                             }
                                         }
                                     }
                                 }
                             
                             }).fail(function(xhr, status, error) {
-                                var err = eval("(" + xhr.responseText + ")");
-                                alert(err.Message);
+                                alert("Error: Register failed");
                             });
                         }
                         else

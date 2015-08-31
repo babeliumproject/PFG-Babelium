@@ -23,15 +23,15 @@ var TodoRouter = Backbone.Router.extend({
         var searchNavView = new SearchNavView({search: false});
     },
     goPractice: function (p) {
-        /*$.ajax({
+        $.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
             var d = JSON.parse(data);
-console.log(d);
+
             // Comprobación de si esta logueado o no
-            if(d.response.username)
-            {*/
+            if(d.response && d.response.username)
+            {
                 $('#bodyTitle').html("Practice");
                 // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
                 var videos = new VideoList();
@@ -68,76 +68,79 @@ console.log(d);
 
                     var searchNavView = new SearchNavView({search: true});
                 });
-            /*}
+            }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });*/
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
+        });
 
     },
 
     goPrExercise: function (name) {
-    	/*$.ajax({
+    	$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
-            {*/
+            if(d.response && d.response.username)
+            {
                 $('#bodyTitle').html("Practice");
                 var prEx = new PrExercise({name:name});
                 var searchNavView = new SearchNavView({search: true});
-            /*}
+            }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });*/
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
+        });
     },
 
     goEvExercise: function (name) {
-        /*$.ajax({
+        $.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
-            {*/
+            if(d.response && d.response.username)
+            {
                 $('#bodyTitle').html("Evaluate");
                 var evEx = new EvExercise({name:name});
                 var searchNavView = new SearchNavView({search: true});
-            /*}
+            }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });*/
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
+        });
     },
 
     goEvaluate: function (p) {
-        /*$.ajax({
+        $.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
         }).done(function(data) {
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
-            {*/
+            if(d.response && d.response.username)
+            {
                 $('#bodyTitle').html("Evaluate");
                 // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
                 var videos = new ResponseList();
@@ -173,15 +176,16 @@ console.log(d);
 
                     var searchNavView = new SearchNavView({search: false});
                 });
-            /*}
+            }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
-        });*/
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
+        });
     },
     goSubtitle: function () {
         $('#bodyTitle').html("Subtitle");
@@ -196,7 +200,7 @@ console.log(d);
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
+            if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Configuration");
                 var configView = new ConfigView();
@@ -204,11 +208,12 @@ console.log(d);
             }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
         });
     },
     goAbout: function () {
@@ -224,7 +229,7 @@ console.log(d);
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
+            if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("User Information");
                 var currentUser = new User(d.response);
@@ -233,11 +238,12 @@ console.log(d);
             }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
         });
     },
     goHelp: function (p) {
@@ -254,7 +260,7 @@ console.log(d);
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
+            if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Upload new exercise");
                 var uploadView = new UploadView();
@@ -262,11 +268,12 @@ console.log(d);
             }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
         });
     },
     goSearch: function (terms, p)
@@ -278,7 +285,7 @@ console.log(d);
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
+            if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Search exercise");
                 var search = terms.split('&');
@@ -351,11 +358,12 @@ console.log(d);
             }
             else
             {
+                window.location.href = '#Home';
                 alert('You must log in first');
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            window.location.href = '#Home';
+            alert("Error: Couldn't load the content, try again later.");
         });
     }
 });

@@ -1,5 +1,6 @@
 window.onload = function()
 {
+    window.location.href = '#Home';
 	$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
@@ -7,7 +8,7 @@ window.onload = function()
             var d = JSON.parse(data);
 
             // Comprobación de si esta logueado o no
-            if(d.response.username)
+            if(d.response && d.response.username)
             {
             	var currentUser = new User(d.response);
                 var userView = new UserNavOn({model: currentUser});
@@ -17,7 +18,6 @@ window.onload = function()
 				var currentUserNav = new UserNavOff();
             }
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            alert("Error: Failed to check the user");
         });
 }
