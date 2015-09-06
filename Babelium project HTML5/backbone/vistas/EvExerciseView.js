@@ -1,5 +1,10 @@
 var EvExercise = Backbone.View.extend({
     el: $("#mainBody"),
+    events:
+    {
+        'click #submitEv': 'submit',
+        'click #resetEv': 'reset'
+    },
     initialize: function (options)
     {
         this.options = options;
@@ -64,5 +69,46 @@ var EvExercise = Backbone.View.extend({
 
             $("#babelium-exercise-title").append(respData.title);
         },'html');
+    },
+
+    submit: function ()
+    {
+        $.ajax({
+            url: '/php/uploadEvaluation.php',
+            type: 'POST',
+            dataType: "json",
+            data: { 
+                acc:$('#rateAcc').raty('score');
+                adequacy:$('#rateAdequacy').raty('score');
+                comprehen:$('#rateComprehen').raty('score');
+                fluency:$('#rateFluency').raty('score');
+                range:$('#rateRange').raty('score');
+                intonation:$('#rateIntonation').raty('score');
+                pronunciation:$('#ratePronunciation').raty('score');
+                rhythm:$('#rateRhythm').raty('score');
+                spontaneity:$('#rateSpontaneity').raty('score');
+                overall:$('#rateOverall').raty('score');
+                comment:$('#evComment').val();
+            }
+        }).done(function(data) {
+            alert('Success');
+        }).fail(function(xhr, status, error) {
+            alert('Error sending the evaluation')
+        });
+    },
+
+    reset: function ()
+    {
+        $('#rateAcc').raty({score:0});
+        $('#rateAdequacy').raty({score:0});
+        $('#rateComprehen').raty({score:0});
+        $('#rateFluency').raty({score:0});
+        $('#rateRange').raty({score:0});
+        $('#rateIntonation').raty({score:0});
+        $('#ratePronunciation').raty({score:0});
+        $('#rateRhythm').raty({score:0});
+        $('#rateSpontaneity').raty({score:0});
+        $('#rateOverall').raty({score:0});
+        $('#evComment').val('');
     }
 });

@@ -4,6 +4,8 @@ var VideoList = Backbone.Collection.extend({
 
     initialize: function()
     {
-    	
+    	//var response = [];
+    	//response = this.models.attributes.response;
+    	//console.log(response)
     }
 });

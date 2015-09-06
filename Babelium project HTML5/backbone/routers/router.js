@@ -33,7 +33,7 @@ var TodoRouter = Backbone.Router.extend({
             if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Practice");
-                // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
+                // Cargo los videos desde el servidor con fetch en la coleccion de videos                
                 var videos = new VideoList();
                 videos.fetch().done(function ()
                 {
@@ -118,7 +118,7 @@ var TodoRouter = Backbone.Router.extend({
             {
                 $('#bodyTitle').html("Evaluate");
                 var evEx = new EvExercise({name:name});
-                var searchNavView = new SearchNavView({search: true});
+                var searchNavView = new SearchNavView({search: false});
             }
             else
             {
@@ -142,7 +142,7 @@ var TodoRouter = Backbone.Router.extend({
             if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Evaluate");
-                // Cargo los videos desde el fichero JSON con fetch en la coleccion de videos                
+                // Cargo los videos desde el servidor con fetch en la coleccion de videos                
                 var videos = new ResponseList();
                 videos.fetch().done(function ()
                 {
@@ -319,7 +319,7 @@ var TodoRouter = Backbone.Router.extend({
 
                     // Genero una coleccion de videos auxiliar en la que guardar los videos que
                     // contengan en los tags las palabras escritas en la barra de busqueda 
-                    //y otra para los 10 correspondientes a cada pagina.
+                    // y otra para los 10 correspondientes a cada pagina.
                     var videos2 = new VideoList();
                     var selected = new VideoList();
 

@@ -1,10 +1,10 @@
 <?php
 
-session_start();
-
-if (!isset($_SESSION['file'])){
-	$_SESSION['file'] = uniqid();
-}
+/*
+$SESSION = new stdClass();
+$SESSION->remoteSessId = "qwerty";
+$SESSION->uuid = "qwerty";
+*/
 
 class babelium_config{
 	public $babelium_babeliumWebDomain = 'jlachen';
@@ -53,6 +53,8 @@ class babelium_gateway{
 	/**
 	 * Searches for a HTTP status code in the response headers. If no headers are returned
 	 * or the status code is different to 200 it throws an error
+	 * @throws moodle_exception
+	 * 		The response had no headers or the status code is not 200
 	 */
 	private function parseResponseHeaders(){
 		$this->_curlHeaderHttpStatusCode = 500;
@@ -115,8 +117,8 @@ class babelium_gateway{
 
 		curl_setopt($ch, CURLOPT_URL, $query_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, Array("Host: ". $web_domain));
-		curl_setopt($ch, CURLOPT_COOKIEJAR, $CFG->dataroot."/" . $_SESSION['file']);
-		curl_setopt($ch, CURLOPT_COOKIEFILE, $CFG->dataroot."/". $_SESSION['file']);
+		curl_setopt($ch, CURLOPT_COOKIEJAR, $CFG->dataroot."/cookies");
+		curl_setopt($ch, CURLOPT_COOKIEFILE, $CFG->dataroot."/cookies");
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_HEADER, 1);

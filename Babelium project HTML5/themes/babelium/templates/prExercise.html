@@ -14,35 +14,49 @@
 </article>
 <article id='recordingEndOptions' class='recordingEndOptions'>
 <label>Available actions:</label><br/>
-<button id='publish' disabled>//onClick='new ExerciseEvent(ExerciseEvent.SAVE_RESPONSE).dispatch();'
+<button id='id_submitbutton' disabled>
 <img src='themes/babelium/images/eo_save_response.png' width='48' height='48' />
 <span>Publish response</span>
 </button><br/>
-<button id='watch' disabled> //onClick='new ExerciseEvent(ExerciseEvent.WATCH_RESPONSE).dispatch();'
+<button id='id_viewRecordingBtn' name'viewRecordingBtn'>
 <img src='themes/babelium/images/eo_watch_sim.png' width='48' height='48' />
 <span>Watch response</span>
 </button><br/>
-<button id='reRecord' disabled> //onClick='new ExerciseEvent(ExerciseEvent.RECORD_AGAIN).dispatch();'
+<button id='reRecord' disabled>
 <img src='themes/babelium/images/button_rec.png' width='48' height='48' />
 <span>Record again</span>
 </button><br/>
-<button id='discard'> //onClick='new ExerciseEvent(ExerciseEvent.RECORDING_ABORTED).dispatch();'
+<button id='id_startStopRecordingBtn1' name='startStopRecordingBtn'>
 <img src='themes/babelium/images/button_abort.png' width='48' height='48' />
 <span>Discard response</span>
 </button>
 </article>
 <article id='exerciseInfo' class='exerciseInfo aligned'>
-<form name=mform1>
+<!--<form name='mform1' id='mform1'>-->
+<form autocomplete="off" action="http://moodle.babeliumproject.com/mod/assign/view.php" method="post" accept-charset="utf-8" id="mform1" class="mform" onsubmit="try { var myValidator = validate_mod_assign_submission_form; } catch(e) { return true; } return myValidator(this);">
+	<div style="display: none;"><input name="id" type="hidden" value="">
+<input name="edit" type="hidden" value="">
+<input name="responseid" type="hidden" value="752">
+<input name="responsehash" type="hidden" value="resp-1441541723813" onblur="validate_mod_assign_submission_form_responsehash(this, 'responsehash')" onchange="validate_mod_assign_submission_form_responsehash(this, 'responsehash')">
+<input name="recordedRole" type="hidden" value="Sintel">
+<input name="subtitleId" type="hidden" value="140">
+<input name="exerciseDuration" type="hidden" value="">
+<input name="id" type="hidden" value="33">
+<input name="userid" type="hidden" value="3">
+<input name="action" type="hidden" value="savesubmission">
+<input name="sesskey" type="hidden" value="BtxjulpnrP">
+<input name="_qf__mod_assign_submission_form" type="hidden" value="1">
+</div>
 <label>Choose a role: </label>
-<select id='recordedRole'>
+<select name='roleCombo' id='id_roleCombo'>
 </select><br>
 <label>Choose a language:</label>
 <select id='recLocale'>
 </select><br>
 <label>Choose a recording method:</label>
 <div class='recordmethod'>
-<input type='radio' id='checkM' name='recordingMethod' value='micOnly' checked>Only microphone</input><br/>
-<input type='radio' id='checkCM' name='recordingMethod' value='micCam'>Camera and microphone</input>
+<input type='radio' id='id_recmethod_0' name='recmethod' value='0' checked='checked'>Only microphone</input><br/>
+<input type='radio' id='id_recmethod_1' name='recmethod' value='1'>Camera and microphone</input>
 </div>
 <a id='id_startStopRecordingBtn' alt='Record'>
 <img src='themes/babelium/images/button_rec.png' class='recordButton' alt='Record!' border='0' width='49' height='49' align='right' />

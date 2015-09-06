@@ -15,7 +15,7 @@
 <article id='exerciseInfo' class='evaluation aligned'>
 <p><h2>Rate the user's response</h2></p>
 <p><h4>All criteria are optional except Overall score:</h4></p>
-<form action='/php/uploadEvaluation.php' method='POST'>
+<form id='formEv'>
 <label>Accuracy</label><div id='rateAcc'></div><br>
 <label>Adequacy</label><div id='rateAdequacy'></div><br>
 <label>Comprehensibility</label><div id='rateComprehen'></div><br>
@@ -29,6 +29,6 @@
 <label>Include a text comment</label><br>
 <textarea name='evComment' id='evComment'></textarea><br>
 
-<div style='text-align:center' id='evButtons'><input type='submit' value='Submit'><input type='reset' value='Reset'><br></div>
+<div style='text-align:center' id='evButtons'><button type="button" id='submitEv'>Submit</button><button type="button" id='resetEv'>Reset</button><br></div>
 </form></article>
 </section>

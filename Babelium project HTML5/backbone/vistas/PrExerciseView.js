@@ -3,12 +3,8 @@ var PrExercise = Backbone.View.extend({
     el: $("#mainBody"),
     events:
             {
-                'click #id_startStopRecordingBtn': 'record',
-                'click #discard': 'discard',
-                'change #recordedRole': 'changeRole',
-                'change #recLocale': 'changeLang',
-                'change #checkM':'changeMC',
-                'change #checkCM':'changeMC'
+                'click #id_startStopRecordingBtn': 'startStopRecording',
+                'click #id_startStopRecordingBtn1': 'startStopRecording1'
             },
     initialize: function (options)
     {
@@ -54,7 +50,6 @@ var PrExercise = Backbone.View.extend({
     render: function (exData,exRoles,exSubs)
     {
         var exercise = {'exerciseId':exData.id,'exerciseName':exData.name,'duration':exData.duration,'exerciseThumbnailUri':exData.thumbnailUri,'title':exData.title};
-        console.log(exData);
         init('jlachen', 'en', '1', exercise, exSubs, '', '');
         var ctx = this;
         $.get("themes/babelium/templates/prExercise.html",function(data){
@@ -73,7 +68,7 @@ var PrExercise = Backbone.View.extend({
 
             while(exRoles[i])
             {
-                $("#recordedRole").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
+                $("#id_roleCombo").append('<option value='+exRoles[i].characterName+'>'+exRoles[i].characterName+'</option>');
                 i++;
             }
 
@@ -84,16 +79,25 @@ var PrExercise = Backbone.View.extend({
         },'html');
     },
     
-    record: function ()
+    startStopRecording: function ()
     {
-        // En la documentacion no viene nada de lo de grabar...
-        $('#exerciseInfo').css('display','none');
-        $('#recordingEndOptions').css('display','inline-block');
+        if($('#exerciseInfo').css('display') === 'none')
+        {
+            // Botones pre grabación
+            $('#recordingEndOptions').css('display','none');
+            $('#exerciseInfo').css('display','inline-block');
+        }
+        else
+        {
+            // Botones de grabación
+            $('#exerciseInfo').css('display','none');
+            $('#recordingEndOptions').css('display','inline-block');
+        }
     },
 
-    discard: function ()
+    startStopRecording1 : function ()
     {
-        $('#recordingEndOptions').css('display','none');
-        $('#exerciseInfo').css('display','inline-block');
-    },
+        console.log(':D');
+        document.getElementById("id_startStopRecordingBtn").click();
+    }
 });
