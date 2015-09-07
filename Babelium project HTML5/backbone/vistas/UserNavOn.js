@@ -20,8 +20,7 @@ var UserNavOn = Backbone.View.extend({
             type: 'POST'
         }).done(function() {
         }).fail(function(xhr, status, error) {
-            var err = eval("(" + xhr.responseText + ")");
-            alert(err.Message);
+            alert("Error loading session");
         });
         location.reload();
     }

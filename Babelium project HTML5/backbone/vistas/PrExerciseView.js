@@ -94,10 +94,11 @@ var PrExercise = Backbone.View.extend({
             $('#recordingEndOptions').css('display','inline-block');
         }
     },
-
+    // Este evento existe porque no puede haber 2 botones con el mismo id y
+    // requieren tener el mismo id para que se ejecute la función startStopRecording
+    // de Babelium.
     startStopRecording1 : function ()
-    {
-        console.log(':D');
+    {   
         document.getElementById("id_startStopRecordingBtn").click();
     }
 });
