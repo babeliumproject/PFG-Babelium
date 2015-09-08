@@ -1,6 +1,5 @@
 var Video = Backbone.Model.extend({
     initialize: function () {
-        console.log("Video created");
 
         // Preparo la duracion del video en formato min:sec
         var minutes = Math.floor(this.get('duration') / 60);

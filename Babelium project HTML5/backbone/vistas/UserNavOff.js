@@ -115,9 +115,6 @@ var UserNavOff = Backbone.View.extend({
                         {
                             var languages = [{'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#oLang").val(),'level':$("#oLangLvl").val(),'positivesToNextLevel':'15','purpose':'evaluate'},{'language':$("#iLang").val(),'level':$("#iLangLvl").val(),'positivesToNextLevel':'15','purpose':'practice'}];
                             languages = JSON.stringify(languages);
-                            /*var language = {'language':$("#mLang").val(),'level':'7','positivesToNextLevel':'15','purpose':'evaluate'};
-                            language = JSON.stringify(language);
-                            console.log(language);*/
 
                             var context = $(this);
 
