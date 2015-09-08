@@ -117,7 +117,7 @@ var TodoRouter = Backbone.Router.extend({
             if(d.response && d.response.username)
             {
                 $('#bodyTitle').html("Evaluate");
-                var evEx = new EvExercise({name:name});
+                var evEx = new EvExerciseView({name:name});
                 var searchNavView = new SearchNavView({search: false});
             }
             else

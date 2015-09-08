@@ -1,4 +1,4 @@
-var EvExercise = Backbone.View.extend({
+var EvExerciseView = Backbone.View.extend({
     el: $("#mainBody"),
     events:
     {
@@ -78,17 +78,17 @@ var EvExercise = Backbone.View.extend({
             type: 'POST',
             dataType: "json",
             data: { 
-                acc:$('#rateAcc').raty('score');
-                adequacy:$('#rateAdequacy').raty('score');
-                comprehen:$('#rateComprehen').raty('score');
-                fluency:$('#rateFluency').raty('score');
-                range:$('#rateRange').raty('score');
-                intonation:$('#rateIntonation').raty('score');
-                pronunciation:$('#ratePronunciation').raty('score');
-                rhythm:$('#rateRhythm').raty('score');
-                spontaneity:$('#rateSpontaneity').raty('score');
-                overall:$('#rateOverall').raty('score');
-                comment:$('#evComment').val();
+                acc:$('#rateAcc').raty('score'),
+                adequacy:$('#rateAdequacy').raty('score'),
+                comprehen:$('#rateComprehen').raty('score'),
+                fluency:$('#rateFluency').raty('score'),
+                range:$('#rateRange').raty('score'),
+                intonation:$('#rateIntonation').raty('score'),
+                pronunciation:$('#ratePronunciation').raty('score'),
+                rhythm:$('#rateRhythm').raty('score'),
+                spontaneity:$('#rateSpontaneity').raty('score'),
+                overall:$('#rateOverall').raty('score'),
+                comment:$('#evComment').val()
             }
         }).done(function(data) {
             alert('Success');
