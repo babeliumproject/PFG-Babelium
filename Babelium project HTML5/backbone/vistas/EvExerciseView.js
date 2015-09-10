@@ -73,7 +73,10 @@ var EvExerciseView = Backbone.View.extend({
 
     submit: function ()
     {
-        $.ajax({
+        alert('Success');
+
+        // No está el servicio en el API aun
+        /*$.ajax({
             url: '/php/uploadEvaluation.php',
             type: 'POST',
             dataType: "json",
@@ -93,8 +96,9 @@ var EvExerciseView = Backbone.View.extend({
         }).done(function(data) {
             alert('Success');
         }).fail(function(xhr, status, error) {
-            alert('Error sending the evaluation')
-        });
+            alert('Error sending the evaluation');
+            console.log(xhr + " " + status + " " + error);
+        });*/
     },
 
     reset: function ()

@@ -2,8 +2,17 @@ var Video = Backbone.Model.extend({
     initialize: function () {
 
         // Preparo la duracion del video en formato min:sec
-        var minutes = Math.floor(this.get('duration') / 60);
-        var seconds = this.get('duration') % 60;
+        if(this.get('duration') > 0)
+        {
+            var minutes = Math.floor(this.get('duration') / 60);
+            var seconds = this.get('duration') % 60;
+        }
+        else
+        {   
+            // En caso de que por alguna razón lleguen numeros negativos
+            var minutes = 0;
+            var seconds = 0;
+        }
 
         //Anteponiendo un 0 a los minutos si son menos de 10 
         minutes = minutes < 10 ? '0' + minutes : minutes;
@@ -34,6 +43,9 @@ var Video = Backbone.Model.extend({
             case 'es_ES':
                 this.set('language', 'flag_spain');
                 break;
+            default:
+                this.set('language', 'no_flag');
+                break;
         }
 
         // Preparo la dificultad
@@ -54,6 +66,9 @@ var Video = Backbone.Model.extend({
                 break;
             case 5:
                 this.set('avgDifficulty', 'C1');
+                break;
+            default:
+                this.set('avgDifficulty', 'None');
                 break;
         }
 

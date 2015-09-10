@@ -26,6 +26,10 @@ var User = Backbone.Model.extend({
                 case 'es_ES':
                     dif[x].language = 'flag_spain';
                     break;
+                default:
+                    dif[x].language = 'no_flag';
+                    break;
+
             }
         }
 
@@ -51,6 +55,9 @@ var User = Backbone.Model.extend({
                     break;
                 case '7':
                     dif[x].level = '';
+                    break;
+                default:
+                    dif[x].level = 'None';
                     break;
             }
         }

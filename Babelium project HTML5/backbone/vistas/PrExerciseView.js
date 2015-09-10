@@ -4,7 +4,8 @@ var PrExercise = Backbone.View.extend({
     events:
             {
                 'click #id_startStopRecordingBtn': 'startStopRecording',
-                'click #id_startStopRecordingBtn1': 'startStopRecording1'
+                'click #id_submitbutton': 'submitRecord',
+                'click #id_viewExerciseBtn': 'playVideo'
             },
     initialize: function (options)
     {
@@ -81,24 +82,21 @@ var PrExercise = Backbone.View.extend({
     
     startStopRecording: function ()
     {
-        if($('#exerciseInfo').css('display') === 'none')
-        {
-            // Botones pre grabación
-            $('#recordingEndOptions').css('display','none');
-            $('#exerciseInfo').css('display','inline-block');
-        }
-        else
-        {
-            // Botones de grabación
-            $('#exerciseInfo').css('display','none');
-            $('#recordingEndOptions').css('display','inline-block');
-        }
+		// Muestra los botones de grabación
+		$('#exerciseInfo').css('display','none');
+		$('#recordingEndOptions').css('display','inline-block');
+
     },
-    // Este evento existe porque no puede haber 2 botones con el mismo id y
-    // requieren tener el mismo id para que se ejecute la función startStopRecording
-    // de Babelium.
-    startStopRecording1 : function ()
-    {   
-        document.getElementById("id_startStopRecordingBtn").click();
+
+    submitRecord: function ()
+    {
+        alert('Success');
+    },
+
+    playVideo : function ()
+    {
+        // Muestra los botones pre grabación
+        $('#recordingEndOptions').css('display','none');
+        $('#exerciseInfo').css('display','inline-block');        
     }
 });

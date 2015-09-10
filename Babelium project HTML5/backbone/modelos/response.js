@@ -34,6 +34,9 @@ var Response = Backbone.Model.extend({
             case 'es_ES':
                 this.set('language', 'flag_spain');
                 break;
+            default:
+                this.set('language', 'no_flag');
+                break;
         }
 
         // Preparo la dificultad
@@ -54,6 +57,9 @@ var Response = Backbone.Model.extend({
                 break;
             case 5:
                 this.set('avgDifficulty', 'C1');
+                break;
+            default:
+                this.set('avgDifficulty', 'None');
                 break;
         }
 

@@ -1,6 +1,5 @@
 window.onload = function()
 {
-    window.location.href = '#Home';
 	$.ajax({
             url: '/php/getSessionData.php',
             type: 'POST'
@@ -15,6 +14,7 @@ window.onload = function()
             }
             else
             {   
+    			window.location.href = '#Home';
 				var currentUserNav = new UserNavOff();
             }
         }).fail(function(xhr, status, error) {
