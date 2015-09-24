@@ -17,8 +17,7 @@ var TodoRouter = Backbone.Router.extend({
             },
     goHome: function () {
         $('#bodyTitle').html("Home");
-        $('#mainBody').html("Home entered");
-
+		var homeView = new HomeView();
         // Comprobacion de si en esta pantalla es necesaria la barra de busquedas
         var searchNavView = new SearchNavView({search: false});
     },

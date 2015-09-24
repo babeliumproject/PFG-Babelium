@@ -90,7 +90,60 @@ var PrExercise = Backbone.View.extend({
 
     submitRecord: function ()
     {
-        alert('Success');
+        /*$.ajax({
+            url: '/php/getSessionData.php',
+            type: 'POST'
+        }).done(function(data) {
+            var d = JSON.parse(data);
+
+            // Comprobación de si esta logueado o no
+            if(d.response && d.response.username)
+            {
+                // Con el nombre de usuario se busca el id.
+                $.ajax({
+                    url: '/php/getUserInfo.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: { username: d.response.username }
+                }).done(function(data) {
+                    // Con el id se puede mandar la información
+                    $.ajax({
+                        url: '/php/sendUserResponse.php',
+                        type: 'POST',
+                        dataType: "json",
+                        data: { id: d.id }
+                    }).done(function(data) {
+                        exRoles = data.response;
+                        ctx.render(exData,exRoles,exSubs);
+                    }).fail(function(xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                    });
+                    alert('Success');
+                }).fail(function(xhr, status, error) {
+                    alert("Error accessing user info.");
+                });
+                /*$.ajax({
+                    url: '/php/sendUserResponse.php',
+                    type: 'POST',
+                    dataType: "json",
+                    data: { id: d.id }
+                }).done(function(data) {
+                    exRoles = data.response;
+                    ctx.render(exData,exRoles,exSubs);
+                }).fail(function(xhr, status, error) {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                });*/
+                alert('Success');
+            /*}
+            else
+            {   
+                alert("You must log in first");
+            }
+        }).fail(function(xhr, status, error) {
+            alert("Error: Failed to check the user");
+        });*/
     },
 
     playVideo : function ()
